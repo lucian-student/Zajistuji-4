@@ -1,0 +1,15 @@
+.helperText{
+    color:red !important;
+}
+
+@media (max-width:600px){
+    .helperText{
+      font-size:calc(1.5vw + 5px) !important;
+    }
+}
+  
+  @media (orientation: landscape) and (max-width:600px){
+    .helperText{
+      font-size:calc(1.5vw + 5px) !important;
+    }
+}

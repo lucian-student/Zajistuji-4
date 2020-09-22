@@ -12,6 +12,8 @@ app.use(cookieParser());
 app.use(express.json());
 app.use('/users', require('./apis/users'));
 app.use('/token', require('./apis/token'));
+app.use('/utensils', require('./apis/utensils'));
+app.use('/ingredients', require('./apis/ingredients'));
 //get
 
 //post

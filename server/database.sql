@@ -15,14 +15,34 @@ CREATE TABLE refreshtokens (
         ON DELETE CASCADE
 );
 
+CREATE TABLE ingredients (
+  ingredients_id BIGSERIAL PRIMARY KEY,
+  user_id BIGINT NOT NULL,
+  category VARCHAR(255) NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  FOREIGN KEY (user_id)
+    REFERENCES users (user_id) 
+      ON DELETE CASCADE
+);
+
+CREATE TABLE utensils(
+  utensils_id BIGSERIAL PRIMARY KEY,
+  user_id BIGINT NOT NULL,
+  name VARCHAR(255) NOT NUll,
+  FOREIGN KEY (user_id)
+      REFERENCES users (user_id) 
+        ON DELETE CASCADE
+);
+
 CREATE TABLE recipies (
   recipie_id BIGSERIAL PRIMARY KEY,
   user_id BIGINT NOT NULL,
   name VARCHAR(255) NOT NULL,
   category VARCHAR(255) NOT NULL,
+  description TEXT NOT NULL,
+  imageUrl TEXT,
   date_of_creation TIMESTAMP DEFAULT current_timestamp,
   shared BOOLEAN DEFAULT false,
-  imageUrl TEXT,
   FOREIGN KEY (user_id)
     REFERENCES users (user_id) 
       ON DELETE CASCADE
@@ -50,7 +70,9 @@ CREATE TABLE recipie_utensils(
 CREATE TABLE recipie_steps(
   step_id BIGSERIAL PRIMARY KEY,
   recipie_id BIGINT NOT NULL,
+  duration TIME NOT NULL,
   name VARCHAR(255) NOT NULL,
+  description TEXT NOT NULL,
   FOREIGN KEY (recipie_id)
     REFERENCES recipies (recipie_id) 
       ON DELETE CASCADE
@@ -77,23 +99,6 @@ CREATE TABLE step_utensils(
       ON DELETE CASCADE
 );
 
-CREATE TABLE ingredients (
-  ingredients_id BIGSERIAL PRIMARY KEY,
-  user_id BIGINT NOT NULL,
-  category VARCHAR(255) NOT NULL,
-  name VARCHAR(255) NOT NULL,
-  FOREIGN KEY (user_id)
-    REFERENCES users (user_id) 
-      ON DELETE CASCADE
-);
 
-CREATE TABLE utensils(
-  utensils_id BIGSERIAL PRIMARY KEY,
-  user_id BIGINT NOT NULL,
-  name VARCHAR(255) NOT NUll,
-  FOREIGN KEY (user_id)
-      REFERENCES users (user_id) 
-        ON DELETE CASCADE
-);
 
 

@@ -14,6 +14,7 @@ app.use('/users', require('./apis/users'));
 app.use('/token', require('./apis/token'));
 app.use('/utensils', require('./apis/utensils'));
 app.use('/ingredients', require('./apis/ingredients'));
+app.use('/recipies', require('./apis/recipies'));
 //get
 
 //post

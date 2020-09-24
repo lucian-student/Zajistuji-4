@@ -99,6 +99,46 @@ CREATE TABLE step_utensils(
       ON DELETE CASCADE
 );
 
+CREATE TABLE recipie_like (
+    like_id serial PRIMARY KEY,
+    user_id INT NOT NULL,
+    recipie_id INT NOT NULL,
+    FOREIGN KEY (user_id)
+      REFERENCES users (user_id)
+        ON DELETE CASCADE,
+    FOREIGN KEY (tweet_id)
+      REFERENCES tweets (tweet_id) 
+        ON DELETE CASCADE
+);
+
+CREATE TABLE comments (
+    comment_id serial PRIMARY KEY,
+    user_id INT NOT NULL,
+    username VARCHAR(255) NOT NULL,
+    recipie_id INT NOT NULL,
+    content VARCHAR(255) NOT NULL,
+    num_of_likes BIGINT NOT NULL,
+    posting_date timestamp NOT NULL DEFAULT current_timestamp,
+    FOREIGN KEY (user_id)
+      REFERENCES users (user_id)  
+        ON DELETE CASCADE,
+    FOREIGN KEY (tweet_id)
+      REFERENCES tweets (tweet_id)  
+        ON DELETE CASCADE
+);
+
+CREATE TABLE comment_likes (
+    like_id serial PRIMARY KEY,
+    user_id INT NOT NULL,
+    comment_id INT NOT NULL,
+    FOREIGN KEY (user_id)
+      REFERENCES users (user_id)  
+        ON DELETE CASCADE,
+    FOREIGN KEY (comment_id)
+      REFERENCES comments (comment_id) 
+        ON DELETE CASCADE
+); 
+
 
 
 

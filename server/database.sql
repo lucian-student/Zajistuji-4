@@ -20,6 +20,7 @@ CREATE TABLE ingredients (
   user_id BIGINT NOT NULL,
   category VARCHAR(255) NOT NULL,
   name VARCHAR(255) NOT NULL,
+  date_of_creation TIMESTAMP DEFAULT current_timestamp,
   FOREIGN KEY (user_id)
     REFERENCES users (user_id) 
       ON DELETE CASCADE
@@ -29,6 +30,7 @@ CREATE TABLE utensils(
   utensils_id BIGSERIAL PRIMARY KEY,
   user_id BIGINT NOT NULL,
   name VARCHAR(255) NOT NUll,
+  date_of_creation TIMESTAMP DEFAULT current_timestamp,
   FOREIGN KEY (user_id)
       REFERENCES users (user_id) 
         ON DELETE CASCADE
@@ -40,6 +42,8 @@ CREATE TABLE recipies (
   name VARCHAR(255) NOT NULL,
   category VARCHAR(255) NOT NULL,
   description TEXT NOT NULL,
+  num_of_likes BIGINT DEFAULT 0 NOT NULL,
+  num_of_comments BIGINT DEFAULT 0 NOT NULL,
   imageUrl TEXT,
   date_of_creation TIMESTAMP DEFAULT current_timestamp,
   shared BOOLEAN DEFAULT false,
@@ -100,37 +104,38 @@ CREATE TABLE step_utensils(
 );
 
 CREATE TABLE recipie_like (
-    like_id serial PRIMARY KEY,
-    user_id INT NOT NULL,
-    recipie_id INT NOT NULL,
+    like_id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    recipie_id BIGINT NOT NULL,
     FOREIGN KEY (user_id)
       REFERENCES users (user_id)
         ON DELETE CASCADE,
-    FOREIGN KEY (tweet_id)
-      REFERENCES tweets (tweet_id) 
+    FOREIGN KEY (recipie_id)
+      REFERENCES recipies (recipie_id) 
         ON DELETE CASCADE
 );
 
 CREATE TABLE comments (
-    comment_id serial PRIMARY KEY,
-    user_id INT NOT NULL,
+    comment_id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL,
     username VARCHAR(255) NOT NULL,
-    recipie_id INT NOT NULL,
+    recipie_id BIGINT NOT NULL,
     content VARCHAR(255) NOT NULL,
     num_of_likes BIGINT NOT NULL,
     posting_date timestamp NOT NULL DEFAULT current_timestamp,
     FOREIGN KEY (user_id)
       REFERENCES users (user_id)  
         ON DELETE CASCADE,
-    FOREIGN KEY (tweet_id)
-      REFERENCES tweets (tweet_id)  
+    FOREIGN KEY (recipie_id)
+      REFERENCES recipies (recipie_id)  
         ON DELETE CASCADE
 );
 
 CREATE TABLE comment_likes (
-    like_id serial PRIMARY KEY,
-    user_id INT NOT NULL,
-    comment_id INT NOT NULL,
+    like_id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    comment_id BIGINT
+     NOT NULL,
     FOREIGN KEY (user_id)
       REFERENCES users (user_id)  
         ON DELETE CASCADE,

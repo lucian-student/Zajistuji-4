@@ -3,6 +3,7 @@ const pool = require('../configuration/db');
 const authorization = require('../midelware/authorization');
 const { saveIngredients, saveUtensils } = require('../query_functions/recipieFunctions');
 const stepCreate = require('../query_functions/stepCreate');
+const { updateIngredients, updateUtensils } = require('../query_functions/recipieUpdateFunctions');
 
 router.post('/create_recipie', authorization, async (req, res) => {
     const client = await pool.connect();
@@ -89,16 +90,52 @@ router.put('/update_recipie/:id', async (req, res) => {
     try {
         await client.query('BEGIN');
         const {
-            name,
-            category,
-            description,
-            imageUrl,
+            recipie,
             ingredients,
             utensils,
             steps
         } = req.body;
+        let result = {};
+        if (recipie) {
+            const {
+                name,
+                category,
+                description,
+                imageUrl,
+            } = recipie;
+            const updateRecipie =
+                await client.query('UPDATE recipies SET name=$1, category=$2, description=$3, imageUrl=$4' +
+                    ' WHERE recipie_id=$5 RETURNING *',
+                    [
+                        name,
+                        category,
+                        description,
+                        imageUrl,
+                        req.params.id
+                    ]);
+            result = {
+                recipie: updateRecipie.rows[0]
+            };
+        }
+        if (ingredients) {
+            const newIngredients = await updateIngredients(client, parseInt(req.params.id), ingredients);
+            result = {
+                ...result,
+                ingredients: newIngredients
+            };
+        }
+        if (utensils) {
+            const newUtensils = await updateUtensils(client, parseInt(req.params.id), utensils);
+            result = {
+                ...result,
+                utensils: newUtensils
+            };
+        }
+        if (steps) {
 
+        }
         await client.query('COMMIT');
+        res.json(result);
     } catch (err) {
         await client.query('ROLLBACK');
         console.log(err.message);

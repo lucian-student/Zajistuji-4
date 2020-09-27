@@ -4,6 +4,7 @@ const authorization = require('../midelware/authorization');
 const { saveIngredients, saveUtensils } = require('../query_functions/recipieFunctions');
 const stepCreate = require('../query_functions/stepCreate');
 const { updateIngredients, updateUtensils } = require('../query_functions/recipieUpdateFunctions');
+const stepUpdate = require('../query_functions/stepUpdate');
 
 router.post('/create_recipie', authorization, async (req, res) => {
     const client = await pool.connect();
@@ -85,7 +86,7 @@ router.delete('/delete_recipie/:id', authorization, async (req, res) => {
     }
 });
 
-router.put('/update_recipie/:id', async (req, res) => {
+router.put('/update_recipie/:id', authorization, async (req, res) => {
     const client = await pool.connect();
     try {
         await client.query('BEGIN');
@@ -132,7 +133,11 @@ router.put('/update_recipie/:id', async (req, res) => {
             };
         }
         if (steps) {
-
+            const newSteps = await stepUpdate(client, parseInt(req.params.id), steps);
+            result = {
+                ...result,
+                steps: newSteps
+            };
         }
         await client.query('COMMIT');
         res.json(result);

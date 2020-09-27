@@ -11,7 +11,7 @@ module.exports.updateIngredients = async (client, recipie_id, ingredients) => {
                 'UPDATE recipie_ingredients SET' +
                 ' name=new_values.name,' +
                 ' category=new_values.category' +
-                ' FROM (SELECT * FROM unnest($1::bigint[],$2::text[],$3::text[])' +
+                ' FROM (SELECT * FROM unnest($1::bigint[],$2::text[],$3::text[]))' +
                 ' AS new_values(ingredients_id,category,name)' +
                 ' WHERE new_values.ingredients_id=recipie_ingredients.ingredients_id RETURNING *',
                 [
@@ -58,7 +58,7 @@ module.exports.updateUtensils = async (client, recipie_id, utensils) => {
             await client.query(
                 'UPDATE recipie_utensils SET' +
                 ' name=new_values.name' +
-                ' FROM (SELECT * FROM unnest($1::bigint[],$2::text[])' +
+                ' FROM (SELECT * FROM unnest($1::bigint[],$2::text[]))' +
                 ' AS new_values(utensils_id,name)' +
                 ' WHERE new_values.utensils_id=recipie_utensils.utensils_id RETURNING *',
                 [

@@ -40,7 +40,7 @@ module.exports = async (client, recipie_id, steps) => {
                 ' duration=new_values.duration,' +
                 ' name=new_values.name,' +
                 ' description=new_values.description' +
-                ' FROM (SELECT * FROM unnest($1::bigint[],$2::time[],$3::text[],$4::text[])' +
+                ' FROM (SELECT * FROM unnest($1::bigint[],$2::time[],$3::text[],$4::text[]))' +
                 ' AS new_values(step_id,duration,name,description)' +
                 ' WHERE new_values.step_id=recipie_steps.step_id RETURNING *',
                 [
@@ -55,8 +55,8 @@ module.exports = async (client, recipie_id, steps) => {
         }
     }
     //delete
-    if (steps.delteSteps) {
-        const { step_ids } = steps.delteSteps;
+    if (steps.deleteSteps) {
+        const { step_ids } = steps.deleteSteps;
         const delteSteps =
             await client.query('DELETE FROM recipie_steps WHERE step_id' +
                 ' IN (SELECT * FROM unnest($1::bigint[])) RETURNING step_id',

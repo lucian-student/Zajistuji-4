@@ -21,6 +21,7 @@ module.exports = async (client, recipie_id, steps) => {
          ingredients,
          utensils
      } = steps;*/
+    //deosnt work
     let ingredientsData = {
         stepIds: [],
         units: [],
@@ -28,12 +29,11 @@ module.exports = async (client, recipie_id, steps) => {
         categorys: [],
         names: []
     };
-    //step_id,name
     let utensilsData = {
         stepIds: [],
         names: []
     };
-    if (stepResult.newsSteps) {
+    if (stepResult.newSteps) {
         const {
             ingredients,
             utensils
@@ -58,35 +58,76 @@ module.exports = async (client, recipie_id, steps) => {
                 }
             }
         }
-        if (steps.ingredients.newIngredients) {
-            ingredientsData.stepIds = ingredientsData.stepIds.concat(steps.ingredients.newIngredients.stepIds);
-            ingredientsData.units = ingredientsData.units.concat(steps.ingredients.newIngredients.units);
-            ingredientsData.values = ingredientsData.values.concat(steps.ingredients.newIngredients.values);
-            ingredientsData.categorys = ingredientsData.categorys.concat(steps.ingredients.newIngredients.categorys);
-            ingredientsData.names = ingredientsData.names.concat(steps.ingredients.newIngredients.names);
-        }
-        if (steps.utensils.newUtensils) {
-            utensilsData.stepIds = utensilsData.stepIds.concat(steps.utensils.newUtensils.stepIds);
-            utensilsData.names = utensilsData.names.concat(steps.utensils.newUtensils.names);
-        }
     }
-    if (ingredientsData.length > 0) {
+    if (steps.ingredients.newIngredients) {
+        ingredientsData.stepIds = ingredientsData.stepIds.concat(steps.ingredients.newIngredients.stepIds);
+        ingredientsData.units = ingredientsData.units.concat(steps.ingredients.newIngredients.units);
+        ingredientsData.values = ingredientsData.values.concat(steps.ingredients.newIngredients.values);
+        ingredientsData.categorys = ingredientsData.categorys.concat(steps.ingredients.newIngredients.categorys);
+        ingredientsData.names = ingredientsData.names.concat(steps.ingredients.newIngredients.names);
+    }
+    if (steps.utensils.newUtensils) {
+        utensilsData.stepIds = utensilsData.stepIds.concat(steps.utensils.newUtensils.stepIds);
+        utensilsData.names = utensilsData.names.concat(steps.utensils.newUtensils.names);
+    }
+    if (ingredientsData.names.length > 0) {
         const newIngredients = await saveIngredients(client, ingredientsData);
+        result = {
+            ...result,
+            ingredients: {
+                newIngredients
+            }
+        }
     }
-    if (utensilsData.length > 0) {
+    if (utensilsData.names.length > 0) {
         const newUtensils = await saveUtensils(client, utensilsData);
+        result = {
+            ...result,
+            utensils: {
+                newUtensils
+            }
+        }
     }
-    if (steps.ingredients.delteIngredients) {
-        const deleteIngredients = await delete_ingredients(client, steps.ingredients.delteIngredients);
+    // until here it doesnt work
+    if (steps.ingredients.deleteIngredients) {
+        const deleteIngredients = await delete_ingredients(client, steps.ingredients.deleteIngredients);
+        result = {
+            ...result,
+            ingredients: {
+                ...result.ingredients,
+                deleteIngredients
+            }
+        }
     }
     if (steps.ingredients.updateIngredients) {
         const updateIngredients = await update_ingredients(client, steps.ingredients.updateIngredients);
+        result = {
+            ...result,
+            ingredients: {
+                ...result.ingredients,
+                updateIngredients
+            }
+        }
     }
     if (steps.utensils.deleteUtensils) {
         const deleteUtensils = await delete_utensils(client, steps.utensils.deleteUtensils);
+        result = {
+            ...result,
+            utensils: {
+                ...result.utensils,
+                deleteUtensils
+            }
+        }
     }
     if (steps.utensils.updateUtensils) {
         const updateUtensils = await update_utensils(client, steps.utensils.updateUtensils);
+        result = {
+            ...result,
+            utensils: {
+                ...result.utensils,
+                updateUtensils
+            }
+        }
     }
     return result;
 }

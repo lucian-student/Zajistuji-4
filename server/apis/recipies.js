@@ -16,6 +16,7 @@ router.post('/create_recipie', authorization, async (req, res) => {
             category,
             description,
             imageUrl,
+            imageReference,
             ingredients,
             utensils,
             steps
@@ -23,14 +24,15 @@ router.post('/create_recipie', authorization, async (req, res) => {
         let result = {};
         //create recipie
         const newRecipie =
-            await client.query('INSERT INTO recipies (user_id,name,category,description,imageUrl)' +
-                ' VALUES ($1,$2,$3,$4,$5) RETURNING *',
+            await client.query('INSERT INTO recipies (user_id,name,category,description,imageUrl,image_reference)' +
+                ' VALUES ($1,$2,$3,$4,$5,$6) RETURNING *',
                 [
                     1,
                     name,
                     category,
                     description,
-                    imageUrl
+                    imageUrl,
+                    imageReference
                 ]);
         result = {
             recipie: newRecipie.rows[0]
@@ -103,15 +105,17 @@ router.put('/update_recipie/:id', authorization, async (req, res) => {
                 category,
                 description,
                 imageUrl,
+                imageReference
             } = recipie;
             const updateRecipie =
-                await client.query('UPDATE recipies SET name=$1, category=$2, description=$3, imageUrl=$4' +
-                    ' WHERE recipie_id=$5 RETURNING *',
+                await client.query('UPDATE recipies SET name=$1, category=$2, description=$3, imageUrl=$4, image_reference=$5' +
+                    ' WHERE recipie_id=$6 RETURNING *',
                     [
                         name,
                         category,
                         description,
                         imageUrl,
+                        imageReference,
                         req.params.id
                     ]);
             result = {

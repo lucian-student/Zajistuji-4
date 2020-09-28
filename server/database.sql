@@ -45,7 +45,7 @@ CREATE TABLE recipies (
   num_of_likes BIGINT DEFAULT 0 NOT NULL,
   num_of_comments BIGINT DEFAULT 0 NOT NULL,
   imageUrl TEXT,
-  imageReference TEXT,
+  image_reference TEXT,
   date_of_creation TIMESTAMP DEFAULT current_timestamp,
   shared BOOLEAN DEFAULT false,
   FOREIGN KEY (user_id)

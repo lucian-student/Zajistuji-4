@@ -2,6 +2,24 @@ const router = require('express').Router();
 const pool = require('../configuration/db');
 const authorization = require('../midelware/authorization');
 
+router.get('/get_utensils', authorization, async (req, res) => {
+    try {
+        const page = req.query.page * 10;
+        const utensils =
+            await pool.query('SELECT * FROM utensils WHERE user_id=$1 ORDER BY date_of_creation desc' +
+                ' OFFSET $2 LIMIT 10',
+                [
+                    req.user,
+                    page
+                ]);
+        res.json(utensils.rows);
+    } catch (err) {
+        console.log(err.message);
+        res.status('500').json('server error');
+    }
+});
+
+
 router.post('/create_utensil', authorization, async (req, res) => {
     try {
         const { name } = req.body;

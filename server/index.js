@@ -18,6 +18,7 @@ app.use('/recipies', require('./apis/recipies'));
 app.use('/recipieQuery', require('./apis/recipieQueries'));
 app.use('/comments', require('./apis/comments'));
 app.use('/recipie_likes', require('./apis/recipieLikes'));
+app.use('/shared_recipies', require('./apis/shareRecipies'));
 //get
 
 //post

@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import Menu from './components/menu';
 import Login from './pages/login';
 import Main from './pages/main';
+import IngredientsAndUtensils from './pages/ingredientsAndUtensils';
+import SharedRecipes from './pages/sharedRecipes';
 import Register from './pages/register';
 import { AuthContext } from './context/auth';
 import NotAuthRoute from './utils/notAuthRoute';
@@ -44,6 +46,8 @@ function App() {
           <Menu />
           <Switch>
             <AuthRoute exact path='/Main' component={Main} />
+            <AuthRoute exact path='/IngredientsAndUtensils' component={IngredientsAndUtensils} />
+            <AuthRoute exact path='/SharedRecipes' component={SharedRecipes} />
             <NotAuthRoute exact path='/' component={Login} />
             <NotAuthRoute exact path='/Register' component={Register} />
           </Switch>

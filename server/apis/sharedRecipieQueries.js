@@ -26,7 +26,7 @@ router.get('/liked_recipies', authorization, async (req, res) => {
                 'SELECT * FROM likes INNER JOIN recipies ON likes.recipie_id=recipies.recipie_id' +
                 ' OFFSET $2 LIMIT 10',
                 [
-                    1,
+                    req.user,
                     page
                 ]);
         res.json(recipies.rows);

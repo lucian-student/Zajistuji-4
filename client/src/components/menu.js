@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row'
+import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import '../responsiveCss/menuCss.css';
 
@@ -14,18 +14,28 @@ function Menu() {
     return (
         <Container className='menuContainer'>
             <Row>
-                <Col>
+                <Col xs={12} md={8}>
                     {currentUser && (
                         <Nav variant="pills" defaultActiveKey={`${pathname}`} >
                             <Nav.Item >
                                 <Nav.Link eventKey='/Main' as={Link} to='/Main'>
-                                    Menu
+                                    Your Recipes
+                                </Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item >
+                                <Nav.Link eventKey='/IngredientsAndUtensils' as={Link} to='/IngredientsAndUtensils'>
+                                    Ingredients And Utensils
+                                </Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item >
+                                <Nav.Link eventKey='/SharedRecipes' as={Link} to='/SharedRecipes'>
+                                    Shared Recipes
                                 </Nav.Link>
                             </Nav.Item>
                         </Nav>
                     )}
                 </Col>
-                <Col>
+                <Col xs={6} md={4}>
                     <Nav variant="pills" defaultActiveKey={`${pathname}`} style={{ float: 'right' }}>
                         {!currentUser ? (
                             <Fragment>

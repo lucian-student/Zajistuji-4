@@ -1,14 +1,15 @@
 import React, { Fragment } from 'react';
-import '../responsiveCss/mainCss.css';
-function Main() {
+
+function SharedRecipes() {
     return (
         <Fragment>
             <div className='firstCenterDiv'>
                 <div className='secondCenterDiv'>
-                    Your Recipies
+                    Shared Recipes
                 </div>
             </div>
         </Fragment>
     )
 }
-export default Main;
+
+export default SharedRecipes;

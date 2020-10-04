@@ -7,7 +7,7 @@ router.get('/get_ingredients', authorization, async (req, res) => {
         const page = req.query.page * 10;
         const ingredients =
             await pool.query('SELECT * FROM ingredients WHERE user_id=$1 ORDER BY date_of_creation desc' +
-                'OFFSET $2 LIMIT 10',
+                ' OFFSET $2 LIMIT 10',
                 [
                     req.user,
                     page

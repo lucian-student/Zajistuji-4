@@ -6,25 +6,25 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { useForm } from 'react-hook-form';
 import { BiMenu } from 'react-icons/bi';
-import { deleteInrgedients } from '../../queries/ingredients/deleteIngredients';
 import { IngredientsAndUtensilsContext } from '../../context/ingredientsAndUtensils';
-import { updateIngredients } from '../../queries/ingredients/updateIngredients';
-function IngredientsCard({ ingredients: { user_id, category, name, ingredients_id, index } }) {
-    const { setIngredients, ingredients } = useContext(IngredientsAndUtensilsContext);
+import { deleteUtensil } from '../../queries/utensils/deleteUtensil';
+import { updateUtensil } from '../../queries/utensils/updateUtensil';
+function UtensilsCard({ utensil: { utensils_id, name, index } }) {
+    const { setUtensils, utensils } = useContext(IngredientsAndUtensilsContext);
     const [editing, setEditing] = useState(false);
-    async function deleteIngredients() {
-        await deleteInrgedients(ingredients_id, setIngredients);
+
+    async function handleDeleteUtensil() {
+        await deleteUtensil(utensils_id, setUtensils);
     }
 
     const { handleSubmit, register, errors } = useForm();
     const handleClose = () => setEditing(false);
     const handleShow = () => setEditing(true);
 
-    async function handleUpdateIngredients(data) {
-        await updateIngredients(data.name, data.category, ingredients_id, setIngredients, ingredients, index);
+    async function handleUpdateUtensils(data) {
+        await updateUtensil(data.name, utensils_id, setUtensils, utensils, index);
         handleClose();
     }
-
     const options = ['Edit', 'Delete']
     return (
         <Fragment>
@@ -40,7 +40,7 @@ function IngredientsCard({ ingredients: { user_id, category, name, ingredients_i
                                     {option === 'Delete' ? (
                                         <Button variant=''
                                             style={{ width: '100%' }}
-                                            onClick={deleteIngredients}>{option}</Button>
+                                            onClick={handleDeleteUtensil}>{option}</Button>
                                     ) : (
                                             <Button variant=''
                                                 style={{ width: '100%' }}
@@ -55,11 +55,6 @@ function IngredientsCard({ ingredients: { user_id, category, name, ingredients_i
                         marginInlineStart: '5%',
                         wordBreak: 'break-all'
                     }}>{name}</div>
-                    <div style={{
-                        display: 'inline',
-                        marginInlineStart: '5%',
-                        wordBreak: 'break-all'
-                    }}>{category}</div>
                 </Card.Body>
             </Card>
             <Modal show={editing} onHide={handleClose} animation={false}>
@@ -67,7 +62,7 @@ function IngredientsCard({ ingredients: { user_id, category, name, ingredients_i
                     <Modal.Title>Create Ingredients</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form onSubmit={handleSubmit(handleUpdateIngredients)}>
+                    <Form onSubmit={handleSubmit(handleUpdateUtensils)}>
                         <Form.Group controlId="formGroupYear">
                             <Form.Control autoComplete="off"
                                 name='name'
@@ -84,21 +79,6 @@ function IngredientsCard({ ingredients: { user_id, category, name, ingredients_i
                             {errors.name && errors.name.type === "maxLength" && (
                                 <Form.Text className="helperText">255 chars max!</Form.Text>
                             )}
-                            <Form.Control autoComplete="off"
-                                name='category'
-                                type='text'
-                                placeholder='Category'
-                                defaultValue={category}
-                                ref={register({
-                                    required: true,
-                                    maxLength: 255
-                                })} />
-                            {errors.category && errors.category.type === "required" && (
-                                <Form.Text className="helperText">Category is empty!</Form.Text>
-                            )}
-                            {errors.category && errors.category.type === "maxLength" && (
-                                <Form.Text className="helperText">255 chars max!</Form.Text>
-                            )}
                         </Form.Group>
                         <Button type='submit' >
                             Submit
@@ -110,4 +90,4 @@ function IngredientsCard({ ingredients: { user_id, category, name, ingredients_i
     )
 }
 
-export default IngredientsCard
+export default UtensilsCard;

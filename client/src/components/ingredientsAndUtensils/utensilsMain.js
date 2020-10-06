@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
-import UtensilsDisplay from '../ingredientsAndUtensils/utensilsDisplay';
+import UtensilsDisplay from './utensilsDisplay';
+import UtensilsForm from './utensilsForm';
 function UtensilsMain() {
     return (
         <Fragment>
+            <UtensilsForm />
             <UtensilsDisplay />
         </Fragment>
     )

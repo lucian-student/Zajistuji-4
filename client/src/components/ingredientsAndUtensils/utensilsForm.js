@@ -1,35 +1,35 @@
 import React, { Fragment, useState, useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import { FiPlusCircle } from 'react-icons/fi';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { IngredientsAndUtensilsContext } from '../../context/ingredientsAndUtensils';
-import { createIngredients } from '../../queries/ingredients/createIngredients';
-import { useForm } from 'react-hook-form';
-import { FiPlusCircle } from 'react-icons/fi';
-function IngredientsForm() {
+import { createUtensil } from '../../queries/utensils/createUtensils';
+function UtensilsForm() {
     const [editing, setEditing] = useState(false);
     const { handleSubmit, register, errors } = useForm();
-    const { setIngredients } = useContext(IngredientsAndUtensilsContext);
+    const { setUtensils } = useContext(IngredientsAndUtensilsContext);
+
     const handleClose = () => setEditing(false);
     const handleShow = () => setEditing(true);
 
-
-    async function newIngredients(data) {
-        await createIngredients(data.name, data.category, setIngredients);
+    async function handleCreateUtensil(data) {
+        await createUtensil(data.name, setUtensils);
     }
     return (
         <Fragment>
             <Button variant="light" style={{ width: '100%' }}
                 onClick={handleShow}>
                 <FiPlusCircle style={{ display: 'inline' }} />
-                <p style={{ display: 'inline' }}>Add Ingredients</p>
+                <p style={{ display: 'inline' }}>Add Utensils</p>
             </Button>
             <Modal show={editing} onHide={handleClose} animation={false}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Create Ingredients</Modal.Title>
+                    <Modal.Title>Create Utensil</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form onSubmit={handleSubmit(newIngredients)}>
+                    <Form onSubmit={handleSubmit(handleCreateUtensil)}>
                         <Form.Group controlId="formGroupYear">
                             <Form.Control autoComplete="off"
                                 name='name'
@@ -45,20 +45,6 @@ function IngredientsForm() {
                             {errors.name && errors.name.type === "maxLength" && (
                                 <Form.Text className="helperText">255 chars max!</Form.Text>
                             )}
-                            <Form.Control autoComplete="off"
-                                name='category'
-                                type='text'
-                                placeholder='Category'
-                                ref={register({
-                                    required: true,
-                                    maxLength: 255
-                                })} />
-                            {errors.category && errors.category.type === "required" && (
-                                <Form.Text className="helperText">Category is empty!</Form.Text>
-                            )}
-                            {errors.category && errors.category.type === "maxLength" && (
-                                <Form.Text className="helperText">255 chars max!</Form.Text>
-                            )}
                         </Form.Group>
                         <Button type='submit' >
                             Submit
@@ -70,4 +56,4 @@ function IngredientsForm() {
     )
 }
 
-export default IngredientsForm;
+export default UtensilsForm;

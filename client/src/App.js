@@ -5,6 +5,7 @@ import Login from './pages/login';
 import Main from './pages/main';
 import IngredientsAndUtensils from './pages/ingredientsAndUtensils';
 import SharedRecipes from './pages/sharedRecipes';
+import RecipeForm from './pages/recipeForm';
 import Register from './pages/register';
 import { AuthContext } from './context/auth';
 import NotAuthRoute from './utils/notAuthRoute';
@@ -48,6 +49,7 @@ function App() {
             <AuthRoute exact path='/Main' component={Main} />
             <AuthRoute exact path='/IngredientsAndUtensils' component={IngredientsAndUtensils} />
             <AuthRoute exact path='/SharedRecipes' component={SharedRecipes} />
+            <AuthRoute exact path='/RecipeForm' component={RecipeForm} />
             <NotAuthRoute exact path='/' component={Login} />
             <NotAuthRoute exact path='/Register' component={Register} />
           </Switch>

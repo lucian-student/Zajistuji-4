@@ -1,13 +1,20 @@
-import React, { Fragment } from 'react';
-
+import React, { Fragment, useState } from 'react';
+import FirstStep from '../components/recipeForm/firstStep';
+import { RecipeFormProvider } from '../context/recipeForm';
+import '../responsiveCss/recipeForm.css';
 function RecipeForm() {
+    const [step, setStep] = useState(1);
     return (
         <Fragment>
-            <div className='firstCenterDiv'>
-                <div className='secondCenterDiv'>
-                    Recipe Form
+            <RecipeFormProvider>
+                <div className='firstCenterDiv'>
+                    <div className='secondCenterDiv'>
+                        {step === 1 && (
+                            <FirstStep />
+                        )}
+                    </div>
                 </div>
-            </div>
+            </RecipeFormProvider>
         </Fragment>
     )
 }

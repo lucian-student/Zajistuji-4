@@ -1,0 +1,6 @@
+.column{
+    border-radius: 10px;
+    border: 2px solid #F2F2F2;
+    background:linear-gradient(70deg,#F2F2F2 40%,#FFFFFF 60%);
+    height: 500px;
+}

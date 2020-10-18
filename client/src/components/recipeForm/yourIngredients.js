@@ -3,6 +3,9 @@ import { ingredientsQuery } from '../../queries/ingredients/defaultIngredients';
 import { RecipeFormContext } from '../../context/recipeForm';
 import YourIngredientsCard from '../../components/recipeForm/yourIngredientsCard';
 import Button from 'react-bootstrap/Button';
+import withScrolling from 'react-dnd-scrolling';
+
+const ScrollingComponent = withScrolling('div');
 
 function YourIngredients() {
     const { yourIngredientsPage, setYourIngredients, yourIngredients, setYourIngredientsPage } = useContext(RecipeFormContext);
@@ -16,7 +19,7 @@ function YourIngredients() {
     return (
         <Fragment>
             <h3 style={{ textAlign: 'center' }}>Your Ingredients</h3>
-            <div className='column'>
+            <ScrollingComponent className='column'>
                 {yourIngredients.map((ingredient, index) => (
                     <div key={ingredient.ingredients_id}>
                         <YourIngredientsCard ingredients={{
@@ -31,7 +34,7 @@ function YourIngredients() {
                         More...
                     </Button>
                 )}
-            </div>
+            </ScrollingComponent>
         </Fragment>
     )
 }

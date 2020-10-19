@@ -4,16 +4,23 @@ import { useDrag } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { RecipeFormContext } from '../../context/recipeForm';
 function YourIngredientsCard({ ingredients }) {
-    const { name, category, index } = ingredients;
+    const { name, category } = ingredients;
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });
-    const { height, width } = useContext(RecipeFormContext);
+    const { height, width, noDrop } = useContext(RecipeFormContext);
     const ref = useRef();
 
     const [, drag, preview] = useDrag({
-        item: { ...ingredients, type: 'INGREDIENTS', dimensions },
+        item: { ...ingredients, type: 'INGREDIENTS', status: 'yours', dimensions },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
-        })
+        }),
+        end(item, monitor) {
+            if (!monitor.didDrop()) {
+                if (item.status === 'recipe') {
+                    noDrop();
+                }
+            }
+        }
     });
 
     useEffect(() => {

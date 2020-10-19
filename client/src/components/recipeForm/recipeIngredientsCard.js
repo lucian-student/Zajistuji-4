@@ -4,7 +4,16 @@ import { useDrag, useDrop } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { RecipeFormContext } from '../../context/recipeForm';
 function RecipeIngredientsCard({ ingredients }) {
-    const { name, category, index } = ingredients;
+    const {
+        name,
+        category,
+        index,
+        ingredients_id,
+        checkCanDrop,
+        opacityCheck,
+        moveItem1,
+        moveItem2,
+        noDrop } = ingredients;
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });
     const { height, width } = useContext(RecipeFormContext);
     const ref = useRef();
@@ -12,7 +21,7 @@ function RecipeIngredientsCard({ ingredients }) {
     const [, drop] = useDrop({
         accept: 'INGREDIENTS',
         canDrop(item, monitor) {
-            return true;
+            return checkCanDrop(item);
         },
         hover(item, monitor) {
             if (!monitor.canDrop()) {
@@ -37,16 +46,35 @@ function RecipeIngredientsCard({ ingredients }) {
                 return;
             }
             //logic here
+            if (item.status === 'recipe') {
+                moveItem1(dragIndex, hoverIndex);
+                item.index = hoverIndex;
+            }
+            if (item.status === 'yours') {
+                moveItem2(dragIndex, hoverIndex, item);
+                item.index = hoverIndex;
+                item.status = 'recipe';
+            }
         }
     });
 
-    const [, drag, preview] = useDrag({
-        item: { ...ingredients, type: 'INGREDIENTS', dimensions },
+    const [{ isDragging }, drag, preview] = useDrag({
+        item: { ...ingredients, type: 'INGREDIENTS', status: 'recipe', dimensions },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
-        })
+        }),
+        end(item, monitor) {
+            if (!monitor.didDrop()) {
+                noDrop();
+            }
+        }
     });
-
+    const checkOpacity = () => {
+        if (isDragging || opacityCheck(ingredients_id)) {
+            return true
+        }
+        return false;
+    }
     useEffect(() => {
         if (ref.current) {
             setDimensions({
@@ -60,7 +88,7 @@ function RecipeIngredientsCard({ ingredients }) {
     drag(drop(ref));
     return (
         <Fragment>
-            <Card ref={ref}>
+            <Card ref={ref} style={{ opacity: checkOpacity() ? 0 : 1 }}>
                 <Card.Body>
                     <div>{name}</div>
                     <div>{category}</div>

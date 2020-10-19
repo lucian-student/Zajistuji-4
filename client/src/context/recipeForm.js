@@ -1,5 +1,6 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useCallback } from 'react';
 import { useWindowDimensions } from '../utils/dimensions';
+import update from 'immutability-helper';
 export const RecipeFormContext = createContext();
 
 export const RecipeFormProvider = ({ children }) => {
@@ -12,9 +13,18 @@ export const RecipeFormProvider = ({ children }) => {
         recipeIngredients: [],
         tempIngredients: []
     });
+
+    const noDrop = useCallback(() => {
+        setRecipeIngredientsData(update(recipeIngredientsData, {
+            tempIngredients: { $set: recipeIngredientsData.recipeIngredients }
+        }))
+    }, [recipeIngredientsData, setRecipeIngredientsData]);
+
     const [recipeUtensils, setRecipeUtensils] = useState([]);
 
     const { height, width } = useWindowDimensions();
+
+
     return (
         <RecipeFormContext.Provider
             value={{
@@ -31,7 +41,8 @@ export const RecipeFormProvider = ({ children }) => {
                 recipeUtensils,
                 setRecipeUtensils,
                 height,
-                width
+                width,
+                noDrop
             }}>
             {children}
         </RecipeFormContext.Provider>

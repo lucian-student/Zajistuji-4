@@ -4,20 +4,25 @@ import { RecipeFormProvider } from '../context/recipeForm';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import '../responsiveCss/recipeForm.css';
+import DragScrollWrapper from '../components/recipeForm/dragScrollWrapper';
 function RecipeForm() {
     const [step, setStep] = useState(1);
     return (
         <Fragment>
             <RecipeFormProvider>
-                <div className='firstCenterDiv'>
-                    <div className='secondCenterDiv'>
-                        {step === 1 && (
-                            <DndProvider backend={HTML5Backend}>
-                                <FirstStep properties={{ setStep }} />
-                            </DndProvider>
-                        )}
-                    </div>
-                </div>
+                {step === 1 && (
+                    <DndProvider backend={HTML5Backend}>
+                        <DragScrollWrapper ITEM_TYPE={'UTENSILS'}>
+                            <DragScrollWrapper ITEM_TYPE={'INGREDIENTS'}>
+                                <div className='firstCenterDiv'>
+                                    <div className='secondCenterDiv'>
+                                        <FirstStep properties={{ setStep }} />
+                                    </div>
+                                </div>
+                            </DragScrollWrapper>
+                        </DragScrollWrapper>
+                    </DndProvider>
+                )}
             </RecipeFormProvider>
         </Fragment>
     )

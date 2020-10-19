@@ -1,5 +1,5 @@
 import React, { useState, createContext } from 'react';
-
+import { useWindowDimensions } from '../utils/dimensions';
 export const RecipeFormContext = createContext();
 
 export const RecipeFormProvider = ({ children }) => {
@@ -8,8 +8,13 @@ export const RecipeFormProvider = ({ children }) => {
     const [yourUtensilsPage, setYourUtensilsPage] = useState(0);
     const [yourUtensils, setYourUtensils] = useState([]);
 
-    const [recipeIngredients, setRecipeIngredients] = useState([]);
+    const [recipeIngredientsData, setRecipeIngredientsData] = useState({
+        recipeIngredients: [],
+        tempIngredients: []
+    });
     const [recipeUtensils, setRecipeUtensils] = useState([]);
+
+    const { height, width } = useWindowDimensions();
     return (
         <RecipeFormContext.Provider
             value={{
@@ -21,10 +26,12 @@ export const RecipeFormProvider = ({ children }) => {
                 setYourUtensilsPage,
                 yourUtensils,
                 setYourUtensils,
-                recipeIngredients,
-                setRecipeIngredients,
+                recipeIngredientsData,
+                setRecipeIngredientsData,
                 recipeUtensils,
-                setRecipeUtensils
+                setRecipeUtensils,
+                height,
+                width
             }}>
             {children}
         </RecipeFormContext.Provider>

@@ -4,7 +4,6 @@ import { RecipeFormContext } from '../../context/recipeForm';
 import YourIngredientsCard from '../../components/recipeForm/yourIngredientsCard';
 import Button from 'react-bootstrap/Button';
 import withScrolling from 'react-dnd-scrolling';
-
 const ScrollingComponent = withScrolling('div');
 
 function YourIngredients() {

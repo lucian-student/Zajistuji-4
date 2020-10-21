@@ -3,6 +3,8 @@ import { RecipeFormContext } from '../../context/recipeForm';
 import { utensilsQuery } from '../../queries/utensils/defaultUtensils';
 import YourUtensilCard from './yourUtensilCard';
 import Button from 'react-bootstrap/Button';
+import withScrolling from 'react-dnd-scrolling';
+const ScrollingComponent = withScrolling('div');
 function YourUtensils() {
     const { yourUtensilsPage, setYourUtensilsPage, yourUtensils, setYourUtensils } = useContext(RecipeFormContext);
     useEffect(() => {
@@ -14,7 +16,7 @@ function YourUtensils() {
     return (
         <Fragment>
             <h3 style={{ textAlign: 'center' }}>Your Utensils</h3>
-            <div className='column'>
+            <ScrollingComponent className='column'>
                 {yourUtensils.map((utensil, index) => (
                     <div key={utensil.utensils_id}>
                         <YourUtensilCard utensil={{
@@ -29,7 +31,7 @@ function YourUtensils() {
                         More...
                     </Button>
                 )}
-            </div>
+            </ScrollingComponent>
         </Fragment>
     )
 }

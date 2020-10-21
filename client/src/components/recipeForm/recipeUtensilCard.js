@@ -6,30 +6,28 @@ import { RecipeFormContext } from '../../context/recipeForm';
 import { CgRemove } from 'react-icons/cg';
 import Button from 'react-bootstrap/Button';
 import update from 'immutability-helper';
-function RecipeIngredientsCard({ ingredients }) {
+function YourUtensilCard({ utensil }) {
     const {
         name,
-        category,
+        utensils_id,
         index,
-        ingredients_id,
         checkCanDrop,
         opacityCheck,
         moveItem1,
-        moveItem2,
-        noDrop } = ingredients;
+        moveItem2
+    } = utensil;
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });
-    const { height, width, recipeIngredientsData, setRecipeIngredientsData }
+    const { height, width, noDrop2, recipeUtensilsData, setRecipeUtensilsData }
         = useContext(RecipeFormContext);
-
-    function RemoveIngredients() {
-        setRecipeIngredientsData(update(recipeIngredientsData, {
-            recipeIngredients: {
+    function RemoveUtensil() {
+        setRecipeUtensilsData(update(recipeUtensilsData, {
+            recipeUtensils: {
                 $splice: [
                     [index, 1],
                     [0, 0]
                 ]
             },
-            tempIngredients: {
+            tempUtensils: {
                 $splice: [
                     [index, 1],
                     [0, 0]
@@ -79,18 +77,20 @@ function RecipeIngredientsCard({ ingredients }) {
     });
 
     const [{ isDragging }, drag, preview] = useDrag({
-        item: { ...ingredients, type: 'INGREDIENTS', status: 'recipe', dimensions },
+        item: { ...utensil, type: 'UTENSILS', status: 'recipe', dimensions },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
         end(item, monitor) {
             if (!monitor.didDrop()) {
-                noDrop();
+                if (item.status === 'recipe') {
+                    noDrop2();
+                }
             }
         }
     });
     const checkOpacity = () => {
-        if (isDragging || opacityCheck(ingredients_id)) {
+        if (isDragging || opacityCheck(utensils_id)) {
             return true
         }
         return false;
@@ -109,21 +109,20 @@ function RecipeIngredientsCard({ ingredients }) {
     return (
         <Fragment>
             <Card ref={ref} style={{ opacity: checkOpacity() ? 0 : 1 }}>
-                <Card.Body>
+                <Card.Body >
                     <div style={{ display: 'inline-block' }}>
-                        <div>{name}</div>
-                        <div>{category}</div>
+                        {name}
                     </div>
                     <div style={{ float: 'right', display: 'inline-block' }}>
                         <Button variant='dark'
-                            onClick={RemoveIngredients}>
+                            onClick={RemoveUtensil}>
                             <CgRemove />
                         </Button>
                     </div>
                 </Card.Body>
             </Card>
-        </Fragment >
+        </Fragment>
     )
 }
 
-export default RecipeIngredientsCard;
+export default YourUtensilCard;

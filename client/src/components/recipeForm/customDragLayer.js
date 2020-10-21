@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDragLayer } from 'react-dnd';
 import IngredientsPreview from './ingredientsPreview';
+import UtensilPreview from './utensilPreview';
 
 const layerStyles = {
     position: 'fixed',
@@ -36,6 +37,11 @@ function CustomDragLayer() {
         switch (itemType) {
             case 'INGREDIENTS':
                 return <IngredientsPreview ingredients={{
+                    ...item,
+                    isDragging
+                }} />;
+            case 'UTENSILS':
+                return <UtensilPreview utensil={{
                     ...item,
                     isDragging
                 }} />;

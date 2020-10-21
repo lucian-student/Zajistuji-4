@@ -114,7 +114,6 @@ function RecipeIngredients() {
                                         opacityCheck,
                                         moveItem1,
                                         moveItem2,
-                                        confirmMove,
                                         noDrop
                                     }} />
                                 </div>
@@ -131,7 +130,6 @@ function RecipeIngredients() {
                                             opacityCheck,
                                             moveItem1,
                                             moveItem2,
-                                            confirmMove,
                                             noDrop
                                         }} />
                                     </div>

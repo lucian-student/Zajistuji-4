@@ -6,8 +6,6 @@ export const RecipeFormContext = createContext();
 export const RecipeFormProvider = ({ children }) => {
     const [yourIngredientsPage, setyouIngredientsPage] = useState(0);
     const [yourIngredients, setYourIngredients] = useState([]);
-    const [yourUtensilsPage, setYourUtensilsPage] = useState(0);
-    const [yourUtensils, setYourUtensils] = useState([]);
 
     const [recipeIngredientsData, setRecipeIngredientsData] = useState({
         recipeIngredients: [],
@@ -20,10 +18,22 @@ export const RecipeFormProvider = ({ children }) => {
         }))
     }, [recipeIngredientsData, setRecipeIngredientsData]);
 
-    const [recipeUtensils, setRecipeUtensils] = useState([]);
+
+    const [yourUtensilsPage, setYourUtensilsPage] = useState(0);
+    const [yourUtensils, setYourUtensils] = useState([]);
+
+    const [recipeUtensilsData, setRecipeUtensilsData] = useState({
+        recipeUtensils: [],
+        tempUtensils: []
+    });
+
+    const noDrop2 = useCallback(() => {
+        setRecipeUtensilsData(update(recipeUtensilsData, {
+            tempUtensils: { $set: recipeUtensilsData.recipeUtensils }
+        }))
+    }, [recipeUtensilsData, setRecipeUtensilsData])
 
     const { height, width } = useWindowDimensions();
-
 
     return (
         <RecipeFormContext.Provider
@@ -38,11 +48,12 @@ export const RecipeFormProvider = ({ children }) => {
                 setYourUtensils,
                 recipeIngredientsData,
                 setRecipeIngredientsData,
-                recipeUtensils,
-                setRecipeUtensils,
+                recipeUtensilsData,
+                setRecipeUtensilsData,
                 height,
                 width,
-                noDrop
+                noDrop,
+                noDrop2
             }}>
             {children}
         </RecipeFormContext.Provider>

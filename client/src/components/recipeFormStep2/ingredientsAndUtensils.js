@@ -1,9 +1,41 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import IngredientsDisplay from './ingredientsDisplay';
+import UtensilsDisplay from './utensilsDisplay';
 
 function IngredientsAndUtensils() {
+    const [show, setShow] = useState(false);
     return (
         <Fragment>
-            Ingredients and Utensils
+            <Container>
+                <Row>
+                    <Button variant='light' style={{ width: '100%' }}
+                        onClick={() => { setShow(prevValue => !prevValue) }}>
+                        {show ? (
+                            <Fragment>
+                                Hide ingredients and utensils
+                            </Fragment>
+                        ) : (
+                                <Fragment>
+                                    Show ingredients and utensils
+                                </Fragment>
+                            )}
+                    </Button>
+                </Row>
+                {show && (
+                    <Row>
+                        <Col>
+                            <IngredientsDisplay />
+                        </Col>
+                        <Col>
+                            <UtensilsDisplay />
+                        </Col>
+                    </Row>
+                )}
+            </Container>
         </Fragment>
     )
 }

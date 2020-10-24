@@ -10,7 +10,7 @@ function RecipeUtensilsCard({ utensil }) {
     const ref = useRef();
 
     const [, drag, preview] = useDrag({
-        item: { ...utensil, type: 'UTENSILS', status: 'yours', dimensions },
+        item: { ...utensil, type: 'UTENSILS', status: 'recipe', dimensions },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import StepForm from './stepForm';
+import StepFormComponent from './stepFormComponent';
 import StepDisplay from './stepDisplay';
 import IngredientsAndUtensils from './ingredientsAndUtensils';
 import Container from 'react-bootstrap/Container';
@@ -16,7 +16,7 @@ function StepComponent() {
                 </Row>
                 <Row>
                     <Col>
-                        <StepForm />
+                        <StepFormComponent />
                     </Col>
                 </Row>
                 <Row>

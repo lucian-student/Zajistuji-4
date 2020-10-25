@@ -25,12 +25,12 @@ function RecipeForm() {
                     </DndProvider>
                 )}
                 {step === 2 && (
-                    <DndProvider backend={HTML5Backend}>
+                    <DndProvider backend={HTML5Backend} >
                         <DragScrollWrapper ITEM_TYPE={'UTENSILS'}>
                             <DragScrollWrapper ITEM_TYPE={'INGREDIENTS'}>
                                 <div className='firstCenterDiv'>
                                     <div className='secondCenterDiv'>
-                                        <SecondStep properties={{setStep}}/>
+                                        <SecondStep properties={{ setStep }} />
                                     </div>
                                 </div>
                             </DragScrollWrapper>

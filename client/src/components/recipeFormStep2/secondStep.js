@@ -9,20 +9,22 @@ import CustomDragLayer from '../recipeForm/customDragLayer';
 function SecondStep({ properties: { setStep } }) {
     return (
         <Fragment>
-            <Container>
+            <Container >
                 <Row>
                     <Col>
                         <RecipeForm />
                     </Col>
                 </Row>
-                <Row>
-                    <Col>
+                <Row >
+                    <Col >
                         <StepComponent />
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <Button variant='light' style={{ width: '100%' }}
+                        <Button
+                            variant='light'
+                            style={{ width: '100%' }}
                             onClick={() => { setStep(step => step - 1) }}>
                             Previous Step
                         </Button>

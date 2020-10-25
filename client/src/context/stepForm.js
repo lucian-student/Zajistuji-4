@@ -3,6 +3,7 @@ import update from 'immutability-helper';
 export const StepFormContext = createContext();
 
 export const StepFormProvider = ({ children }) => {
+    //TODO disable buttons during drag, make style wrap component in it pointer events none
     const [formIngredientsData, setFormIngredientsData] = useState({
         formIngredients: [],
         tempIngredients: []

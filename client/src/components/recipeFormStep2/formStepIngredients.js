@@ -113,23 +113,8 @@ function FormStepIngredients() {
                         <Fragment>
                             {formIngredients.map((ingredient, index) => (
                                 <div key={ingredient.ingredients_id}>
-                                    <StepFormIngredientsCard ingredients={{
-                                        ...ingredient,
-                                        index,
-                                        checkCanDrop,
-                                        opacityCheck,
-                                        moveItem1,
-                                        moveItem2,
-                                        noDrop
-                                    }} />
-                                </div>
-                            ))}
-                        </Fragment>
-                    ) : (
-                            <Fragment>
-                                {tempIngredients.map((ingredient, index) => (
-                                    <div key={ingredient.ingredients_id}>
-                                        <StepFormIngredientsCard ingredients={{
+                                    <StepFormIngredientsCard
+                                        ingredients={{
                                             ...ingredient,
                                             index,
                                             checkCanDrop,
@@ -138,6 +123,23 @@ function FormStepIngredients() {
                                             moveItem2,
                                             noDrop
                                         }} />
+                                </div>
+                            ))}
+                        </Fragment>
+                    ) : (
+                            <Fragment>
+                                {tempIngredients.map((ingredient, index) => (
+                                    <div key={ingredient.ingredients_id}>
+                                        <StepFormIngredientsCard
+                                            ingredients={{
+                                                ...ingredient,
+                                                index,
+                                                checkCanDrop,
+                                                opacityCheck,
+                                                moveItem1,
+                                                moveItem2,
+                                                noDrop
+                                            }} />
                                     </div>
                                 ))}
                             </Fragment>

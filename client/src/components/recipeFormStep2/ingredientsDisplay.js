@@ -13,10 +13,11 @@ function IngredientsDisplay() {
             <ScrollingComponent className='column'>
                 {recipeIngredients.map((ingredient, index) => (
                     <div key={ingredient.ingredients_id}>
-                        <RecipeIngredientsCard ingredients={{
-                            ...ingredient,
-                            index
-                        }} />
+                        <RecipeIngredientsCard
+                            ingredients={{
+                                ...ingredient,
+                                index
+                            }} />
                     </div>
                 ))}
             </ScrollingComponent>

@@ -1,23 +1,29 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { ValidateTextInput, ValidateUnneceserrySpaceUsage } from '../../utils/validators';
+import { useForm } from 'react-hook-form';
 //image validation
 function RecipeForm() {
     const { register, errors, handleSubmit, watch } = useForm();
     const previewImage = watch('image');
     const [image, setImage] = useState(null);
+    function isFileImage(file) {
+        if (image) {
+            const acceptedImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+            return acceptedImageTypes.includes(file[0].type);
+        }
+        return true;
+    }
     useEffect(() => {
         if (previewImage) {
             if (previewImage[0]) {
                 const file = previewImage[0];
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
-                setImage();
                 reader.onloadend = function () {
                     setImage([reader.result]);
                 }
@@ -28,7 +34,7 @@ function RecipeForm() {
             setImage(null);
         }
     }, [previewImage]);
-    function saveRecipe(data) {
+    async function saveRecipe(data) {
         console.log(data);
     }
     return (
@@ -81,7 +87,14 @@ function RecipeForm() {
                             <Form.Group style={{ width: '100%' }}>
                                 <Form.Label>Add Image</Form.Label>
                                 <Form.File name='image'
-                                    ref={register} />
+                                    ref={register({
+                                        validate: {
+                                            isImage: value => isFileImage(value)
+                                        }
+                                    })} />
+                                {errors.image && errors.image.type === "isImage" && (
+                                    <Form.Text className="helperText">File isnt image!</Form.Text >
+                                )}
                             </Form.Group>
                             <div style={{ width: '100%', height: '100%' }}>
                                 {image && (

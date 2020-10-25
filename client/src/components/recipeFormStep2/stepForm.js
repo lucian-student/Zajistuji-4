@@ -7,10 +7,8 @@ import Card from 'react-bootstrap/Card';
 import { useForm } from 'react-hook-form';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-
 function StepForm() {
     const { register, handleSubmit, errors } = useForm();
-
     function createStep(data) {
         console.log(data);
     }
@@ -56,7 +54,10 @@ function StepForm() {
                                     placeholder="Description"
                                     ref={register({})} />
                             </Form.Group>
-                            <Button type='submit' variant='light' style={{ width: '100%' }}>
+                            <Button
+                                type='submit'
+                                variant='light'
+                                style={{ width: '100%' }}>
                                 Submit
                             </Button>
                         </Form>

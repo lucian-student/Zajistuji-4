@@ -3,7 +3,6 @@ import Card from 'react-bootstrap/Card';
 import { useDrag, useDrop } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { RecipeFormContext } from '../../context/recipeForm';
-
 function StepFormIngredientsCard({ ingredients }) {
     const { name, category, index } = ingredients;
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });

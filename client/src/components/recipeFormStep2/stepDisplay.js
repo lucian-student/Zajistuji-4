@@ -4,7 +4,9 @@ import React, { Fragment } from 'react';
 function StepDisplay() {
     return (
         <Fragment>
-            Step Display
+            <div>
+                Step Display
+            </div>
         </Fragment>
     )
 }

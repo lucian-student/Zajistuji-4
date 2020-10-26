@@ -6,7 +6,9 @@ import { RecipeFormContext } from '../../context/recipeForm';
 import { CgRemove } from 'react-icons/cg';
 import Button from 'react-bootstrap/Button';
 import update from 'immutability-helper';
-function YourUtensilCard({ utensil }) {
+import { StepFormContext } from '../../context/stepForm';
+
+function StepFormUtensilsCard({ utensil }) {
     const {
         name,
         utensils_id,
@@ -14,31 +16,33 @@ function YourUtensilCard({ utensil }) {
         checkCanDrop,
         opacityCheck,
         moveItem1,
-        moveItem2
+        moveItem2,
+        noDrop2
     } = utensil;
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });
-    const { height, width, noDrop2, recipeUtensilsData, setRecipeUtensilsData }
-        = useContext(RecipeFormContext);
+    const { height, width } = useContext(RecipeFormContext);
+    const { formUtensilsData, setFormUtensilsData } = useContext(StepFormContext);
     function RemoveUtensil() {
-        setRecipeUtensilsData(update(recipeUtensilsData, {
-            recipeUtensils: {
-                $splice: [
-                    [index, 1],
-                    [0, 0]
-                ]
-            },
+        setFormUtensilsData(update(formUtensilsData, {
             tempUtensils: {
                 $splice: [
                     [index, 1],
                     [0, 0]
                 ]
-            }
+            },
+            formUtensils: {
+                $splice: [
+                    [index, 1],
+                    [0, 0]
+                ]
+            },
         }));
     }
     const ref = useRef();
     const [, drop] = useDrop({
         accept: 'UTENSILS',
         canDrop(item, monitor) {
+            //check Can drop 
             return checkCanDrop(item);
         },
         hover(item, monitor) {
@@ -48,9 +52,9 @@ function YourUtensilCard({ utensil }) {
             if (!ref.current) {
                 return;
             }
-            const dragIndex = item.status === 'recipe' ? item.index : 0;
+            const dragIndex = item.status === 'form' ? item.index : 0;
             const hoverIndex = index;
-            if (dragIndex === hoverIndex && item.status === 'recipe') {
+            if (dragIndex === hoverIndex && item.status === 'form') {
                 return;
             }
             const hoveredRect = ref.current.getBoundingClientRect();
@@ -64,28 +68,25 @@ function YourUtensilCard({ utensil }) {
                 return;
             }
             //logic here
-            if (item.status === 'recipe') {
+            if (item.status === 'form') {
                 moveItem1(dragIndex, hoverIndex);
                 item.index = hoverIndex;
             }
-            if (item.status === 'yours') {
+            if (item.status === 'recipe') {
                 moveItem2(dragIndex, hoverIndex, item);
                 item.index = hoverIndex;
-                item.status = 'recipe';
+                item.status = 'form';
             }
         }
     });
-
     const [{ isDragging }, drag, preview] = useDrag({
-        item: { ...utensil, type: 'UTENSILS', status: 'recipe', dimensions },
+        item: { ...utensil, type: 'UTENSILS', status: 'form', dimensions },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
         end(item, monitor) {
             if (!monitor.didDrop()) {
-                if (item.status === 'recipe') {
-                    noDrop2();
-                }
+                noDrop2()
             }
         }
     });
@@ -109,9 +110,9 @@ function YourUtensilCard({ utensil }) {
     return (
         <Fragment>
             <Card ref={ref} style={{ opacity: checkOpacity() ? 0 : 1 }}>
-                <Card.Body >
+                <Card.Body>
                     <div style={{ display: 'inline-block' }}>
-                        {name}
+                        <div>{name}</div>
                     </div>
                     <div style={{ float: 'right', display: 'inline-block' }}>
                         <Button variant='dark'
@@ -121,8 +122,8 @@ function YourUtensilCard({ utensil }) {
                     </div>
                 </Card.Body>
             </Card>
-        </Fragment>
+        </Fragment >
     )
 }
 
-export default YourUtensilCard;
+export default StepFormUtensilsCard;

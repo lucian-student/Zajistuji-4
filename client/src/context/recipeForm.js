@@ -4,6 +4,7 @@ import update from 'immutability-helper';
 export const RecipeFormContext = createContext();
 
 export const RecipeFormProvider = ({ children }) => {
+    //ingredients
     const [yourIngredientsPage, setyouIngredientsPage] = useState(0);
     const [yourIngredients, setYourIngredients] = useState([]);
 
@@ -18,7 +19,7 @@ export const RecipeFormProvider = ({ children }) => {
         }))
     }, [recipeIngredientsData, setRecipeIngredientsData]);
 
-
+    //utensils
     const [yourUtensilsPage, setYourUtensilsPage] = useState(0);
     const [yourUtensils, setYourUtensils] = useState([]);
 
@@ -32,7 +33,12 @@ export const RecipeFormProvider = ({ children }) => {
             tempUtensils: { $set: recipeUtensilsData.recipeUtensils }
         }))
     }, [recipeUtensilsData, setRecipeUtensilsData])
-
+    //steps
+    const [recipeStepsData, setRecipeStepsData] = useState({
+        recipeSteps: [],
+        tempSteps: []
+    })
+    //general
     const { height, width } = useWindowDimensions();
 
     return (
@@ -53,7 +59,9 @@ export const RecipeFormProvider = ({ children }) => {
                 height,
                 width,
                 noDrop,
-                noDrop2
+                noDrop2,
+                recipeStepsData,
+                setRecipeStepsData
             }}>
             {children}
         </RecipeFormContext.Provider>

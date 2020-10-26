@@ -4,7 +4,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { FiPlusCircle } from 'react-icons/fi';
 import StepForm from './stepForm';
-import { StepFormProvider } from '../../context/stepForm';
 function StepFormComponent() {
     const [show, setShow] = useState();
     return (
@@ -18,9 +17,7 @@ function StepFormComponent() {
                     </Button>
                 </Row>
                 {show && (
-                    <StepFormProvider>
-                        <StepForm />
-                    </StepFormProvider>
+                    <StepForm />
                 )}
             </Container>
         </Fragment>

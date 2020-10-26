@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import FormStepIngredients from './formStepIngredients';
 import FormStepUtensils from './formStepUtensils';
 import Row from 'react-bootstrap/Row';
@@ -7,8 +7,13 @@ import Card from 'react-bootstrap/Card';
 import { useForm } from 'react-hook-form';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { RecipeFormContext } from '../../context/recipeForm';
+import { StepFormContext } from '../../context/stepForm';
+import update from 'immutability-helper';
 function StepForm() {
     const { register, handleSubmit, errors } = useForm();
+    const { setRecipeStepsData, recipeStepsData } = useContext(RecipeFormContext);
+    const { formIngredientsData, formUtensilsData } = useContext(StepFormContext);
     function createStep(data) {
         console.log(data);
     }

@@ -33,10 +33,10 @@ export const StepFormProvider = ({ children }) => {
             value={{
                 formIngredientsData,
                 setFormIngredientsData,
-                noDrop,
                 formUtensilsData,
                 setFormUtensilsData,
-                noDrop2
+                noDrop2,
+                noDrop
             }}>
             {children}
         </StepFormContext.Provider>

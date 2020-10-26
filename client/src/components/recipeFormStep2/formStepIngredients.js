@@ -46,10 +46,8 @@ function FormStepIngredients() {
                     [dragIndex, 0],
                     [hoverIndex, 0, {
                         ingredients_id: item.ingredients_id,
-                        user_id: item.user_id,
                         category: item.category,
                         name: item.name,
-                        date_of_creation: item.date_of_creation,
                         unit: '',
                         value: ''
                     }]
@@ -60,7 +58,7 @@ function FormStepIngredients() {
     // confirm move
     const confirmMove = useCallback(() => {
         setFormIngredientsData(update(formIngredientsData, {
-            recipeIngredients: { $set: tempIngredients }
+            formIngredients: { $set: tempIngredients }
         }));
     }, [formIngredientsData, setFormIngredientsData, tempIngredients]);
     // drop hook
@@ -78,10 +76,8 @@ function FormStepIngredients() {
                     formIngredients: {
                         $push: [{
                             ingredients_id: item.ingredients_id,
-                            user_id: item.user_id,
                             category: item.category,
                             name: item.name,
-                            date_of_creation: item.date_of_creation,
                             unit: '',
                             value: ''
                         }]
@@ -89,10 +85,8 @@ function FormStepIngredients() {
                     tempIngredients: {
                         $push: [{
                             ingredients_id: item.ingredients_id,
-                            user_id: item.user_id,
                             category: item.category,
                             name: item.name,
-                            date_of_creation: item.date_of_creation,
                             unit: '',
                             value: ''
                         }]

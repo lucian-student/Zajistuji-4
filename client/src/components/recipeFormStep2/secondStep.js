@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import RecipeForm from './recipeForm';
 import StepComponent from './stepComponent';
 import CustomDragLayer from '../recipeForm/customDragLayer';
+import { StepFormProvider } from '../../context/stepForm';
 function SecondStep({ properties: { setStep } }) {
     return (
         <Fragment>
@@ -17,7 +18,9 @@ function SecondStep({ properties: { setStep } }) {
                 </Row>
                 <Row >
                     <Col >
-                        <StepComponent />
+                        <StepFormProvider>
+                            <StepComponent />
+                        </StepFormProvider>
                     </Col>
                 </Row>
                 <Row>
@@ -30,8 +33,8 @@ function SecondStep({ properties: { setStep } }) {
                         </Button>
                     </Col>
                 </Row>
+                <CustomDragLayer />
             </Container>
-            <CustomDragLayer />
         </Fragment>
     )
 }

@@ -6,7 +6,7 @@ import UtensilPreview from './utensilPreview';
 const layerStyles = {
     position: 'fixed',
     pointerEvents: 'none',
-    zIndex: 100,
+    zIndex: 100000,
     left: 0,
     top: 0,
     width: '100%',

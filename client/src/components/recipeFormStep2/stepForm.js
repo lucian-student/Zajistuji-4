@@ -10,12 +10,37 @@ import Button from 'react-bootstrap/Button';
 import { RecipeFormContext } from '../../context/recipeForm';
 import { StepFormContext } from '../../context/stepForm';
 import update from 'immutability-helper';
+import { v4 as uuidv4 } from 'uuid';
 function StepForm() {
     const { register, handleSubmit, errors } = useForm();
     const { setRecipeStepsData, recipeStepsData } = useContext(RecipeFormContext);
-    const { formIngredientsData, formUtensilsData } = useContext(StepFormContext);
+    const { formIngredientsData: { formIngredients }, formUtensilsData: { formUtensils } }
+        = useContext(StepFormContext);
     function createStep(data) {
         console.log(data);
+        const { name, duration, description } = data;
+        setRecipeStepsData(update(recipeStepsData, {
+            recipeSteps: {
+                $push: [{
+                    step_id: uuidv4(),
+                    name,
+                    duration,
+                    description,
+                    ingredients: formIngredients,
+                    utensils: formUtensils
+                }]
+            },
+            tempSteps: {
+                $push: [{
+                    step_id: uuidv4(),
+                    name,
+                    duration,
+                    description,
+                    ingredients: formIngredients,
+                    utensils: formUtensils
+                }]
+            }
+        }))
     }
     return (
         <Card>

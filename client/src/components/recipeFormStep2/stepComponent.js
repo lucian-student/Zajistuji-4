@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import StepFormComponent from './stepFormComponent';
-import StepDisplay from './stepDisplay';
+import StepDisplay from './stepComponents/stepDisplay';
 import IngredientsAndUtensils from './ingredientsAndUtensils';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';

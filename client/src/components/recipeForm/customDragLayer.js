@@ -2,6 +2,7 @@ import React from 'react';
 import { useDragLayer } from 'react-dnd';
 import IngredientsPreview from './ingredientsPreview';
 import UtensilPreview from './utensilPreview';
+import StepPreview from '../recipeFormStep2/stepComponents/stepPreview';
 
 const layerStyles = {
     position: 'fixed',
@@ -44,6 +45,10 @@ function CustomDragLayer() {
                 return <UtensilPreview utensil={{
                     ...item,
                     isDragging
+                }} />;
+            case 'STEP':
+                return <StepPreview step={{
+                    ...item
                 }} />;
             default:
                 return null;

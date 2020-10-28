@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import FormStepIngredients from './formStepIngredients';
-import FormStepUtensils from './formStepUtensils';
+import FormStepIngredients from './ingredientsComponents/formStepIngredients';
+import FormStepUtensils from './utensilsComponents/formStepUtensils';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
@@ -27,7 +27,9 @@ function StepForm() {
                     duration,
                     description,
                     ingredients: formIngredients,
-                    utensils: formUtensils
+                    tempIngredients: formIngredients,
+                    utensils: formUtensils,
+                    tempUtensils: formUtensils
                 }]
             },
             tempSteps: {
@@ -37,7 +39,9 @@ function StepForm() {
                     duration,
                     description,
                     ingredients: formIngredients,
-                    utensils: formUtensils
+                    tempIngredients: formIngredients,
+                    utensils: formUtensils,
+                    tempUtensils: formUtensils
                 }]
             }
         }))

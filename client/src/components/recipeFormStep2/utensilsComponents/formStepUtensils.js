@@ -1,94 +1,85 @@
 import React, { Fragment, useContext, useCallback } from 'react';
-import { StepFormContext } from '../../context/stepForm';
+import { StepFormContext } from '../../../context/stepForm';
 import update from 'immutability-helper';
 import { useDrop } from 'react-dnd';
-import StepFormIngredientsCard from './stepFormIngredientsCard';
+import StepFormUtensilCard from './stepFormUtensilsCard';
 import withScrolling from 'react-dnd-scrolling';
 
 const ScrollingComponent = withScrolling('div');
 
-function FormStepIngredients() {
-    const { formIngredientsData, setFormIngredientsData, noDrop } = useContext(StepFormContext);
-    const { formIngredients, tempIngredients } = formIngredientsData;
+function FormStepUtensils() {
+    const { formUtensilsData, setFormUtensilsData, noDrop2 } = useContext(StepFormContext);
+    const { formUtensils, tempUtensils } = formUtensilsData;
     // drop check
     const checkCanDrop = useCallback((item) => {
-        if (formIngredients.some(ingredient => ingredient.ingredients_id === item.ingredients_id) &&
+        if (formUtensils.some(utensil => utensil.utensils_id === item.utensils_id) &&
             item.status === 'recipe') {
             return false;
         } else {
             return true;
         }
-    }, [formIngredients]);
+    }, [formUtensils]);
     // opacity
-    const opacityCheck = (ingredients_id) => {
-        if (formIngredients.some(ingredient => ingredient.ingredients_id === ingredients_id)) {
+    const opacityCheck = (utensils_id) => {
+        if (formUtensils.some(utensil => utensil.utensils_id === utensils_id)) {
             return false
         }
         return true;
     }
     // same list
     const moveItem1 = useCallback((dragIndex, hoverIndex) => {
-        const dragCard = tempIngredients[dragIndex];
-        setFormIngredientsData(update(formIngredientsData, {
-            tempIngredients: {
+        const dragCard = tempUtensils[dragIndex];
+        setFormUtensilsData(update(formUtensilsData, {
+            tempUtensils: {
                 $splice: [
                     [dragIndex, 1],
                     [hoverIndex, 0, dragCard]
                 ]
             }
         }));
-    }, [formIngredientsData, setFormIngredientsData, tempIngredients]);
+    }, [formUtensilsData, setFormUtensilsData, tempUtensils]);
     // from different list 
     const moveItem2 = useCallback((dragIndex, hoverIndex, item) => {
-        setFormIngredientsData(update(formIngredientsData, {
-            tempIngredients: {
+        setFormUtensilsData(update(formUtensilsData, {
+            tempUtensils: {
                 $splice: [
                     [dragIndex, 0],
                     [hoverIndex, 0, {
-                        ingredients_id: item.ingredients_id,
-                        category: item.category,
+                        utensils_id: item.utensils_id,
                         name: item.name,
-                        unit: '',
-                        value: ''
                     }]
                 ]
             }
         }));
-    }, [formIngredientsData, setFormIngredientsData]);
+    }, [formUtensilsData, setFormUtensilsData]);
     // confirm move
     const confirmMove = useCallback(() => {
-        setFormIngredientsData(update(formIngredientsData, {
-            formIngredients: { $set: tempIngredients }
+        setFormUtensilsData(update(formUtensilsData, {
+            formUtensils: { $set: tempUtensils }
         }));
-    }, [formIngredientsData, setFormIngredientsData, tempIngredients]);
+    }, [formUtensilsData, setFormUtensilsData, tempUtensils]);
     // drop hook
     const [{ isOver }, drop] = useDrop({
-        accept: 'INGREDIENTS',
+        accept: 'UTENSILS',
         canDrop: (item, monitor) => {
             return checkCanDrop(item);
         },
         drop: (item, monitor) => {
-            if (formIngredients.length > 0) {
+            if (formUtensils.length > 0) {
                 confirmMove();
             }
-            if (formIngredients.length === 0) {
-                setFormIngredientsData(update(formIngredientsData, {
-                    formIngredients: {
+            if (formUtensils.length === 0) {
+                setFormUtensilsData(update(formUtensilsData, {
+                    formUtensils: {
                         $push: [{
-                            ingredients_id: item.ingredients_id,
-                            category: item.category,
+                            utensils_id: item.utensils_id,
                             name: item.name,
-                            unit: '',
-                            value: ''
                         }]
                     },
-                    tempIngredients: {
+                    tempUtensils: {
                         $push: [{
-                            ingredients_id: item.ingredients_id,
-                            category: item.category,
+                            utensils_id: item.utensils_id,
                             name: item.name,
-                            unit: '',
-                            value: ''
                         }]
                     }
                 }));
@@ -100,39 +91,39 @@ function FormStepIngredients() {
     });
     return (
         <Fragment>
-            <h3 style={{ textAlign: 'center' }}>Recipe Ingredients</h3>
+            <h3 style={{ textAlign: 'center' }}>Recipe Utensils</h3>
             <div ref={drop}>
                 <ScrollingComponent className='column'>
                     {!isOver ? (
                         <Fragment>
-                            {formIngredients.map((ingredient, index) => (
-                                <div key={ingredient.ingredients_id}>
-                                    <StepFormIngredientsCard
-                                        ingredients={{
-                                            ...ingredient,
+                            {formUtensils.map((utensil, index) => (
+                                <div key={utensil.utensils_id}>
+                                    <StepFormUtensilCard
+                                        utensil={{
+                                            ...utensil,
                                             index,
                                             checkCanDrop,
                                             opacityCheck,
                                             moveItem1,
                                             moveItem2,
-                                            noDrop
+                                            noDrop2
                                         }} />
                                 </div>
                             ))}
                         </Fragment>
                     ) : (
                             <Fragment>
-                                {tempIngredients.map((ingredient, index) => (
-                                    <div key={ingredient.ingredients_id}>
-                                        <StepFormIngredientsCard
-                                            ingredients={{
-                                                ...ingredient,
+                                {tempUtensils.map((utensil, index) => (
+                                    <div key={utensil.utensils_id}>
+                                        <StepFormUtensilCard
+                                            utensil={{
+                                                ...utensil,
                                                 index,
                                                 checkCanDrop,
                                                 opacityCheck,
                                                 moveItem1,
                                                 moveItem2,
-                                                noDrop
+                                                noDrop2
                                             }} />
                                     </div>
                                 ))}
@@ -144,4 +135,4 @@ function FormStepIngredients() {
     )
 }
 
-export default FormStepIngredients;
+export default FormStepUtensils;

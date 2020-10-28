@@ -3,8 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import IngredientsDisplay from './ingredientsDisplay';
-import UtensilsDisplay from './utensilsDisplay';
+import IngredientsDisplay from './ingredientsComponents/ingredientsDisplay';
+import UtensilsDisplay from './utensilsComponents/utensilsDisplay';
 function IngredientsAndUtensils() {
     const [show, setShow] = useState(false);
     return (

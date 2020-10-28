@@ -2,11 +2,11 @@ import React, { Fragment, useRef, useEffect, useState, useContext } from 'react'
 import Card from 'react-bootstrap/Card';
 import { useDrag, useDrop } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
-import { RecipeFormContext } from '../../context/recipeForm';
+import { RecipeFormContext } from '../../../context/recipeForm';
 import { CgRemove } from 'react-icons/cg';
 import Button from 'react-bootstrap/Button';
 import update from 'immutability-helper';
-import { StepFormContext } from '../../context/stepForm';
+import { StepFormContext } from '../../../context/stepForm';
 
 function StepFormUtensilsCard({ utensil }) {
     const {

@@ -18,7 +18,7 @@ function RecipeUtensilsCard({ utensil }) {
         }),
         end(item, monitor) {
             if (!monitor.didDrop()) {
-                if (item.status === 'recipe') {
+                if (item.status === 'form') {
                     noDrop2();
                 }
             }

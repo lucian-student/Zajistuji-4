@@ -34,10 +34,19 @@ export const RecipeFormProvider = ({ children }) => {
         }))
     }, [recipeUtensilsData, setRecipeUtensilsData])
     //steps
-    const [recipeStepsData, setRecipeStepsData] = useState({
-        recipeSteps: [],
-        tempSteps: []
-    })
+    const [recipeSteps, setRecipeSteps] = useState([]);
+    const [startedDragging, setStartedDragging] = useState(false);
+    const ingredientsNoDrop = useCallback((stepIndex, index) => {
+        setRecipeSteps(update(recipeSteps, {
+            [stepIndex]: {
+                ingredients: {
+                    $splice: [
+                        [index, 1]
+                    ]
+                }
+            }
+        }))
+    }, [recipeSteps, setRecipeSteps]);
     //general
     const { height, width } = useWindowDimensions();
 
@@ -60,8 +69,11 @@ export const RecipeFormProvider = ({ children }) => {
                 width,
                 noDrop,
                 noDrop2,
-                recipeStepsData,
-                setRecipeStepsData
+                recipeSteps,
+                setRecipeSteps,
+                startedDragging,
+                setStartedDragging,
+                ingredientsNoDrop
             }}>
             {children}
         </RecipeFormContext.Provider>

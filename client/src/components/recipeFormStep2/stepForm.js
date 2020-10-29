@@ -13,14 +13,12 @@ import update from 'immutability-helper';
 import { v4 as uuidv4 } from 'uuid';
 function StepForm() {
     const { register, handleSubmit, errors } = useForm();
-    const { setRecipeStepsData, recipeStepsData } = useContext(RecipeFormContext);
+    const { recipeSteps, setRecipeSteps } = useContext(RecipeFormContext);
     const { formIngredientsData: { formIngredients }, formUtensilsData: { formUtensils } }
         = useContext(StepFormContext);
     function createStep(data) {
-        console.log(data);
         const { name, duration, description } = data;
-        setRecipeStepsData(update(recipeStepsData, {
-            recipeSteps: {
+        setRecipeSteps(update(recipeSteps, {
                 $push: [{
                     step_id: uuidv4(),
                     name,
@@ -31,19 +29,6 @@ function StepForm() {
                     utensils: formUtensils,
                     tempUtensils: formUtensils
                 }]
-            },
-            tempSteps: {
-                $push: [{
-                    step_id: uuidv4(),
-                    name,
-                    duration,
-                    description,
-                    ingredients: formIngredients,
-                    tempIngredients: formIngredients,
-                    utensils: formUtensils,
-                    tempUtensils: formUtensils
-                }]
-            }
         }))
     }
     return (

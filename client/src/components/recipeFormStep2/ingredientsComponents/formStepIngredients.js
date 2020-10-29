@@ -12,6 +12,9 @@ function FormStepIngredients() {
     const { formIngredients, tempIngredients } = formIngredientsData;
     // drop check
     const checkCanDrop = useCallback((item) => {
+        if (item.status === 'step') {
+            return false;
+        }
         if (formIngredients.some(ingredient => ingredient.ingredients_id === item.ingredients_id) &&
             item.status === 'recipe') {
             return false;

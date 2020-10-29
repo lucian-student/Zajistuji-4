@@ -7,8 +7,8 @@ import { StepFormContext } from '../../../context/stepForm';
 function RecipeIngredientsCard({ ingredients }) {
     const { name, category } = ingredients;
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });
-    const { height, width } = useContext(RecipeFormContext);
-    const { noDrop} = useContext(StepFormContext);
+    const { height, width, ingredientsNoDrop } = useContext(RecipeFormContext);
+    const { noDrop } = useContext(StepFormContext);
     const ref = useRef();
 
     const [, drag, preview] = useDrag({
@@ -18,8 +18,11 @@ function RecipeIngredientsCard({ ingredients }) {
         }),
         end(item, monitor) {
             if (!monitor.didDrop()) {
-                if (item.status === 'recipe') {
+                if (item.status === 'form') {
                     noDrop();
+                }
+                if (item.status === 'step') {
+                    ingredientsNoDrop(item.originalStepIndex, item.index);
                 }
             }
         }

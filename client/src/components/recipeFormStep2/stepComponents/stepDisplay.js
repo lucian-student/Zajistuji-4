@@ -7,76 +7,43 @@ import update from 'immutability-helper';
 
 const ScrollingComponent = withScrolling('div');
 function StepDisplay() {
-    const { recipeStepsData, setRecipeStepsData } = useContext(RecipeFormContext);
-    const { recipeSteps, tempSteps } = recipeStepsData;
+    const { recipeSteps, setRecipeSteps } = useContext(RecipeFormContext);
     // same list
     const moveItem1 = useCallback((dragIndex, hoverIndex) => {
-        const dragCard = tempSteps[dragIndex];
-        setRecipeStepsData(update(recipeStepsData, {
-            tempSteps: {
-                $splice: [
-                    [dragIndex, 1],
-                    [hoverIndex, 0, dragCard]
-                ]
-            }
+        const dragCard = recipeSteps[dragIndex];
+        setRecipeSteps(update(recipeSteps, {
+            $splice: [
+                [dragIndex, 1],
+                [hoverIndex, 0, dragCard]
+            ]
         }));
-    }, [recipeStepsData, setRecipeStepsData, tempSteps]);
-    // confirm move
-    const confirmMove = useCallback(() => {
-        setRecipeStepsData(update(recipeStepsData, {
-            recipeSteps: { $set: tempSteps }
-        }));
-    }, [recipeStepsData, setRecipeStepsData, tempSteps]);
-
-    const noDrop = useCallback(() => {
-        setRecipeStepsData(update(recipeStepsData, {
-            tempSteps: { $set: recipeSteps }
-        }))
-    }, [recipeStepsData, setRecipeStepsData, recipeSteps]);
-    const [{ isOver }, drop] = useDrop({
-        accept: 'STEP',
-        drop: (item, monitor) => {
-            if (recipeSteps.length > 0) {
-                confirmMove();
-            }
-        },
-        collect: monitor => ({
-            isOver: monitor.isOver()
-        })
+    }, [recipeSteps, setRecipeSteps]);
+    const [, drop] = useDrop({
+        accept: 'STEP'
     });
-
+    const removeItem = useCallback((index) => {
+        setRecipeSteps(update(recipeSteps, {
+            $splice: [
+                [index, 1]
+            ]
+        }))
+    }, [recipeSteps, setRecipeSteps])
     return (
         <Fragment>
             <div ref={drop}>
                 <ScrollingComponent>
-                    {!isOver ? (
-                        <Fragment>
-                            {recipeSteps.map((step, index) => (
-                                <div key={step.step_id}>
-                                    <StepCard step={{
-                                        ...step,
-                                        index,
-                                        moveItem1,
-                                        noDrop,
-                                        isOver
-                                    }} />
-                                </div>
-                            ))}
-                        </Fragment>
-                    ) : (
-                            <Fragment>
-                                {tempSteps.map((step, index) => (
-                                    <div key={step.step_id}>
-                                        <StepCard step={{
-                                            ...step,
-                                            index,
-                                            moveItem1,
-                                            noDrop
-                                        }} />
-                                    </div>
-                                ))}
-                            </Fragment>
-                        )}
+                    <Fragment>
+                        {recipeSteps.map((step, index) => (
+                            <div key={step.step_id}>
+                                <StepCard step={{
+                                    ...step,
+                                    index,
+                                    moveItem1,
+                                    removeItem
+                                }} />
+                            </div>
+                        ))}
+                    </Fragment>
                 </ScrollingComponent>
             </div>
         </Fragment>

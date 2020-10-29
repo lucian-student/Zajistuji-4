@@ -14,9 +14,10 @@ import { RecipeFormContext } from '../../../context/recipeForm';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 function StepCard({ step }) {
     const {
+        step_id,
         index,
         moveItem1,
-        noDrop,
+        removeItem,
         name,
         duration,
         description,
@@ -27,12 +28,11 @@ function StepCard({ step }) {
     } = step;
     const [show, setShow] = useState(false);
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });
-    const { height, width } = useContext(RecipeFormContext);
+    const { height, width, startedDragging, setStartedDragging } = useContext(RecipeFormContext);
     const ref = useRef();
     const [, drop] = useDrop({
         accept: 'STEP',
         hover(item, monitor) {
-            console.log(isDragging);
             if (!ref.current) {
                 return;
             }
@@ -51,39 +51,43 @@ function StepCard({ step }) {
             if (dragIndex > hoverIndex && hoverClientY < hoverMiddleY) {
                 return;
             }
-            //logic here
             moveItem1(dragIndex, hoverIndex);
             item.index = hoverIndex;
         }
     });
     const [{ isDragging }, drag, preview] = useDrag({
-        item: { ...step, type: 'STEP', status: 'recipe', dimensions },
+        item: { ...step, type: 'STEP', dimensions, originalIndex: index },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
         end(item, monitor) {
+            setStartedDragging(false);
             if (!monitor.didDrop()) {
-                if (item.status === 'recipe') {
-                    noDrop();
-                }
+                moveItem1(item.index, item.originalIndex)
             }
         },
+        begin(item, monitor) {
+            setStartedDragging(true);
+        }
     });
+
     useEffect(() => {
-        console.log('mount');
         if (ref.current) {
             setDimensions({
                 width: ref.current.offsetWidth,
                 height: ref.current.offsetHeigth
             });
         }
+        if (startedDragging) {
+            setShow(false);
+        }
         preview(getEmptyImage(), { captureDraggingState: true });
-    }, [preview, height, width]);
-    (drop(drag(ref)))
+    }, [preview, height, width, startedDragging]);
+    drop(ref);
     return (
         <Fragment>
             <Card ref={ref} style={{ opacity: isDragging === true ? 0 : 1 }}>
-                <Card.Header>
+                <Card.Header ref={drag}>
                     <div style={{ display: 'inline-block' }}>
                         {name}
                     </div>
@@ -95,7 +99,8 @@ function StepCard({ step }) {
                             <Dropdown.Item as={Button}>
                                 Edit
                             </Dropdown.Item>
-                            <Dropdown.Item as={Button}>
+                            <Dropdown.Item as={Button}
+                                onClick={() => { removeItem(index) }}>
                                 Delete
                             </Dropdown.Item>
                             <Dropdown.Item as={Button}
@@ -128,14 +133,16 @@ function StepCard({ step }) {
                                     <StepCardInrgedients properties={{
                                         ingredients,
                                         tempIngredients,
-                                        index
+                                        index,
+                                        step_id
                                     }} />
                                 </Col>
                                 <Col>
                                     <StepCardUtensils properties={{
                                         utensils,
                                         tempUtensils,
-                                        index
+                                        index,
+                                        step_id
                                     }} />
                                 </Col>
                             </Row>

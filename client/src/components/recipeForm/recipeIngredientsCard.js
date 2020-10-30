@@ -11,30 +11,17 @@ function RecipeIngredientsCard({ ingredients }) {
         name,
         category,
         index,
-        ingredients_id,
         checkCanDrop,
-        opacityCheck,
-        moveItem1,
-        moveItem2,
-        noDrop } = ingredients;
+        moveItem1 } = ingredients;
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });
-    const { height, width, recipeIngredientsData, setRecipeIngredientsData }
+    const { height, width, recipeIngredients, setRecipeIngredients }
         = useContext(RecipeFormContext);
 
     function RemoveIngredients() {
-        setRecipeIngredientsData(update(recipeIngredientsData, {
-            recipeIngredients: {
-                $splice: [
-                    [index, 1],
-                    [0, 0]
-                ]
-            },
-            tempIngredients: {
-                $splice: [
-                    [index, 1],
-                    [0, 0]
-                ]
-            }
+        setRecipeIngredients(update(recipeIngredients, {
+            $splice: [
+                [index, 1]
+            ]
         }));
     }
     const ref = useRef();
@@ -47,12 +34,15 @@ function RecipeIngredientsCard({ ingredients }) {
             if (!monitor.canDrop()) {
                 return;
             }
+            if (item.status === 'yours') {
+                return;
+            }
             if (!ref.current) {
                 return;
             }
-            const dragIndex = item.status === 'recipe' ? item.index : 0;
+            const dragIndex = item.index;
             const hoverIndex = index;
-            if (dragIndex === hoverIndex && item.status === 'recipe') {
+            if (dragIndex === hoverIndex) {
                 return;
             }
             const hoveredRect = ref.current.getBoundingClientRect();
@@ -66,35 +56,22 @@ function RecipeIngredientsCard({ ingredients }) {
                 return;
             }
             //logic here
-            if (item.status === 'recipe') {
-                moveItem1(dragIndex, hoverIndex);
-                item.index = hoverIndex;
-            }
-            if (item.status === 'yours') {
-                moveItem2(dragIndex, hoverIndex, item);
-                item.index = hoverIndex;
-                item.status = 'recipe';
-            }
+            moveItem1(dragIndex, hoverIndex);
+            item.index = hoverIndex;
         }
     });
 
     const [{ isDragging }, drag, preview] = useDrag({
-        item: { ...ingredients, type: 'INGREDIENTS', status: 'recipe', dimensions },
+        item: { ...ingredients, type: 'INGREDIENTS', status: 'recipe', dimensions, originalIndex: index },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
         end(item, monitor) {
             if (!monitor.didDrop()) {
-                noDrop();
+                moveItem1(item.index, item.originalIndex);
             }
         }
     });
-    const checkOpacity = () => {
-        if (isDragging || opacityCheck(ingredients_id)) {
-            return true
-        }
-        return false;
-    }
     useEffect(() => {
         if (ref.current) {
             setDimensions({
@@ -108,7 +85,7 @@ function RecipeIngredientsCard({ ingredients }) {
     drag(drop(ref));
     return (
         <Fragment>
-            <Card ref={ref} style={{ opacity: checkOpacity() ? 0 : 1 }}>
+            <Card ref={ref} style={{ opacity: isDragging ? 0 : 1 }}>
                 <Card.Body>
                     <div style={{ display: 'inline-block' }}>
                         <div>{name}</div>

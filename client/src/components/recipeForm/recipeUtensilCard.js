@@ -9,30 +9,18 @@ import update from 'immutability-helper';
 function YourUtensilCard({ utensil }) {
     const {
         name,
-        utensils_id,
         index,
         checkCanDrop,
-        opacityCheck,
-        moveItem1,
-        moveItem2
+        moveItem1
     } = utensil;
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });
-    const { height, width, noDrop2, recipeUtensilsData, setRecipeUtensilsData }
+    const { height, width, recipeUtensils, setRecipeUtensils }
         = useContext(RecipeFormContext);
     function RemoveUtensil() {
-        setRecipeUtensilsData(update(recipeUtensilsData, {
-            recipeUtensils: {
-                $splice: [
-                    [index, 1],
-                    [0, 0]
-                ]
-            },
-            tempUtensils: {
-                $splice: [
-                    [index, 1],
-                    [0, 0]
-                ]
-            }
+        setRecipeUtensils(update(recipeUtensils, {
+            $splice: [
+                [index, 1],
+            ]
         }));
     }
     const ref = useRef();
@@ -45,12 +33,15 @@ function YourUtensilCard({ utensil }) {
             if (!monitor.canDrop()) {
                 return;
             }
+            if (item.status === 'yours') {
+                return;
+            }
             if (!ref.current) {
                 return;
             }
-            const dragIndex = item.status === 'recipe' ? item.index : 0;
+            const dragIndex = item.index;
             const hoverIndex = index;
-            if (dragIndex === hoverIndex && item.status === 'recipe') {
+            if (dragIndex === hoverIndex) {
                 return;
             }
             const hoveredRect = ref.current.getBoundingClientRect();
@@ -64,37 +55,22 @@ function YourUtensilCard({ utensil }) {
                 return;
             }
             //logic here
-            if (item.status === 'recipe') {
-                moveItem1(dragIndex, hoverIndex);
-                item.index = hoverIndex;
-            }
-            if (item.status === 'yours') {
-                moveItem2(dragIndex, hoverIndex, item);
-                item.index = hoverIndex;
-                item.status = 'recipe';
-            }
+            moveItem1(dragIndex, hoverIndex);
+            item.index = hoverIndex;
         }
     });
 
     const [{ isDragging }, drag, preview] = useDrag({
-        item: { ...utensil, type: 'UTENSILS', status: 'recipe', dimensions },
+        item: { ...utensil, type: 'UTENSILS', status: 'recipe', dimensions, originalIndex: index },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
         end(item, monitor) {
             if (!monitor.didDrop()) {
-                if (item.status === 'recipe') {
-                    noDrop2();
-                }
+                moveItem1(item.index, item.originalIndex);
             }
         }
     });
-    const checkOpacity = () => {
-        if (isDragging || opacityCheck(utensils_id)) {
-            return true
-        }
-        return false;
-    }
     useEffect(() => {
         if (ref.current) {
             setDimensions({
@@ -108,7 +84,7 @@ function YourUtensilCard({ utensil }) {
     drag(drop(ref));
     return (
         <Fragment>
-            <Card ref={ref} style={{ opacity: checkOpacity() ? 0 : 1 }}>
+            <Card ref={ref} style={{ opacity: isDragging ? 0 : 1 }}>
                 <Card.Body >
                     <div style={{ display: 'inline-block' }}>
                         {name}

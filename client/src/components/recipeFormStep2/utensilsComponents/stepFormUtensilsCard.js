@@ -11,31 +11,18 @@ import { StepFormContext } from '../../../context/stepForm';
 function StepFormUtensilsCard({ utensil }) {
     const {
         name,
-        utensils_id,
         index,
         checkCanDrop,
-        opacityCheck,
         moveItem1,
-        moveItem2,
-        noDrop2
     } = utensil;
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });
     const { height, width } = useContext(RecipeFormContext);
-    const { formUtensilsData, setFormUtensilsData } = useContext(StepFormContext);
+    const { formUtensils, setFormUtensils } = useContext(StepFormContext);
     function RemoveUtensil() {
-        setFormUtensilsData(update(formUtensilsData, {
-            tempUtensils: {
-                $splice: [
-                    [index, 1],
-                    [0, 0]
-                ]
-            },
-            formUtensils: {
-                $splice: [
-                    [index, 1],
-                    [0, 0]
-                ]
-            },
+        setFormUtensils(update(formUtensils, {
+            $splice: [
+                [index, 1],
+            ]
         }));
     }
     const ref = useRef();
@@ -47,6 +34,9 @@ function StepFormUtensilsCard({ utensil }) {
         },
         hover(item, monitor) {
             if (!monitor.canDrop()) {
+                return;
+            }
+            if (item.status === 'recipe') {
                 return;
             }
             if (!ref.current) {
@@ -68,34 +58,21 @@ function StepFormUtensilsCard({ utensil }) {
                 return;
             }
             //logic here
-            if (item.status === 'form') {
-                moveItem1(dragIndex, hoverIndex);
-                item.index = hoverIndex;
-            }
-            if (item.status === 'recipe') {
-                moveItem2(dragIndex, hoverIndex, item);
-                item.index = hoverIndex;
-                item.status = 'form';
-            }
+            moveItem1(dragIndex, hoverIndex);
+            item.index = hoverIndex;
         }
     });
     const [{ isDragging }, drag, preview] = useDrag({
-        item: { ...utensil, type: 'UTENSILS', status: 'form', dimensions },
+        item: { ...utensil, type: 'UTENSILS', status: 'form', dimensions, originalIndex: index },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
         end(item, monitor) {
             if (!monitor.didDrop()) {
-                noDrop2()
+                moveItem1(item.index, item.originalIndex);
             }
         }
     });
-    const checkOpacity = () => {
-        if (isDragging || opacityCheck(utensils_id)) {
-            return true
-        }
-        return false;
-    }
     useEffect(() => {
         if (ref.current) {
             setDimensions({
@@ -109,7 +86,7 @@ function StepFormUtensilsCard({ utensil }) {
     drag(drop(ref));
     return (
         <Fragment>
-            <Card ref={ref} style={{ opacity: checkOpacity() ? 0 : 1 }}>
+            <Card ref={ref} style={{ opacity: isDragging ? 0 : 1 }}>
                 <Card.Body>
                     <div style={{ display: 'inline-block' }}>
                         <div>{name}</div>

@@ -10,32 +10,19 @@ import { StepFormContext } from '../../../context/stepForm';
 function StepFormIngredientsCard({ ingredients }) {
     const {
         name,
-        ingredients_id,
         category,
         index,
         checkCanDrop,
-        opacityCheck,
         moveItem1,
-        moveItem2,
-        noDrop
     } = ingredients;
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });
     const { height, width } = useContext(RecipeFormContext);
-    const { formIngredientsData, setFormIngredientsData } = useContext(StepFormContext);
+    const { formIngredients, setFormIngredients } = useContext(StepFormContext);
     function RemoveIngredients() {
-        setFormIngredientsData(update(formIngredientsData, {
-            formIngredients: {
-                $splice: [
-                    [index, 1],
-                    [0, 0]
-                ]
-            },
-            tempIngredients: {
-                $splice: [
-                    [index, 1],
-                    [0, 0]
-                ]
-            }
+        setFormIngredients(update(formIngredients, {
+            $splice: [
+                [index, 1]
+            ]
         }));
     }
     const ref = useRef();
@@ -52,7 +39,7 @@ function StepFormIngredientsCard({ ingredients }) {
             if (!ref.current) {
                 return;
             }
-            const dragIndex = item.status === 'form' ? item.index : 0;
+            const dragIndex = item.index;
             const hoverIndex = index;
             if (dragIndex === hoverIndex && item.status === 'form') {
                 return;
@@ -68,34 +55,21 @@ function StepFormIngredientsCard({ ingredients }) {
                 return;
             }
             //logic here
-            if (item.status === 'form') {
-                moveItem1(dragIndex, hoverIndex);
-                item.index = hoverIndex;
-            }
-            if (item.status === 'recipe') {
-                moveItem2(dragIndex, hoverIndex, item);
-                item.index = hoverIndex;
-                item.status = 'form';
-            }
+            moveItem1(dragIndex, hoverIndex);
+            item.index = hoverIndex;
         }
     });
     const [{ isDragging }, drag, preview] = useDrag({
-        item: { ...ingredients, type: 'INGREDIENTS', status: 'form', dimensions },
+        item: { ...ingredients, type: 'INGREDIENTS', status: 'form', dimensions, originalIndex: index },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
         end(item, monitor) {
             if (!monitor.didDrop()) {
-                noDrop()
+                moveItem1(item.index, item.originalIndex);
             }
         }
     });
-    const checkOpacity = () => {
-        if (isDragging || opacityCheck(ingredients_id)) {
-            return true
-        }
-        return false;
-    }
     useEffect(() => {
         if (ref.current) {
             setDimensions({
@@ -109,7 +83,7 @@ function StepFormIngredientsCard({ ingredients }) {
     drag(drop(ref));
     return (
         <Fragment>
-            <Card ref={ref} style={{ opacity: checkOpacity() ? 0 : 1 }}>
+            <Card ref={ref} style={{ opacity: isDragging ? 0 : 1 }}>
                 <Card.Body>
                     <div style={{ display: 'inline-block' }}>
                         <div>{name}</div>

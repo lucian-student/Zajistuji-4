@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useCallback, useEffect } from 'react';
+import React, { Fragment, useContext, useCallback } from 'react';
 import withScrolling from 'react-dnd-scrolling';
 import StepIngredientsCard from './stepIngredientsCard';
 import { useDrop } from 'react-dnd';
@@ -13,9 +13,6 @@ function StepCardIngredients({ properties }) {
         index,
         step_id
     } = properties;
-    useEffect(() => {
-        console.log(ingredients);
-    }, [ingredients]);
     const { recipeSteps, setRecipeSteps } = useContext(RecipeFormContext);
     function checkCanDrop(item) {
         switch (item.status) {
@@ -37,126 +34,60 @@ function StepCardIngredients({ properties }) {
                 return false;
         }
     }
-    //from same list
+    //same list 
     const moveItem1 = useCallback((dragIndex, hoverIndex) => {
-        const dragCard = ingredients[dragIndex];
+        const card = ingredients[dragIndex];
         setRecipeSteps(update(recipeSteps, {
             [index]: {
                 ingredients: {
                     $splice: [
                         [dragIndex, 1],
-                        [hoverIndex, 0, dragCard]
-                    ]
-                }
-            }
-        }))
-    }, [setRecipeSteps, recipeSteps, ingredients, index]);
-    //different step
-    const moveItem2 = useCallback((hoverIndex, item) => {
-        const itemsIndex = item.index;
-        const originalStepIndex = item.originalStepIndex;
-        setRecipeSteps(update(recipeSteps, {
-            [index]: {
-                ingredients: {
-                    $splice: [
-                        [hoverIndex, 0, {
-                            ingredients_id: item.ingredients_id,
-                            category: item.category,
-                            name: item.name,
-                            unit: item.unit,
-                            value: item.value
-                        }]
-                    ]
-                }
-            },
-            [originalStepIndex]: {
-                ingredients: {
-                    $splice: [
-                        [itemsIndex, 1]
+                        [hoverIndex, 0, card]
                     ]
                 }
             }
         }));
-    }, [setRecipeSteps, recipeSteps, index]);
-    //from recipe
-    const moveFromRecipe = useCallback((item, hoverIndex) => {
-        setRecipeSteps(update(recipeSteps, {
-            [index]: {
-                ingredients: {
-                    $splice: [
-                        [hoverIndex, 0, {
-                            ingredients_id: item.ingredients_id,
-                            category: item.category,
-                            name: item.name,
-                            unit: item.unit,
-                            value: item.value
-                        }]
-                    ]
-                }
-            }
-        }))
-    }, [setRecipeSteps, recipeSteps, index]);
-    //no drop differebt step index than original
-    const differentNoDrop = useCallback((item) => {
-        const lastIndex = item.index;
-        const lastStepIndex = item.originalStepIndex;
-        setRecipeSteps(update(recipeSteps, {
-            [lastStepIndex]: {
-                ingredients: {
-                    $splice: [
-                        [lastIndex, 1]
-                    ]
-                }
-            }
-        }))
+    }, [recipeSteps, setRecipeSteps, ingredients, index])
+    //different list 
 
-    }, [setRecipeSteps, recipeSteps])
+    //recipe drop
     const [, drop] = useDrop({
         accept: 'INGREDIENTS',
         canDrop: (item, monitor) => {
             return checkCanDrop(item);
         },
         drop: (item, monitor) => {
-            if (ingredients.length === 0) {
-                if (item.status !== 'step') {
-                    setRecipeSteps(update(recipeSteps, {
-                        [index]: {
-                            ingredients: {
-                                $push: [{
-                                    ingredients_id: item.ingredients_id,
-                                    category: item.category,
-                                    name: item.name,
-                                    unit: item.status === 'recipe' ? '' : item.unit,
-                                    value: item.value === 'recipe' ? '' : item.value
-                                }]
-                            }
+            const card = {
+                ingredients_id: item.ingredients_id,
+                category: item.category,
+                name: item.name,
+                unit: item.status === 'recipe' ? '' : item.unit,
+                value: item.value === 'recipe' ? '' : item.value
+            }
+            if (item.status === 'recipe') {
+                setRecipeSteps(update(recipeSteps, {
+                    [index]: {
+                        ingredients: {
+                            $push: [card]
                         }
-                    }));
-                } else {
-                    const itemsIndex = item.index;
-                    const originalStepIndex = item.originalStepIndex;
-                    setRecipeSteps(update(recipeSteps, {
-                        [index]: {
-                            ingredients: {
-                                $push: [{
-                                    ingredients_id: item.ingredients_id,
-                                    category: item.category,
-                                    name: item.name,
-                                    unit: item.status === 'recipe' ? '' : item.unit,
-                                    value: item.value === 'recipe' ? '' : item.value
-                                }]
-                            }
-                        },
-                        [originalStepIndex]: {
-                            ingredients: {
-                                $splice: [
-                                    [itemsIndex, 1]
-                                ]
-                            }
+                    }
+                }))
+            }
+            if (item.status === 'step' && item.ultraOriginalStepIndex !== index) {
+                setRecipeSteps(update(recipeSteps, {
+                    [index]: {
+                        ingredients: {
+                            $push: [card]
                         }
-                    }));
-                }
-
+                    },
+                    [item.ultraOriginalStepIndex]: {
+                        ingredients: {
+                            $splice: [
+                                [item.index, 1]
+                            ]
+                        }
+                    }
+                }))
             }
         }
     });
@@ -173,11 +104,8 @@ function StepCardIngredients({ properties }) {
                                     step_id,
                                     originalStepIndex: properties.index,
                                     ultraOriginalStepIndex: properties.index,
-                                    moveItem2,
                                     checkCanDrop,
-                                    moveItem1,
-                                    moveFromRecipe,
-                                    differentNoDrop
+                                    moveItem1
                                 }} />
                         </div>
                     ))}

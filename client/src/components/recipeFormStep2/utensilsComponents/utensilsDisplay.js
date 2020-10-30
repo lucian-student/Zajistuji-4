@@ -5,7 +5,7 @@ import RecipeUtensilsCard from './recipeUtensilsCard';
 const ScrollingComponent = withScrolling('div');
 
 function UtensilsDisplay() {
-    const { recipeUtensilsData: { recipeUtensils } } = useContext(RecipeFormContext);
+    const {recipeUtensils} = useContext(RecipeFormContext);
     return (
         <Fragment>
             <h3 style={{ textAlign: 'center' }}>Your Utensils</h3>

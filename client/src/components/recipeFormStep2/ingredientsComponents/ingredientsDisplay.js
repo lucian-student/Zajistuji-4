@@ -6,7 +6,7 @@ import withScrolling from 'react-dnd-scrolling';
 const ScrollingComponent = withScrolling('div');
 
 function IngredientsDisplay() {
-    const { recipeIngredientsData: { recipeIngredients } } = useContext(RecipeFormContext);
+    const {recipeIngredients } = useContext(RecipeFormContext);
     return (
         <Fragment>
             <h3 style={{ textAlign: 'center' }}>Your Ingredients</h3>

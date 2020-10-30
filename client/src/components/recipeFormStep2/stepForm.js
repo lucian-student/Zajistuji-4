@@ -14,7 +14,7 @@ import { v4 as uuidv4 } from 'uuid';
 function StepForm() {
     const { register, handleSubmit, errors } = useForm();
     const { recipeSteps, setRecipeSteps } = useContext(RecipeFormContext);
-    const { formIngredientsData: { formIngredients }, formUtensilsData: { formUtensils } }
+    const {formIngredients ,formUtensils }
         = useContext(StepFormContext);
     function createStep(data) {
         const { name, duration, description } = data;

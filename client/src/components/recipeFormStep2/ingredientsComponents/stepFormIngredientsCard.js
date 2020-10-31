@@ -39,6 +39,9 @@ function StepFormIngredientsCard({ ingredients }) {
             if (!ref.current) {
                 return;
             }
+            if (item.status === 'recipe') {
+                return;
+            }
             const dragIndex = item.index;
             const hoverIndex = index;
             if (dragIndex === hoverIndex && item.status === 'form') {

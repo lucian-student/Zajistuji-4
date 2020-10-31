@@ -27,7 +27,7 @@ router.post('/create_recipie', authorization, async (req, res) => {
             await client.query('INSERT INTO recipies (user_id,name,category,description,imageUrl,image_reference)' +
                 ' VALUES ($1,$2,$3,$4,$5,$6) RETURNING *',
                 [
-                    1,
+                    req.user,
                     name,
                     category,
                     description,

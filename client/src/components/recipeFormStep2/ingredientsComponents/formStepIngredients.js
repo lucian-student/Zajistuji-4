@@ -23,13 +23,13 @@ function FormStepIngredients() {
     }, [formIngredients]);
     // same list
     const moveItem1 = useCallback((dragIndex, hoverIndex) => {
-        const dragCard = formIngredients[dragIndex];
-        setFormIngredients(update(formIngredients, {
-            $splice: [
-                [dragIndex, 1],
-                [hoverIndex, 0, dragCard]
-            ]
-        }));
+            const dragCard = formIngredients[dragIndex];
+            setFormIngredients(update(formIngredients, {
+                $splice: [
+                    [dragIndex, 1],
+                    [hoverIndex, 0, dragCard]
+                ]
+            }));
     }, [formIngredients, setFormIngredients]);
     const [, drop] = useDrop({
         accept: 'INGREDIENTS',
@@ -56,15 +56,14 @@ function FormStepIngredients() {
             <div ref={drop}>
                 <ScrollingComponent className='column'>
                     {formIngredients.map((ingredient, index) => (
-                        <div key={ingredient.ingredients_id}>
-                            <StepFormIngredientsCard
-                                ingredients={{
-                                    ...ingredient,
-                                    index,
-                                    checkCanDrop,
-                                    moveItem1,
-                                }} />
-                        </div>
+                        <StepFormIngredientsCard
+                            key={ingredient.ingredients_id}
+                            ingredients={{
+                                ...ingredient,
+                                index,
+                                checkCanDrop,
+                                moveItem1,
+                            }} />
                     ))}
                 </ScrollingComponent>
             </div>

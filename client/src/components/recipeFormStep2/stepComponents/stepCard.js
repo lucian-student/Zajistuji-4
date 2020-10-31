@@ -12,6 +12,7 @@ import StepCardUtensils from '../utensilsComponents/stepCardUtensils';
 import { useDrop, useDrag } from 'react-dnd';
 import { RecipeFormContext } from '../../../context/recipeForm';
 import { getEmptyImage } from 'react-dnd-html5-backend';
+import StepEditForm from './stepEditForm';
 function StepCard({ step }) {
     const {
         step_id,
@@ -22,11 +23,10 @@ function StepCard({ step }) {
         duration,
         description,
         ingredients,
-        tempIngredients,
         utensils,
-        tempUtensils
     } = step;
     const [show, setShow] = useState(false);
+    const [editing, setEditing] = useState(false);
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });
     const { height, width, startedDragging, setStartedDragging } = useContext(RecipeFormContext);
     const ref = useRef();
@@ -96,7 +96,8 @@ function StepCard({ step }) {
                             <BiMenu />
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                            <Dropdown.Item as={Button}>
+                            <Dropdown.Item as={Button}
+                                onClick={() => { setEditing(true) }}>
                                 Edit
                             </Dropdown.Item>
                             <Dropdown.Item as={Button}
@@ -132,7 +133,6 @@ function StepCard({ step }) {
                                 <Col>
                                     <StepCardInrgedients properties={{
                                         ingredients,
-                                        tempIngredients,
                                         index,
                                         step_id
                                     }} />
@@ -140,7 +140,6 @@ function StepCard({ step }) {
                                 <Col>
                                     <StepCardUtensils properties={{
                                         utensils,
-                                        tempUtensils,
                                         index,
                                         step_id
                                     }} />
@@ -150,6 +149,14 @@ function StepCard({ step }) {
                     )}
                 </Card.Body>
             </Card>
+            <StepEditForm properties={{
+                editing,
+                setEditing,
+                name,
+                duration,
+                description,
+                index
+            }} />
         </Fragment>
     )
 }

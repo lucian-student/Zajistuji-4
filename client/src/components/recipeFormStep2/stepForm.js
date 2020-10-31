@@ -14,21 +14,19 @@ import { v4 as uuidv4 } from 'uuid';
 function StepForm() {
     const { register, handleSubmit, errors } = useForm();
     const { recipeSteps, setRecipeSteps } = useContext(RecipeFormContext);
-    const {formIngredients ,formUtensils }
+    const { formIngredients, formUtensils }
         = useContext(StepFormContext);
     function createStep(data) {
         const { name, duration, description } = data;
         setRecipeSteps(update(recipeSteps, {
-                $push: [{
-                    step_id: uuidv4(),
-                    name,
-                    duration,
-                    description,
-                    ingredients: formIngredients,
-                    tempIngredients: formIngredients,
-                    utensils: formUtensils,
-                    tempUtensils: formUtensils
-                }]
+            $push: [{
+                step_id: uuidv4(),
+                name,
+                duration,
+                description,
+                ingredients: formIngredients,
+                utensils: formUtensils
+            }]
         }))
     }
     return (

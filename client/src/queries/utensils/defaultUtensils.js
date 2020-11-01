@@ -14,13 +14,8 @@ export const utensilsQuery = async (page, setUtensils) => {
         .then(res => {
             // 
             setUtensils(oldArray => {
-                if (oldArray.length > 0) {
-                    return [...oldArray];
-                } else {
-                    return [...oldArray.concat(res.data)];
-                }
+                return [...oldArray.concat(res.data)];
             })
-            console.log(res.data);
         })
         .catch(err => console.error(err));
 };

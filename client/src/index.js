@@ -3,16 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { AuthProvider } from './context/auth';
-import { IngredientsAndUtensilsProvider } from './context/ingredientsAndUtensils';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
-      <IngredientsAndUtensilsProvider>
         <App />
-      </IngredientsAndUtensilsProvider>
     </AuthProvider>
   </React.StrictMode>,
   document.getElementById('root')

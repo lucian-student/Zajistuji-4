@@ -4,24 +4,26 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import UtensilsMain from '../components/ingredientsAndUtensils/utensilsMain';
 import IngredientsMain from '../components/ingredientsAndUtensils/IngredientsMain';
-
+import { IngredientsAndUtensilsProvider } from '../context/ingredientsAndUtensils';
 function IngredientsAndUtensils() {
     return (
         <Fragment>
-            <div className='firstCenterDiv'>
-                <div className='secondCenterDiv'>
-                    <Container>
-                        <Row>
-                            <Col>
-                                <IngredientsMain />
-                            </Col>
-                            <Col>
-                                <UtensilsMain />
-                            </Col>
-                        </Row>
-                    </Container>
+            <IngredientsAndUtensilsProvider>
+                <div className='firstCenterDiv'>
+                    <div className='secondCenterDiv'>
+                        <Container>
+                            <Row>
+                                <Col>
+                                    <IngredientsMain />
+                                </Col>
+                                <Col>
+                                    <UtensilsMain />
+                                </Col>
+                            </Row>
+                        </Container>
+                    </div>
                 </div>
-            </div>
+            </IngredientsAndUtensilsProvider>
         </Fragment>
     )
 }

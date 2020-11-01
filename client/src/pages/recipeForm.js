@@ -10,36 +10,36 @@ function RecipeForm() {
     const [step, setStep] = useState(1);
     return (
         <Fragment>
-            <RecipeFormProvider>
-                {step === 1 && (
-                    <DndProvider backend={HTML5Backend}>
-                        <DragScrollWrapper ITEM_TYPE={'UTENSILS'}>
-                            <DragScrollWrapper ITEM_TYPE={'INGREDIENTS'}>
-                                <div className='firstCenterDiv'>
-                                    <div className='secondCenterDiv'>
-                                        <FirstStep properties={{ setStep }} />
-                                    </div>
-                                </div>
-                            </DragScrollWrapper>
-                        </DragScrollWrapper>
-                    </DndProvider>
-                )}
-                {step === 2 && (
-                    <DndProvider backend={HTML5Backend} >
-                        <DragScrollWrapper ITEM_TYPE={'UTENSILS'}>
-                            <DragScrollWrapper ITEM_TYPE={'INGREDIENTS'}>
-                                <DragScrollWrapper ITEM_TYPE={'STEP'}>
+                <RecipeFormProvider>
+                    {step === 1 && (
+                        <DndProvider backend={HTML5Backend}>
+                            <DragScrollWrapper ITEM_TYPE={'UTENSILS'}>
+                                <DragScrollWrapper ITEM_TYPE={'INGREDIENTS'}>
                                     <div className='firstCenterDiv'>
                                         <div className='secondCenterDiv'>
-                                            <SecondStep properties={{ setStep }} />
+                                            <FirstStep properties={{ setStep }} />
                                         </div>
                                     </div>
                                 </DragScrollWrapper>
                             </DragScrollWrapper>
-                        </DragScrollWrapper>
-                    </DndProvider>
-                )}
-            </RecipeFormProvider>
+                        </DndProvider>
+                    )}
+                    {step === 2 && (
+                        <DndProvider backend={HTML5Backend} >
+                            <DragScrollWrapper ITEM_TYPE={'UTENSILS'}>
+                                <DragScrollWrapper ITEM_TYPE={'INGREDIENTS'}>
+                                    <DragScrollWrapper ITEM_TYPE={'STEP'}>
+                                        <div className='firstCenterDiv'>
+                                            <div className='secondCenterDiv'>
+                                                <SecondStep properties={{ setStep }} />
+                                            </div>
+                                        </div>
+                                    </DragScrollWrapper>
+                                </DragScrollWrapper>
+                            </DragScrollWrapper>
+                        </DndProvider>
+                    )}
+                </RecipeFormProvider>
         </Fragment>
     )
 }

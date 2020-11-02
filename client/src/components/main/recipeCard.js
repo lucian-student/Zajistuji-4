@@ -2,8 +2,10 @@ import React, { Fragment } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { IoMdOpen } from 'react-icons/io';
+import { Link } from 'react-router-dom';
 function RecipeCard({ recipe }) {
     const {
+        recipie_id,
         name,
         category,
         imageurl,
@@ -17,7 +19,7 @@ function RecipeCard({ recipe }) {
                         {category}
                     </div>
                     <div style={{ display: 'inline-block', float: 'right' }}>
-                        <Button variant='light'>
+                        <Button variant='light' as={Link} to={`/RecipePage/${recipie_id}`}>
                             <IoMdOpen />
                         </Button>
                     </div>
@@ -29,7 +31,7 @@ function RecipeCard({ recipe }) {
                         </div>
                     </Card.Title>
                     {imageurl && (
-                        <img alt={image_reference} src={imageurl} className='cardImage'/>
+                        <img alt={image_reference} src={imageurl} className='cardImage' />
                     )}
                 </Card.Body>
             </Card>

@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const pool = require('../configuration/db');
 const authorization = require('../midelware/authorization');
+const recipeOwner = require('../midelware/recipeOwner');
 
 
 router.get('/get_recipies', authorization, async (req, res) => {
@@ -16,6 +17,21 @@ router.get('/get_recipies', authorization, async (req, res) => {
                     page
                 ]);
         res.json(recipies.rows);
+    } catch (err) {
+        console.log(err.message);
+        res.status('500').json('server error');
+    }
+});
+
+router.get('/get_recipe/:id', [recipeOwner, authorization], async (req, res) => {
+    try {
+        const recipe_id = req.params.id;
+        const recipe =
+            await pool.query('SELECT * from recipies WHERE recipie_id=$1',
+                [
+                    recipe_id
+                ]);
+        res.json(recipe.rows[0])
     } catch (err) {
         console.log(err.message);
         res.status('500').json('server error');

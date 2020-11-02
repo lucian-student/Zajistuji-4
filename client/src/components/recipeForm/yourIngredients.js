@@ -1,19 +1,19 @@
-import React, { Fragment, useEffect, useContext } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { ingredientsQuery } from '../../queries/ingredients/defaultIngredients';
-import { RecipeFormContext } from '../../context/recipeForm';
 import YourIngredientsCard from '../../components/recipeForm/yourIngredientsCard';
 import Button from 'react-bootstrap/Button';
 import withScrolling from 'react-dnd-scrolling';
 const ScrollingComponent = withScrolling('div');
 
 function YourIngredients() {
-    const { yourIngredientsPage, setYourIngredients, yourIngredients, setyouIngredientsPage } = useContext(RecipeFormContext);
+    const [yourIngredientsPage, setyouIngredientsPage] = useState(0);
+    const [yourIngredients, setYourIngredients] = useState([]);
     useEffect(() => {
         const reciveData = async () => {
             ingredientsQuery(yourIngredientsPage, setYourIngredients);
         }
         reciveData();
-    }, [yourIngredientsPage, setYourIngredients]);
+    }, [yourIngredientsPage, setYourIngredients, setyouIngredientsPage]);
 
     return (
         <Fragment>

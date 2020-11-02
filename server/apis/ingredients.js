@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const pool = require('../configuration/db');
 const authorization = require('../midelware/authorization');
+const ingredientsOwner = require('../midelware/ingredientsOwner');
 
 router.get('/get_ingredients', authorization, async (req, res) => {
     try {
@@ -37,7 +38,7 @@ router.post('/create_ingredients', authorization, async (req, res) => {
     }
 });
 
-router.put('/update_ingredients/:id', authorization, async (req, res) => {
+router.put('/update_ingredients/:id', [authorization, ingredientsOwner], async (req, res) => {
     try {
         const { category, name } = req.body;
         const updatedIngredients =
@@ -55,7 +56,7 @@ router.put('/update_ingredients/:id', authorization, async (req, res) => {
     }
 });
 
-router.delete('/delete_ingredients/:id', authorization, async (req, res) => {
+router.delete('/delete_ingredients/:id', [authorization, ingredientsOwner], async (req, res) => {
     try {
         const deleteIngredients =
             await pool.query('DELETE FROM ingredients WHERE ingredients_id=$1 RETURNING ingredients_id',

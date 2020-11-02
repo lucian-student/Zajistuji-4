@@ -1,12 +1,12 @@
-import React, { Fragment, useEffect, useContext } from 'react';
-import { RecipeFormContext } from '../../context/recipeForm';
+import React, { Fragment, useEffect, useState } from 'react';
 import { utensilsQuery } from '../../queries/utensils/defaultUtensils';
 import YourUtensilCard from './yourUtensilCard';
 import Button from 'react-bootstrap/Button';
 import withScrolling from 'react-dnd-scrolling';
 const ScrollingComponent = withScrolling('div');
 function YourUtensils() {
-    const { yourUtensilsPage, setYourUtensilsPage, yourUtensils, setYourUtensils } = useContext(RecipeFormContext);
+    const [yourUtensilsPage, setYourUtensilsPage] = useState(0);
+    const [yourUtensils, setYourUtensils] = useState([]);
     useEffect(() => {
         const reciveData = async () => {
             await utensilsQuery(yourUtensilsPage, setYourUtensils);

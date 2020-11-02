@@ -4,15 +4,8 @@ export const RecipeFormContext = createContext();
 
 export const RecipeFormProvider = ({ children }) => {
     //ingredients
-    const [yourIngredientsPage, setyouIngredientsPage] = useState(0);
-    const [yourIngredients, setYourIngredients] = useState([]);
-
     const [recipeIngredients, setRecipeIngredients] = useState([]);
-
     //utensils
-    const [yourUtensilsPage, setYourUtensilsPage] = useState(0);
-    const [yourUtensils, setYourUtensils] = useState([]);
-
     const [recipeUtensils, setRecipeUtensils] = useState([]);
     //steps
     const [recipeSteps, setRecipeSteps] = useState([]);
@@ -23,14 +16,6 @@ export const RecipeFormProvider = ({ children }) => {
     return (
         <RecipeFormContext.Provider
             value={{
-                yourIngredientsPage,
-                setyouIngredientsPage,
-                yourIngredients,
-                setYourIngredients,
-                yourUtensilsPage,
-                setYourUtensilsPage,
-                yourUtensils,
-                setYourUtensils,
                 recipeIngredients,
                 setRecipeIngredients,
                 recipeUtensils,

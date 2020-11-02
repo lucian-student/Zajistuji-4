@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const pool = require('../configuration/db');
 const authorization = require('../midelware/authorization');
+const recipeOwner = require('../midelware/recipeOwner');
 const { saveIngredients, saveUtensils } = require('../query_functions/recipieFunctions');
 const stepCreate = require('../query_functions/stepCreate');
 const { updateIngredients, updateUtensils } = require('../query_functions/recipieUpdateFunctions');
@@ -74,7 +75,7 @@ router.post('/create_recipie', authorization, async (req, res) => {
     }
 });
 
-router.delete('/delete_recipie/:id', authorization, async (req, res) => {
+router.delete('/delete_recipie/:id', [authorization, recipeOwner], async (req, res) => {
     try {
         const deleteRecipie =
             await pool.query('DELETE FROM recipies WHERE recipie_id=$1 RETURNING recipie_id',
@@ -88,7 +89,7 @@ router.delete('/delete_recipie/:id', authorization, async (req, res) => {
     }
 });
 
-router.put('/update_recipie/:id', authorization, async (req, res) => {
+router.put('/update_recipie/:id', [authorization, recipeOwner], async (req, res) => {
     const client = await pool.connect();
     try {
         await client.query('BEGIN');

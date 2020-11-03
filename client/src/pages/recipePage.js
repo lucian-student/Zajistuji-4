@@ -5,13 +5,13 @@ function RecipePage(props) {
     const recipie_id = props.match.params.id;
     return (
         <Fragment>
-            <div className='firstCenterDiv'>
-                <div className='secondCenterDiv'>
-                    <YourRecipeProvider>
-                        <PageWrapper recipie_id={recipie_id}/>
-                    </YourRecipeProvider>
+            <YourRecipeProvider>
+                <div className='firstCenterDiv'>
+                    <div className='secondCenterDiv'>
+                        <PageWrapper recipie_id={recipie_id} />
+                    </div>
                 </div>
-            </div>
+            </YourRecipeProvider>
         </Fragment>
     )
 }

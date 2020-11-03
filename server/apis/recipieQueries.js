@@ -23,7 +23,7 @@ router.get('/get_recipies', authorization, async (req, res) => {
     }
 });
 
-router.get('/get_recipe/:id', [recipeOwner, authorization], async (req, res) => {
+router.get('/get_recipe/:id', [authorization, recipeOwner], async (req, res) => {
     try {
         const recipe_id = req.params.id;
         const recipe =

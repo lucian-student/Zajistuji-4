@@ -1,0 +1,21 @@
+.column{
+    border-radius: 10px;
+    border: 2px solid #F2F2F2;
+    background:linear-gradient(70deg,#F2F2F2 40%,#FFFFFF 60%);
+    height: 400px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.previewImage{
+    max-height: 200px;
+    max-width: 100%;
+    height: auto;
+    width: auto;
+}
+
+.textView{
+    max-height: 200px;
+    overflow: hidden;
+    overflow-y: auto;
+}

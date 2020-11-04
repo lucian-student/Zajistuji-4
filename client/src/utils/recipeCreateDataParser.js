@@ -19,12 +19,14 @@ function RecipeCreateDataParser(ingredients, utensils, steps) {
     let stepNames = [];
     let stepDurations = [];
     let stepDescriptions = [];
+    let stepOrder = [];
     let stepIngredients = [];
     let stepUtensils = [];
-    steps.forEach((step) => {
+    steps.forEach((step, index) => {
         stepNames.push(step.name);
         stepDurations.push(step.duration);
         stepDescriptions.push(step.description);
+        stepOrder.push(index);
 
         let stepIngredientsNames = [];
         let stepIngredientsCategorys = [];
@@ -53,6 +55,7 @@ function RecipeCreateDataParser(ingredients, utensils, steps) {
         names: stepNames,
         durations: stepDurations,
         descriptions: stepDescriptions,
+        order: stepOrder,
         ingredients: stepIngredients,
         utensils: stepUtensils
     };

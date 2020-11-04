@@ -9,18 +9,20 @@ module.exports = async (client, recipie_id, steps) => {
         durations,
         names,
         descriptions,
+        order,
         ingredients,
         utensils
     } = steps;
 
     const newSteps =
-        await client.query('INSERT INTO recipie_steps (recipie_id,duration,name,description)' +
-            ' SELECT * FROM unnest($1::bigint[],$2::time[],$3::text[],$4::text[]) RETURNING *',
+        await client.query('INSERT INTO recipie_steps (recipie_id,duration,name,description,order_index)' +
+            ' SELECT * FROM unnest($1::bigint[],$2::time[],$3::text[],$4::text[],$5::bigint[]) RETURNING *',
             [
                 recipieIds,
                 durations,
                 names,
-                descriptions
+                descriptions,
+                order
             ]);
     result = {
         steps: newSteps.rows

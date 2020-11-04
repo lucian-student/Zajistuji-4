@@ -78,6 +78,7 @@ CREATE TABLE recipie_steps(
   duration TIME NOT NULL,
   name VARCHAR(255) NOT NULL,
   description TEXT NOT NULL,
+  order_index BIGINT NOT NULL,
   FOREIGN KEY (recipie_id)
     REFERENCES recipies (recipie_id) 
       ON DELETE CASCADE

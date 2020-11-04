@@ -41,14 +41,10 @@ router.get('/get_recipe/:id', [authorization, recipeOwner], async (req, res) => 
 router.get('/get_steps', authorization, async (req, res) => {
     try {
         const recipieId = req.query.id;
-        const page = req.query.page * 10;
-
         const steps =
-            await pool.query('SELECT * FROM recipie_steps WHERE recipie_id=$1' +
-                ' OFFSET $2 LIMIT 10',
+            await pool.query('SELECT * FROM recipie_steps WHERE recipie_id=$1 ORDER BY order_index asc',
                 [
-                    recipieId,
-                    page
+                    recipieId
                 ]);
         res.json(steps.rows);
     } catch (err) {
@@ -57,21 +53,31 @@ router.get('/get_steps', authorization, async (req, res) => {
     }
 });
 
-router.get('/get_step_ingredients_utensils', authorization, async (req, res) => {
+router.get('/get_step_ingredients', authorization, async (req, res) => {
     try {
         const stepId = req.query.id;
-
         const ingredients =
             await pool.query('SELECT * FROM step_ingredients WHERE step_id=$1',
                 [
                     stepId
                 ]);
+        res.json(ingredients.rows);
+    } catch (err) {
+        console.log(err.message);
+        res.status('500').json('server error');
+    }
+});
+
+router.get('/get_step_utensils', authorization, async (req, res) => {
+    try {
+        const stepId = req.query.id;
+
         const utensils =
             await pool.query('SELECT * FROM step_utensils WHERE step_id=$1',
                 [
                     stepId
                 ]);
-        res.json({ ingredients, utensils });
+        res.json(utensils.rows);
     } catch (err) {
         console.log(err.message);
         res.status('500').json('server error');
@@ -81,16 +87,13 @@ router.get('/get_step_ingredients_utensils', authorization, async (req, res) => 
 router.get('/get_recipie_ingredients', authorization, async (req, res) => {
     try {
         const recipieId = req.query.id;
-        const page = req.query.page * 10;
-
         const ingredients =
-            await pool.query('SELECT * FROM recipie_ingredients WHERE recipe_id=$1' +
-                'OFFSET $2 LIMIT 10', [
-                recipieId,
-                page
-            ]);
+            await pool.query('SELECT * FROM recipie_ingredients WHERE recipie_id=$1',
+                [
+                    recipieId
+                ]);
         res.json(ingredients.rows);
-    } catch (er) {
+    } catch (err) {
         console.log(err.message);
         res.status('500').json('server error');
     }
@@ -99,14 +102,11 @@ router.get('/get_recipie_ingredients', authorization, async (req, res) => {
 router.get('/get_recipie_utensils', authorization, async (req, res) => {
     try {
         const recipieId = req.query.id;
-        const page = req.query.page * 10;
-
         const utensils =
-            await pool.query('SELECT * FROM recipie_utensils WHERE recipe_id=$1' +
-                'OFFSET $2 LIMIT 10', [
-                recipieId,
-                page
-            ]);
+            await pool.query('SELECT * FROM recipie_utensils WHERE recipie_id=$1',
+                [
+                    recipieId
+                ]);
         res.json(utensils.rows);
     } catch (err) {
         console.log(err.message);

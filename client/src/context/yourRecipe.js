@@ -7,6 +7,7 @@ export const YourRecipeProvider = ({ children }) => {
     const [ingredients, setIngredients] = useState([]);
     const [utensils, setUtensils] = useState([]);
     const [steps, setSteps] = useState([]);
+    
     return (
         <YourRecipeContext.Provider value={{
             recipe,

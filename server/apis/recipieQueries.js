@@ -46,43 +46,47 @@ router.get('/get_steps', authorization, async (req, res) => {
                 [
                     recipieId
                 ]);
-        res.json(steps.rows);
-    } catch (err) {
-        console.log(err.message);
-        res.status('500').json('server error');
-    }
-});
+        const stepIds = [...steps.rows.map(step => step.step_id)];
 
-router.get('/get_step_ingredients', authorization, async (req, res) => {
-    try {
-        const stepId = req.query.id;
         const ingredients =
-            await pool.query('SELECT * FROM step_ingredients WHERE step_id=$1',
+            await pool.query('SELECT * FROM step_ingredients' +
+                ' WHERE step_id = ANY($1::bigint[])',
                 [
-                    stepId
+                    stepIds
                 ]);
-        res.json(ingredients.rows);
-    } catch (err) {
-        console.log(err.message);
-        res.status('500').json('server error');
-    }
-});
-
-router.get('/get_step_utensils', authorization, async (req, res) => {
-    try {
-        const stepId = req.query.id;
-
         const utensils =
-            await pool.query('SELECT * FROM step_utensils WHERE step_id=$1',
+            await pool.query('SELECT * FROM step_utensils' +
+                ' WHERE step_Id = ANY($1::bigint[])',
                 [
-                    stepId
+                    stepIds
                 ]);
-        res.json(utensils.rows);
+        let resultSteps = [];
+
+        steps.rows.forEach(step => {
+            let currStep = {
+                ...step,
+                ingredients: [],
+                utensils: []
+            };
+            ingredients.rows.forEach(ingredient => {
+                if (ingredient.step_id === step.step_id) {
+                    currStep.ingredients.push(ingredient);
+                }
+            });
+            utensils.rows.forEach(utensil => {
+                if (utensil.step_id === step.step_id) {
+                    currStep.utensils.push(utensil);
+                }
+            });
+            resultSteps.push(currStep);
+        });
+        res.json(resultSteps);
     } catch (err) {
         console.log(err.message);
         res.status('500').json('server error');
     }
 });
+
 
 router.get('/get_recipie_ingredients', authorization, async (req, res) => {
     try {

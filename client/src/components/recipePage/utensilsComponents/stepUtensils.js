@@ -1,12 +1,15 @@
 import React, { Fragment } from 'react';
-
+import StepUtensilCard from './stepUtensilCard';
 function StepUtensils({ utensils }) {
     return (
         <Fragment>
             <div className='column'>
                 {utensils.map((utensil, index) => (
                     <div key={utensil.utensils_id}>
-                        utensil
+                        <StepUtensilCard utensil={{
+                            ...utensils,
+                            index
+                        }} />
                     </div>
                 ))}
             </div>

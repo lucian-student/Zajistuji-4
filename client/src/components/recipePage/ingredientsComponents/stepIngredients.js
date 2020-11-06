@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import StepIngredientsCard from './stepIngredientsCard';
 
 function StepIngredients({ ingredients }) {
     return (
@@ -6,7 +7,10 @@ function StepIngredients({ ingredients }) {
             <div className='column'>
                 {ingredients.map((ingredient, index) => (
                     <div key={ingredient.ingredients_id}>
-                        ingredients
+                        <StepIngredientsCard ingredients={{
+                            ...ingredient,
+                            index
+                        }} />
                     </div>
                 ))}
             </div>

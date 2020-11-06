@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useState } from 'react';
 import { YourRecipeContext } from '../../context/yourRecipe';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -7,6 +7,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Dropdown from 'react-bootstrap/Dropdown';
+import RecipeDataForm from './recipeDataForm';
 function RecipeDataDisplay() {
     const { recipe } = useContext(YourRecipeContext);
     const {
@@ -15,6 +16,7 @@ function RecipeDataDisplay() {
         imageurl,
         description
     } = recipe;
+    const [editing, setEditing] = useState(false);
     return (
         <Fragment>
             <Card style={{ width: '100%' }}>
@@ -32,8 +34,12 @@ function RecipeDataDisplay() {
                             <BiMenu />
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                            <Dropdown.Item as={Button}  variant='light'>Edit</Dropdown.Item>
-                            <Dropdown.Item as={Button}  variant='light'>Delete</Dropdown.Item>
+                            <Dropdown.Item as={Button} variant='light'
+                                onClick={() => { setEditing(true) }}>Edit
+                            </Dropdown.Item>
+                            <Dropdown.Item as={Button} variant='light'>
+                                Delete
+                            </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </Card.Header>
@@ -56,6 +62,9 @@ function RecipeDataDisplay() {
                     </Container>
                 </Card.Body>
             </Card>
+            {editing && (
+                <RecipeDataForm properties={{ editing, setEditing }} />
+            )}
         </Fragment>
     )
 }

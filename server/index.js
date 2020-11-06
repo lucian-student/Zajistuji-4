@@ -15,6 +15,7 @@ app.use('/token', require('./apis/token'));
 app.use('/utensils', require('./apis/utensils'));
 app.use('/ingredients', require('./apis/ingredients'));
 app.use('/recipies', require('./apis/recipies'));
+app.use('/recipeUpdate', require('./apis/updateRecipe'));
 app.use('/recipieQuery', require('./apis/recipieQueries'));
 app.use('/comments', require('./apis/comments'));
 app.use('/recipie_likes', require('./apis/recipieLikes'));

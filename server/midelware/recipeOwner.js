@@ -4,7 +4,6 @@ module.exports = async (req, res, next) => {
     try {
         const id = req.user;
         const recipe_id = req.params.id;
-
         const checkUser =
             await pool.query('SELECT * FROM recipies WHERE recipie_id=$1 AND user_id=$2',
                 [

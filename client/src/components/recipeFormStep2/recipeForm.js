@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { ValidateTextInput, ValidateUnneceserrySpaceUsage } from '../../utils/validators';
+import { ValidateTextInput, ValidateUnneceserrySpaceUsage, isFileImage } from '../../utils/validators';
 import { useForm } from 'react-hook-form';
 import { RecipeFormContext } from '../../context/recipeForm';
 import Firebase from '../../config/firebase';
@@ -19,13 +19,6 @@ function RecipeForm() {
     const { register, errors, handleSubmit, watch } = useForm();
     const previewImage = watch('image');
     const [image, setImage] = useState(null);
-    function isFileImage(file) {
-        if (image) {
-            const acceptedImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
-            return acceptedImageTypes.includes(file[0].type);
-        }
-        return true;
-    }
     useEffect(() => {
         if (previewImage) {
             if (previewImage[0]) {
@@ -66,7 +59,6 @@ function RecipeForm() {
         }
         const { name, category, description } = data;
         const { ingredients, utensils, steps } = RecipeCreateDataParser(recipeIngredients, recipeUtensils, recipeSteps);
-        console.log({ ingredients, utensils, steps });
         await createRecipe(name, category, description, imageUrl, imageReference, ingredients, utensils, steps);
     }
     return (
@@ -138,7 +130,7 @@ function RecipeForm() {
                                     name='description'
                                     type="text"
                                     placeholder="Description"
-                                    ref={register({})} />
+                                    ref={register} />
                             </Form.Group>
                         </Col>
                         <Col>
@@ -147,7 +139,7 @@ function RecipeForm() {
                                 <Form.File name='image'
                                     ref={register({
                                         validate: {
-                                            isImage: value => isFileImage(value)
+                                            isImage: value => isFileImage(value, image)
                                         }
                                     })} />
                                 {errors.image && errors.image.type === "isImage" && (

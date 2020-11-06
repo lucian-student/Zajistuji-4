@@ -33,3 +33,11 @@ export function ValidateUnneceserrySpaceUsage(data) {
 export function ValidateEmptiness(data) {
     return String(data).trim().length > 0;
 }
+
+export function isFileImage(file,image) {
+    if (image) {
+        const acceptedImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+        return acceptedImageTypes.includes(file[0].type);
+    }
+    return true;
+}

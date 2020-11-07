@@ -2,13 +2,11 @@ import React, { Fragment, useContext, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
-import Modal from 'react-bootstrap/Modal';
-import Form from 'react-bootstrap/Form';
-import { useForm } from 'react-hook-form';
 import { BiMenu } from 'react-icons/bi';
 import { deleteInrgedients } from '../../queries/ingredients/deleteIngredients';
 import { IngredientsAndUtensilsContext } from '../../context/ingredientsAndUtensils';
 import { updateIngredients } from '../../queries/ingredients/updateIngredients';
+import IngredinetsEditForm from '../recipePage/ingredientsComponents/ingredientsEditForm';
 function IngredientsCard({ ingredients: { user_id, category, name, ingredients_id, index } }) {
     const { setIngredients, ingredients } = useContext(IngredientsAndUtensilsContext);
     const [editing, setEditing] = useState(false);
@@ -16,7 +14,6 @@ function IngredientsCard({ ingredients: { user_id, category, name, ingredients_i
         await deleteInrgedients(ingredients_id, setIngredients);
     }
 
-    const { handleSubmit, register, errors } = useForm();
     const handleClose = () => setEditing(false);
     const handleShow = () => setEditing(true);
 
@@ -62,50 +59,13 @@ function IngredientsCard({ ingredients: { user_id, category, name, ingredients_i
                     }}>{category}</div>
                 </Card.Body>
             </Card>
-            <Modal show={editing} onHide={handleClose} animation={false}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Create Ingredients</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form onSubmit={handleSubmit(handleUpdateIngredients)}>
-                        <Form.Group controlId="formGroupYear">
-                            <Form.Control autoComplete="off"
-                                name='name'
-                                type='text'
-                                placeholder='Name'
-                                defaultValue={name}
-                                ref={register({
-                                    required: true,
-                                    maxLength: 255
-                                })} />
-                            {errors.name && errors.name.type === "required" && (
-                                <Form.Text className="helperText">Name is empty!</Form.Text>
-                            )}
-                            {errors.name && errors.name.type === "maxLength" && (
-                                <Form.Text className="helperText">255 chars max!</Form.Text>
-                            )}
-                            <Form.Control autoComplete="off"
-                                name='category'
-                                type='text'
-                                placeholder='Category'
-                                defaultValue={category}
-                                ref={register({
-                                    required: true,
-                                    maxLength: 255
-                                })} />
-                            {errors.category && errors.category.type === "required" && (
-                                <Form.Text className="helperText">Category is empty!</Form.Text>
-                            )}
-                            {errors.category && errors.category.type === "maxLength" && (
-                                <Form.Text className="helperText">255 chars max!</Form.Text>
-                            )}
-                        </Form.Group>
-                        <Button type='submit' >
-                            Submit
-                        </Button>
-                    </Form>
-                </Modal.Body>
-            </Modal>
+            <IngredinetsEditForm properties={{
+                editing,
+                setEditing,
+                name,
+                category,
+                handleUpdateIngredients
+            }} />
         </Fragment>
     )
 }

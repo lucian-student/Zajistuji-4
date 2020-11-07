@@ -54,37 +54,38 @@ function RecipeDataForm({ properties: { editing, setEditing } }) {
             description,
             image
         } = data;
-        if (image.length > 0) {
-            if (image_reference) {
-                console.log('ref new del');
-                const imgRef = storageRef.child(image_reference);
-                await imgRef.delete().then(async function () {
+        if (!imageurl || removeImage) {
+            if (image.length > 0) {
+                if (image_reference) {
+                    const imgRef = storageRef.child(image_reference);
+                    await imgRef.delete().then(async function () {
+                        const { img_ref, img_url } = await uploadImage(storageRef, data);
+                        newImageReference = img_ref;
+                        newImageUrl = img_url;
+                    }).catch(async function () {
+                        const { img_ref, img_url } = await uploadImage(storageRef, data);
+                        newImageReference = img_ref;
+                        newImageUrl = img_url;
+                    });
+                } else {
                     const { img_ref, img_url } = await uploadImage(storageRef, data);
                     newImageReference = img_ref;
                     newImageUrl = img_url;
-                }).catch(async function () {
-                    const { img_ref, img_url } = await uploadImage(storageRef, data);
-                    newImageReference = img_ref;
-                    newImageUrl = img_url;
-                });
+                }
             } else {
-                console.log('new');
-                const { img_ref, img_url } = await uploadImage(storageRef, data);
-                newImageReference = img_ref;
-                newImageUrl = img_url;
+                if (removeImage) {
+                    const imgRef = storageRef.child(image_reference);
+                    await imgRef.delete().catch(function (error) {
+                        console.log(error)
+                    });
+                } else {
+                    newImageReference = image_reference;
+                    newImageUrl = imageurl;
+                }
             }
         } else {
-            if (removeImage) {
-                console.log('del old');
-                const imgRef = storageRef.child(image_reference);
-                await imgRef.delete().catch(function (error) {
-                    console.log(error)
-                });
-            } else {
-                console.log('keep');
-                newImageReference = image_reference;
-                newImageUrl = imageurl;
-            }
+            newImageReference = image_reference;
+            newImageUrl = imageurl;
         }
         const updateData = {
             id: recipie_id,

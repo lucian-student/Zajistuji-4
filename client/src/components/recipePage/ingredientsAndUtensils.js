@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import RecipeIngredientsDisplay from './ingredientsComponents/recipeIngredientsDisplay';
 import RecipeUtensilsDisplay from './utensilsComponents/recipeUtensilsDisplay';
-
+import RecipeIngredientsForm from './ingredientsComponents/recipeIngredientsForm';
 function IngredientsAndUtensils() {
     const [show, setShow] = useState(false);
     return (
@@ -21,7 +21,16 @@ function IngredientsAndUtensils() {
             {show && (
                 <Row>
                     <Col>
-                        <RecipeIngredientsDisplay />
+                        <Row>
+                            <Col>
+                                <RecipeIngredientsForm />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <RecipeIngredientsDisplay />
+                            </Col>
+                        </Row>
                     </Col>
                     <Col>
                         <RecipeUtensilsDisplay />

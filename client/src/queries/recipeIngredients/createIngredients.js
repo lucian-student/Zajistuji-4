@@ -1,32 +1,21 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
 
-export const updateRecipe = async (setRecipe, data) => {
-    const {
-        id,
-        name,
-        category,
-        description,
-        imageUrl,
-        image_reference
-    } = data;
+export const createIngredients = async (name, category, setIngredients, recipie_id) => {
     return await jwtTransport({
-        method: 'PUT',
+        method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + getAcessToken(),
             'Content-Type': 'application/json'
         },
         data: {
-            name,
             category,
-            description,
-            imageUrl,
-            image_reference
+            name
         },
-        url: `http://localhost:5000/recipeUpdate/update_recipe_data/${id}`,
+        url: `http://localhost:5000/recipe_ingredients/create_ingredients/${recipie_id}`,
     })
         .then(res => {
-            setRecipe(res.data);
+            setIngredients(oldIngredients => [res.data, ...oldIngredients])
         })
         .catch(err => console.error(err));
 };

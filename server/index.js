@@ -24,6 +24,7 @@ app.use('/shared_recipie_query', require('./apis/sharedRecipieQueries'));
 app.use('/comments_queries', require('./apis/commentsQueries'));
 app.use('/recipe_ingredients', require('./apis/recipeIngredinets'));
 app.use('/recipe_utensils', require('./apis/recipeUtensils'));
+app.use('/recipe_steps',require('./apis/recipeSteps'))
 //get
 
 //post

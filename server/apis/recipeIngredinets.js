@@ -47,4 +47,23 @@ router.post('/create_ingredients/:id', [authorization, recipeOwner], async (req,
     }
 });
 
+router.delete('/delete_ingredients/:id', [authorization, recipeOwner], async (req, res) => {
+    try {
+        const {
+            id
+        } = req.body;
+
+        const deleteIngredients =
+            await pool.query('DELETE FROM recipie_ingredients' +
+                ' WHERE ingredients_id=$1 RETURNING ingredients_id',
+                [
+                    id
+                ]);
+        res.json(deleteIngredients.rows[0]);
+    } catch (err) {
+        console.log(err.message);
+        res.status('500').json('server error');
+    }
+});
+
 module.exports = router;

@@ -1,15 +1,8 @@
-import React, { Fragment, useEffect, useContext } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { YourRecipeContext } from '../../../context/yourRecipe';
-import { recipeUtensilsQuery } from '../../../queries/recipeUtensils/recipeUtensilsDefault';
 import UtensilsCard from './utensilsCard';
 function RecipeUtensilsDisplay() {
-    const { utensils, setUtensils, recipe: { recipie_id } } = useContext(YourRecipeContext);
-    useEffect(() => {
-        const reciveData = async () => {
-            await recipeUtensilsQuery(recipie_id, setUtensils);
-        }
-        reciveData();
-    }, [setUtensils, recipie_id])
+    const { utensils } = useContext(YourRecipeContext);
     return (
         <Fragment>
             <div className='column'>

@@ -6,6 +6,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import UtensilEditForm from './utensilEditForm';
 import { updateUtensil } from '../../../queries/recipeUtensils/updateUtensil';
 import { YourRecipeContext } from '../../../context/yourRecipe';
+import { deleteUtensil } from '../../../queries/recipeUtensils/deleteUtensil';
 function UtensilCard({ utensil }) {
     const {
         name,
@@ -17,6 +18,9 @@ function UtensilCard({ utensil }) {
     async function handleUpdateUtensils(data) {
         await updateUtensil(utensils, setUtensils, index, data.name, utensils_id, recipie_id);
         setEditing(false);
+    }
+    async function handleDeleteUtensil() {
+        await deleteUtensil(utensils_id, setUtensils, recipie_id);
     }
     return (
         <Fragment>
@@ -34,7 +38,8 @@ function UtensilCard({ utensil }) {
                                 onClick={() => setEditing(true)}>
                                 Edit
                             </Dropdown.Item>
-                            <Dropdown.Item as={Button} variant='light'>
+                            <Dropdown.Item as={Button} variant='light'
+                                onClick={handleDeleteUtensil}>
                                 Delete
                             </Dropdown.Item>
                         </Dropdown.Menu>

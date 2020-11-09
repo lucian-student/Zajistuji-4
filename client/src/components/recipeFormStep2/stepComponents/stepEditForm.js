@@ -1,26 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { useForm } from 'react-hook-form';
-import update from 'immutability-helper';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { RecipeFormContext } from '../../../context/recipeForm';
-function StepEditForm({ properties: { editing, setEditing, name, duration, description, index } }) {
+function StepEditForm({ properties: { editing, setEditing, name, duration, description, handleUpdateStep } }) {
     const { register, handleSubmit, errors } = useForm();
-    const { recipeSteps, setRecipeSteps } = useContext(RecipeFormContext);
-    function handleUpdateStep(data) {
-        setRecipeSteps(update(recipeSteps, {
-            [index]: {
-                $merge: {
-                    name: data.name,
-                    duration: data.duration,
-                    description: data.description
-                }
-
-            }
-        }));
-        setEditing(false);
-    }
     return (
         <Modal show={editing} onHide={() => { setEditing(false) }} animation={false}>
             <Modal.Header closeButton>

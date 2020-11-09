@@ -13,6 +13,7 @@ import { useDrop, useDrag } from 'react-dnd';
 import { RecipeFormContext } from '../../../context/recipeForm';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import StepEditForm from './stepEditForm';
+import update from 'immutability-helper';
 function StepCard({ step }) {
     const {
         step_id,
@@ -28,7 +29,7 @@ function StepCard({ step }) {
     const [show, setShow] = useState(false);
     const [editing, setEditing] = useState(false);
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });
-    const { height, width, startedDragging, setStartedDragging } = useContext(RecipeFormContext);
+    const { height, width, startedDragging, setStartedDragging, recipeSteps, setRecipeSteps } = useContext(RecipeFormContext);
     const ref = useRef();
     const [, drop] = useDrop({
         accept: 'STEP',
@@ -71,6 +72,18 @@ function StepCard({ step }) {
         }
     });
 
+    function handleUpdateStep(data) {
+        setRecipeSteps(update(recipeSteps, {
+            [index]: {
+                $merge: {
+                    name: data.name,
+                    duration: data.duration,
+                    description: data.description
+                }
+            }
+        }));
+        setEditing(false);
+    }
     useEffect(() => {
         if (ref.current) {
             setDimensions({
@@ -155,7 +168,7 @@ function StepCard({ step }) {
                 name,
                 duration,
                 description,
-                index
+                handleUpdateStep
             }} />
         </Fragment>
     )

@@ -3,10 +3,12 @@ import { getYourRecipe } from '../../queries/recipes/getYourRecipe';
 import { YourRecipeContext } from '../../context/yourRecipe';
 import RecipeDataDisplay from './recipeDataDisplay';
 import StepsDisplay from './stepComponents/stepsDisplay';
+import StepForm from './stepComponents/stepForm';
 import IngredientsAndUtensils from './ingredientsAndUtensils';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import CustomDragLayer from '../recipeForm/customDragLayer';
 function PageWrapper({ recipie_id }) {
     const { recipe, setRecipe } = useContext(YourRecipeContext);
     useEffect(() => {
@@ -28,11 +30,17 @@ function PageWrapper({ recipie_id }) {
                     </Row>
                     <Row>
                         <Col>
+                            <StepForm />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
                             <StepsDisplay />
                         </Col>
                     </Row>
                 </Container>
             )}
+            <CustomDragLayer />
         </Fragment>
     )
 }

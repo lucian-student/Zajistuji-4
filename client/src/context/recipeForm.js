@@ -1,5 +1,4 @@
 import React, { useState, createContext } from 'react';
-import { useWindowDimensions } from '../utils/dimensions';
 export const RecipeFormContext = createContext();
 
 export const RecipeFormProvider = ({ children }) => {
@@ -10,8 +9,6 @@ export const RecipeFormProvider = ({ children }) => {
     //steps
     const [recipeSteps, setRecipeSteps] = useState([]);
     const [startedDragging, setStartedDragging] = useState(false);
-    //general
-    const { height, width } = useWindowDimensions();
 
     return (
         <RecipeFormContext.Provider
@@ -20,8 +17,6 @@ export const RecipeFormProvider = ({ children }) => {
                 setRecipeIngredients,
                 recipeUtensils,
                 setRecipeUtensils,
-                height,
-                width,
                 recipeSteps,
                 setRecipeSteps,
                 startedDragging,

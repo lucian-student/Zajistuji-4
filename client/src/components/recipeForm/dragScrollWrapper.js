@@ -1,12 +1,10 @@
 import React, { Fragment, useRef, useEffect, useState, useContext } from 'react';
 import { useDrop } from 'react-dnd';
-import { RecipeFormContext } from '../../context/recipeForm';
-
-
+import { DimensionsContext } from '../../context/dimensions';
 
 function DragScrollWrapper({ children, ITEM_TYPE }) {
     const ref = useRef();
-    const { height } = useContext(RecipeFormContext);
+    const { height } = useContext(DimensionsContext);
     const [scrollState, setScrollState] = useState(0);
     const [{ isOver }, drop] = useDrop({
         accept: ITEM_TYPE,

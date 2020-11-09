@@ -6,10 +6,12 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import '../responsiveCss/recipeForm.css';
 import DragScrollWrapper from '../components/recipeForm/dragScrollWrapper';
+import { DimensionsProvider } from '../context/dimensions';
 function RecipeForm() {
     const [step, setStep] = useState(1);
     return (
         <Fragment>
+            <DimensionsProvider>
                 <RecipeFormProvider>
                     {step === 1 && (
                         <DndProvider backend={HTML5Backend}>
@@ -40,6 +42,7 @@ function RecipeForm() {
                         </DndProvider>
                     )}
                 </RecipeFormProvider>
+            </DimensionsProvider>
         </Fragment>
     )
 }

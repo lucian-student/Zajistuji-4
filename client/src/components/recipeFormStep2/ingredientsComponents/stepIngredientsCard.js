@@ -5,6 +5,7 @@ import { CgRemove } from 'react-icons/cg';
 import update from 'immutability-helper';
 import { useDrag, useDrop } from 'react-dnd'
 import { RecipeFormContext } from '../../../context/recipeForm';
+import { DimensionsContext } from '../../../context/dimensions';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 function StepIngredientsCard({ ingredients }) {
     const {
@@ -16,7 +17,8 @@ function StepIngredientsCard({ ingredients }) {
         moveItem1,
         ultraOriginalStepIndex
     } = ingredients;
-    const { height, width, recipeSteps, setRecipeSteps } = useContext(RecipeFormContext);
+    const { recipeSteps, setRecipeSteps } = useContext(RecipeFormContext);
+    const { height, width } = useContext(DimensionsContext);
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });
     const ref = useRef();
     function RemoveIngredients() {
@@ -89,8 +91,8 @@ function StepIngredientsCard({ ingredients }) {
     useEffect(() => {
         if (ref.current) {
             setDimensions({
-                width: ref.current.offsetWidth,
-                height: ref.current.offsetHeigth
+                width: ref.current.clientWidth,
+                height: ref.current.clientHeight
             });
         }
         preview(getEmptyImage(), { captureDraggingState: true });

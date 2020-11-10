@@ -1,18 +1,29 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useContext } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import StepFormComponent from '../../reusableComponents/stepForm';
-import FormStepIngredients from '../ingredientsComponents/formStepIngredients';
-import FormStepUtensils from '../utensilsComponents/formStepUtensils';
+import FormStepIngredients from '../../recipeFormStep2/ingredientsComponents/formStepIngredients';
+import FormStepUtensils from '../../recipeFormStep2/utensilsComponents/formStepUtensils';
 import { FiPlusCircle } from 'react-icons/fi';
-import { StepFormProvider } from '../../../context/stepForm';
+import { StepFormContext } from '../../../context/stepForm';
+import { YourRecipeContext } from '../../../context/yourRecipe';
+import { createStep } from '../../../queries/recipeSteps/createStep';
+import stepCreateParser from '../../../utils/stepCreateParser';
 function StepForm() {
     const [show, setShow] = useState(false);
+    const { formIngredients, formUtensils } = useContext(StepFormContext);
+    const { steps, setSteps, recipe: { recipie_id } } = useContext(YourRecipeContext);
     async function handleCreateStep(data) {
-        console.log(data);
+        const { ingredients, utensils } = stepCreateParser(formIngredients, formUtensils);
+        const step = {
+            ...data,
+            ingredients,
+            utensils
+        }
+        await createStep(step, setSteps, steps, recipie_id)
     }
     return (
         <Fragment>
@@ -22,29 +33,27 @@ function StepForm() {
                 <p style={{ display: 'inline' }}>Add Step</p>
             </Button>
             {show && (
-                <StepFormProvider>
-                    <Card>
-                        <Container>
-                            <Card.Body>
-                                <Row>
-                                    <Col>
-                                        <StepFormComponent properties={{
-                                            handleCreateStep
-                                        }} />
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col>
-                                        <FormStepIngredients />
-                                    </Col>
-                                    <Col>
-                                        <FormStepUtensils />
-                                    </Col>
-                                </Row>
-                            </Card.Body>
-                        </Container>
-                    </Card>
-                </StepFormProvider>
+                <Card>
+                    <Container>
+                        <Card.Body>
+                            <Row>
+                                <Col>
+                                    <StepFormComponent properties={{
+                                        handleCreateStep
+                                    }} />
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <FormStepIngredients />
+                                </Col>
+                                <Col>
+                                    <FormStepUtensils />
+                                </Col>
+                            </Row>
+                        </Card.Body>
+                    </Container>
+                </Card>
             )}
         </Fragment>
     )

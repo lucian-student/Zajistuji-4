@@ -9,6 +9,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import CustomDragLayer from '../recipeForm/customDragLayer';
+import { StepFormProvider } from '../../context/stepForm';
 function PageWrapper({ recipie_id }) {
     const { recipe, setRecipe } = useContext(YourRecipeContext);
     useEffect(() => {
@@ -30,7 +31,9 @@ function PageWrapper({ recipie_id }) {
                     </Row>
                     <Row>
                         <Col>
-                            <StepForm />
+                            <StepFormProvider>
+                                <StepForm />
+                            </StepFormProvider>
                         </Col>
                     </Row>
                     <Row>

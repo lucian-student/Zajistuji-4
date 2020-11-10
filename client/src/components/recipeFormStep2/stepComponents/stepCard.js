@@ -11,6 +11,7 @@ import StepCardInrgedients from '../ingredientsComponents/stepCardIngredients';
 import StepCardUtensils from '../utensilsComponents/stepCardUtensils';
 import { useDrop, useDrag } from 'react-dnd';
 import { RecipeFormContext } from '../../../context/recipeForm';
+import { DimensionsContext } from '../../../context/dimensions';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import StepEditForm from './stepEditForm';
 import update from 'immutability-helper';
@@ -29,7 +30,8 @@ function StepCard({ step }) {
     const [show, setShow] = useState(false);
     const [editing, setEditing] = useState(false);
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });
-    const { height, width, startedDragging, setStartedDragging, recipeSteps, setRecipeSteps } = useContext(RecipeFormContext);
+    const { startedDragging, setStartedDragging, recipeSteps, setRecipeSteps } = useContext(RecipeFormContext);
+    const { height, width } = useContext(DimensionsContext);
     const ref = useRef();
     const [, drop] = useDrop({
         accept: 'STEP',
@@ -87,8 +89,8 @@ function StepCard({ step }) {
     useEffect(() => {
         if (ref.current) {
             setDimensions({
-                width: ref.current.offsetWidth,
-                height: ref.current.offsetHeigth
+                width: ref.current.clientWidth,
+                height: ref.current.clientHeight
             });
         }
         if (startedDragging) {

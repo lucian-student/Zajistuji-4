@@ -2,11 +2,11 @@ import React, { Fragment, useRef, useEffect, useState, useContext } from 'react'
 import Card from 'react-bootstrap/Card';
 import { useDrag } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
-import { RecipeFormContext } from '../../../context/recipeForm';
+import { DimensionsContext } from '../../../context/dimensions';
 function RecipeUtensilsCard({ utensil }) {
     const { name } = utensil;
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });
-    const { height, width } = useContext(RecipeFormContext);
+    const { width, height } = useContext(DimensionsContext);
     const ref = useRef();
 
     const [, drag, preview] = useDrag({
@@ -22,8 +22,8 @@ function RecipeUtensilsCard({ utensil }) {
     useEffect(() => {
         if (ref.current) {
             setDimensions({
-                width: ref.current.offsetWidth,
-                height: ref.current.offsetHeigth
+                width: ref.current.clientWidth,
+                height: ref.current.clientHeight
             });
         }
         preview(getEmptyImage(), { captureDraggingState: true });

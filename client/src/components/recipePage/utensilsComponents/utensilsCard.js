@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useContext } from 'react';
+import React, { Fragment, useState, useContext, useRef, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { BiMenu } from 'react-icons/bi';
@@ -7,6 +7,9 @@ import UtensilEditForm from './utensilEditForm';
 import { updateUtensil } from '../../../queries/recipeUtensils/updateUtensil';
 import { YourRecipeContext } from '../../../context/yourRecipe';
 import { deleteUtensil } from '../../../queries/recipeUtensils/deleteUtensil';
+import { useDrag } from 'react-dnd';
+import { getEmptyImage } from 'react-dnd-html5-backend';
+import { DimensionsContext } from '../../../context/dimensions';
 function UtensilCard({ utensil }) {
     const {
         name,
@@ -15,6 +18,28 @@ function UtensilCard({ utensil }) {
     } = utensil;
     const { recipe: { recipie_id }, utensils, setUtensils } = useContext(YourRecipeContext);
     const [editing, setEditing] = useState(false);
+    const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });
+    const { width, height } = useContext(DimensionsContext);
+    const ref = useRef(null);
+    const [, drag, preview] = useDrag({
+        item: {
+            ...utensil,
+            type: 'UTENSILS',
+            status: 'recipe',
+            dimensions,
+            ultraOriginalStepIndex: null
+        }
+    });
+    useEffect(() => {
+        if (ref.current) {
+            setDimensions({
+                width:ref.current.clientWidth,
+                height: ref.current.clientHeight
+            });
+        }
+        preview(getEmptyImage(), { captureDraggingState: true });
+    }, [preview, height, width]);
+    drag(ref);
     async function handleUpdateUtensils(data) {
         await updateUtensil(utensils, setUtensils, index, data.name, utensils_id, recipie_id);
         setEditing(false);
@@ -24,7 +49,7 @@ function UtensilCard({ utensil }) {
     }
     return (
         <Fragment>
-            <Card>
+            <Card ref={ref}>
                 <Card.Body>
                     <div style={{ display: 'inline-block' }}>
                         {name}

@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card';
 import { useDrag, useDrop } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { RecipeFormContext } from '../../context/recipeForm';
+import { DimensionsContext } from '../../context/dimensions';
 import { CgRemove } from 'react-icons/cg';
 import Button from 'react-bootstrap/Button';
 import update from 'immutability-helper';
@@ -14,9 +15,8 @@ function RecipeIngredientsCard({ ingredients }) {
         checkCanDrop,
         moveItem1 } = ingredients;
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });
-    const { height, width, recipeIngredients, setRecipeIngredients }
-        = useContext(RecipeFormContext);
-
+    const { recipeIngredients, setRecipeIngredients } = useContext(RecipeFormContext);
+    const { height, width } = useContext(DimensionsContext);
     function RemoveIngredients() {
         setRecipeIngredients(update(recipeIngredients, {
             $splice: [
@@ -75,8 +75,8 @@ function RecipeIngredientsCard({ ingredients }) {
     useEffect(() => {
         if (ref.current) {
             setDimensions({
-                width: ref.current.offsetWidth,
-                height: ref.current.offsetHeigth
+                width: ref.current.clientWidth,
+                height: ref.current.clientHeight
             });
         }
         preview(getEmptyImage(), { captureDraggingState: true });

@@ -2,7 +2,7 @@ import React, { Fragment, useRef, useEffect, useState, useContext } from 'react'
 import Card from 'react-bootstrap/Card';
 import { useDrag, useDrop } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
-import { RecipeFormContext } from '../../../context/recipeForm';
+import { DimensionsContext } from '../../../context/dimensions';
 import { CgRemove } from 'react-icons/cg';
 import Button from 'react-bootstrap/Button';
 import update from 'immutability-helper';
@@ -16,7 +16,7 @@ function StepFormUtensilsCard({ utensil }) {
         moveItem1,
     } = utensil;
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });
-    const { height, width } = useContext(RecipeFormContext);
+    const { width, height } = useContext(DimensionsContext);
     const { formUtensils, setFormUtensils } = useContext(StepFormContext);
     function RemoveUtensil() {
         setFormUtensils(update(formUtensils, {
@@ -76,8 +76,8 @@ function StepFormUtensilsCard({ utensil }) {
     useEffect(() => {
         if (ref.current) {
             setDimensions({
-                width: ref.current.offsetWidth,
-                height: ref.current.offsetHeigth
+                width: ref.current.clientWidth,
+                height: ref.current.clientHeight
             });
         }
         preview(getEmptyImage(), { captureDraggingState: true });

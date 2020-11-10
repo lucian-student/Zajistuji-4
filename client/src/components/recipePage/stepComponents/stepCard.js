@@ -8,6 +8,7 @@ import StepIngredientsAndUtensils from './stepIngredientsAndUtensils';
 import StepEditForm from '../../recipeFormStep2/stepComponents/stepEditForm';
 import { updateStep } from '../../../queries/recipeSteps/updateStep';
 import { YourRecipeContext } from '../../../context/yourRecipe';
+import { deleteStep } from '../../../queries/recipeSteps/deleteStep';
 function StepCard({ step }) {
     const {
         step_id,
@@ -35,6 +36,9 @@ function StepCard({ step }) {
         );
         setEditing(false);
     }
+    async function handleDeleteStep() {
+        await deleteStep(step_id, setSteps, recipie_id);
+    }
     return (
         <Fragment>
             <Card style={{ width: '100%' }}>
@@ -51,7 +55,8 @@ function StepCard({ step }) {
                                 onClick={() => { setEditing(true) }}>
                                 Edit
                             </Dropdown.Item>
-                            <Dropdown.Item as={Button} variant='light'>
+                            <Dropdown.Item as={Button} variant='light'
+                                onClick={handleDeleteStep}>
                                 Delete
                             </Dropdown.Item>
                             <Dropdown.Item as={Button} variant='light'

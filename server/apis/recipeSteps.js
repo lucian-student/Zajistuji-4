@@ -56,23 +56,23 @@ router.post('/create_step/:id', [authorization, recipeOwner], async (req, res) =
             duration,
             name,
             description,
-            order_index,
             ingredients,
             utensils
         } = req.body;
         let result = {};
         const newStep =
-            await client.query('INSERT INTO recipie_steps (recipie_id,duration,name,description,order_index)' +
-                ' VALUES ($1,$2,$2,$4,$5) RETURNING *',
+            await client.query(
+                'WITH count AS (SELECT count(*) as total_count FROM recipie_steps WHERE recipie_id=$1)' +
+                ' INSERT INTO recipie_steps (recipie_id,duration,name,description,order_index)' +
+                ' VALUES ($1,$2,$3,$4,(SELECT total_count FROM count)) RETURNING *',
                 [
                     recipie_id,
                     duration,
                     name,
-                    description,
-                    order_index
+                    description
                 ]);
-        result = { step: newStep.rows[0] };
-        const ingredientsAndUtensils = await newStepIngredientsUtensilsCreate(client, ingredients, utensils);
+        result = { ...newStep.rows[0] };
+        const ingredientsAndUtensils = await newStepIngredientsUtensilsCreate(client, ingredients, utensils, newStep.rows[0].step_id);
         if (ingredientsAndUtensils.ingredients) {
             result = {
                 ...result,

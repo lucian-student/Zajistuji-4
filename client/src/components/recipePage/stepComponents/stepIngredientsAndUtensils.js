@@ -4,12 +4,12 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import StepIngredients from '../ingredientsComponents/stepIngredients';
 import StepUtensils from '../utensilsComponents/stepUtensils';
-function StepIngredientsAndUtensils({ properties: { ingredients, utensils } }) {
+function StepIngredientsAndUtensils({ properties: { ingredients, utensils, step_id, index } }) {
     return (
         <Container>
             <Row>
                 <Col>
-                    <StepIngredients ingredients={ingredients} />
+                    <StepIngredients properties={{ ingredients, step_id, index }} />
                 </Col>
                 <Col>
                     <StepUtensils utensils={utensils} />

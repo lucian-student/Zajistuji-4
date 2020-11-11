@@ -62,7 +62,7 @@ function StepCardIngredients({ properties }) {
                 category: item.category,
                 name: item.name,
                 unit: item.status === 'recipe' ? '' : item.unit,
-                value: item.value === 'recipe' ? '' : item.value
+                value: item.status === 'recipe' ? '' : item.value
             }
             if (item.status === 'recipe') {
                 setRecipeSteps(update(recipeSteps, {

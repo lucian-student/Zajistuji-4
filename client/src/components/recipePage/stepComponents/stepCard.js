@@ -75,7 +75,7 @@ function StepCard({ step }) {
                         {description}
                     </Card.Text>
                     {show && (
-                        <StepIngredientsAndUtensils properties={{ ingredients, utensils }} />
+                        <StepIngredientsAndUtensils properties={{ ingredients, utensils, step_id, index }} />
                     )}
                 </Card.Body>
             </Card>

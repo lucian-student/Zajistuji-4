@@ -18,9 +18,6 @@ function StepIngredients({ properties }) {
     function checkCanDrop(item) {
         switch (item.status) {
             case 'recipe':
-                if (ingredients.some(ingredient => ingredient.ingredients_id === item.ingredients_id)) {
-                    return false;
-                }
                 return true;
             case 'step':
                 if (item.step_id !== step_id) {

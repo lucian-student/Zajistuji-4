@@ -8,8 +8,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Dropdown from 'react-bootstrap/Dropdown';
 import RecipeDataForm from './recipeDataForm';
+import { withRouter, Redirect } from 'react-router-dom';
 function RecipeDataDisplay() {
     const { recipe } = useContext(YourRecipeContext);
+    const [deleted, setDeleted] = useState(false);
     const {
         name,
         category,
@@ -17,6 +19,14 @@ function RecipeDataDisplay() {
         description
     } = recipe;
     const [editing, setEditing] = useState(false);
+    function handleDeleteRecipe(){
+        setDeleted(true);
+    }
+    if (deleted) {
+        return (
+            <Redirect to='/main' />
+        );
+    }
     return (
         <Fragment>
             <Card style={{ width: '100%' }}>
@@ -37,7 +47,8 @@ function RecipeDataDisplay() {
                             <Dropdown.Item as={Button} variant='light'
                                 onClick={() => { setEditing(true) }}>Edit
                             </Dropdown.Item>
-                            <Dropdown.Item as={Button} variant='light'>
+                            <Dropdown.Item as={Button} variant='light'
+                            onClick={handleDeleteRecipe}>
                                 Delete
                             </Dropdown.Item>
                         </Dropdown.Menu>
@@ -69,4 +80,4 @@ function RecipeDataDisplay() {
     )
 }
 
-export default RecipeDataDisplay;
+export default withRouter(RecipeDataDisplay);

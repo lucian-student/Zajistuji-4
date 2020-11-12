@@ -6,6 +6,8 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import DragScrollWrapper from '../components/recipeForm/dragScrollWrapper';
 import { DimensionsProvider } from '../context/dimensions';
+/*import MultiBackend from 'react-dnd-multi-backend';
+import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch';*/
 function RecipePage(props) {
     const recipie_id = props.match.params.id;
     return (

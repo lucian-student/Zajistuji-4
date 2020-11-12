@@ -7,7 +7,7 @@ export const YourRecipeProvider = ({ children }) => {
     const [ingredients, setIngredients] = useState([]);
     const [utensils, setUtensils] = useState([]);
     const [steps, setSteps] = useState([]);
-    
+    const [startedDragging, setStartedDragging] = useState(false);
     return (
         <YourRecipeContext.Provider value={{
             recipe,
@@ -17,7 +17,9 @@ export const YourRecipeProvider = ({ children }) => {
             utensils,
             setUtensils,
             steps,
-            setSteps
+            setSteps,
+            startedDragging,
+            setStartedDragging
         }}>
             {children}
         </YourRecipeContext.Provider>

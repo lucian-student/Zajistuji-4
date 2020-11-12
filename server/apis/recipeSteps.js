@@ -1,9 +1,43 @@
 const router = require('express').Router();
+const { json } = require('express');
 const pool = require('../configuration/db');
 const authorization = require('../midelware/authorization');
 const recipeOwner = require('../midelware/recipeOwner');
 const newStepIngredientsUtensilsCreate = require('../query_functions/newStepIngredientsUtensilsCreate');
 
+router.put('/move_step/:id', [authorization, recipeOwner], async (req, res) => {
+    const client = await pool.connect();
+    try {
+        await client.query('BEGIN');
+        const {
+            id,
+            start_index,
+            finish_index
+        } = req.body;
+        await client.query('UPDATE recipie_steps' +
+            ' set order_index=order_index-1' +
+            ' WHERE order_index>=$1 and order_index=$2',
+            [
+                start_index,
+                finish_index
+            ]);
+        await client.query('UPDATE recipie_steps' +
+            ' set order_index=$1' +
+            ' WHERE step_id=$2',
+            [
+                finish_index,
+                id
+            ]);
+        await client.query('COMMIT');
+        res.json('success');
+    } catch (err) {
+        await client.query('ROLLBACK');
+        console.log(err.message);
+        res.status('500').json('server error');
+    } finally {
+        client.release();
+    }
+});
 router.put('/update_step/:id', [authorization, recipeOwner], async (req, res) => {
     try {
         const {

@@ -5,9 +5,12 @@ import Button from 'react-bootstrap/Button';
 import { BiMenu } from 'react-icons/bi';
 import { useDrag, useDrop } from 'react-dnd'
 import { DimensionsContext } from '../../../context/dimensions';
+import { YourRecipeContext } from '../../../context/yourRecipe';
 import { getEmptyImage } from 'react-dnd-html5-backend';
+import { deleteInrgedients } from '../../../queries/stepIngredients/deleteIngredients';
 function StepIngredientsCard({ ingredients }) {
     const {
+        ingredients_id,
         name,
         category,
         index,
@@ -17,7 +20,11 @@ function StepIngredientsCard({ ingredients }) {
         ultraOriginalStepIndex
     } = ingredients;
     const { height, width } = useContext(DimensionsContext);
+    const { steps, setSteps, recipe: { recipie_id } } = useContext(YourRecipeContext);
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });
+    async function handleDeleteIngredients() {
+        await deleteInrgedients(ingredients_id, index, ultraOriginalStepIndex, setSteps, steps, recipie_id);
+    }
     const ref = useRef();
     const [, drop] = useDrop({
         accept: 'INGREDIENTS',
@@ -102,7 +109,10 @@ function StepIngredientsCard({ ingredients }) {
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         <Dropdown.Item as={Button} variant='light'>Edit</Dropdown.Item>
-                        <Dropdown.Item as={Button} variant='light'>Delete</Dropdown.Item>
+                        <Dropdown.Item as={Button} variant='light'
+                            onClick={handleDeleteIngredients}>
+                            Delete
+                        </Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
             </Card.Body>

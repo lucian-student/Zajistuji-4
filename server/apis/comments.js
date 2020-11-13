@@ -10,11 +10,10 @@ router.post('/create_comment', authorization, async (req, res) => {
         const recipie_id = req.body.recipieId;
         await client.query('BEGIN');
         const newComment =
-            await client.query('INSERT INTO comments (user_id,username,recipie_id,content,num_of_likes)' +
-                ' VALUES ($1,$2,$3,$4,$5) RETURNING *',
+            await client.query('INSERT INTO comments (user_id,recipie_id,content,num_of_likes)' +
+                ' VALUES ($1,$2,$3,$4) RETURNING *',
                 [
                     req.user,
-                    req.body.username,
                     recipie_id,
                     req.body.content,
                     0
@@ -89,16 +88,6 @@ router.post('/like_unlike_comment', authorization, async (req, res) => {
         client.release();
     }
 });
-/*const setUser = async (req, res, next) => {
-    try {
-        req.user = 5;
-    } catch (err) {
-        console.log(err.message);
-        res.status(500).send('Server Error');
-    }
-    next();
-};*/
-//put
 router.put('/update_comment/:id', [authorization, commentOwner], async (req, res) => {
     try {
         const id = req.params.id;

@@ -12,7 +12,7 @@ function StepIngredientsAndUtensils({ properties: { ingredients, utensils, step_
                     <StepIngredients properties={{ ingredients, step_id, index }} />
                 </Col>
                 <Col>
-                    <StepUtensils utensils={utensils} />
+                    <StepUtensils properties={{ utensils, step_id, index }} />
                 </Col>
             </Row>
         </Container>

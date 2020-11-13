@@ -13,11 +13,11 @@ app.use(express.json());
 app.use('/users', require('./apis/users'));
 app.use('/token', require('./apis/token'));
 app.use('/utensils', require('./apis/utensils'));
+app.use('/ingredients', require('./apis/ingredients'));
 app.use('/recipies', require('./apis/recipies'));
 app.use('/recipeUpdate', require('./apis/updateRecipe'));
 app.use('/recipieQuery', require('./apis/recipieQueries'));
 app.use('/comments', require('./apis/comments'));
-app.use('/recipie_likes', require('./apis/recipieLikes'));
 app.use('/shared_recipies', require('./apis/shareRecipies'));
 app.use('/shared_recipie_query', require('./apis/sharedRecipieQueries'));
 app.use('/comments_queries', require('./apis/commentsQueries'));
@@ -25,6 +25,7 @@ app.use('/recipe_ingredients', require('./apis/recipeIngredinets'));
 app.use('/recipe_utensils', require('./apis/recipeUtensils'));
 app.use('/recipe_steps', require('./apis/recipeSteps'));
 app.use('/step_ingredients', require('./apis/stepIngredients'));
+app.use('/step_utensils', require('./apis/stepUtensils'));
 //get
 
 //post

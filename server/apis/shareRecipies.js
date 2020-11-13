@@ -1,14 +1,14 @@
 const router = require('express').Router();
 const pool = require('../configuration/db');
 const authorization = require('../midelware/authorization');
-
-router.put('/share_unshare_recipie', authorization, async (req, res) => {
+const recipeOwner = require('../midelware/recipeOwner');
+router.put('/share_unshare_recipie/:id', [authorization, recipeOwner], async (req, res) => {
     try {
-        const id = req.body.id;
+        const id = req.params.id;
         const share = req.body.share;
 
         const recipie =
-            await pool.query('UPDATE recipies SET shared=$1 WHERE user_id=$2 RETURNING shared,recipie_id',
+            await pool.query('UPDATE recipies SET shared=$1 WHERE recipie_id=$2 RETURNING shared,recipie_id',
                 [
                     share, id
                 ]);

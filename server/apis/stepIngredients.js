@@ -91,6 +91,6 @@ router.put('/update_ingredients/:id', [authorization, recipeOwner], async (req, 
         console.log(err.message);
         res.status('500').json('server error');
     }
-})
+});
 
 module.exports = router;

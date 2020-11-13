@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { json } = require('express');
 const pool = require('../configuration/db');
 const authorization = require('../midelware/authorization');
 const recipeOwner = require('../midelware/recipeOwner');
@@ -14,13 +13,26 @@ router.put('/move_step/:id', [authorization, recipeOwner], async (req, res) => {
             start_index,
             finish_index
         } = req.body;
-        await client.query('UPDATE recipie_steps' +
-            ' set order_index=order_index-1' +
-            ' WHERE order_index>=$1 and order_index=$2',
-            [
-                start_index,
-                finish_index
-            ]);
+        if (start_index < finish_index) {
+            await client.query('UPDATE recipie_steps' +
+                ' set order_index=order_index-1' +
+                ' WHERE order_index>=$1 and order_index<=$2 and recipie_id=$3 ',
+                [
+                    start_index,
+                    finish_index,
+                    req.params.id
+                ]);
+        } else {
+            await client.query('UPDATE recipie_steps' +
+                ' set order_index=order_index+1' +
+                ' WHERE order_index>=$1 and order_index<=$2 and recipie_id=$3 ',
+                [
+                    finish_index,
+                    start_index,
+                    req.params.id
+                ]);
+        }
+
         await client.query('UPDATE recipie_steps' +
             ' set order_index=$1' +
             ' WHERE step_id=$2',

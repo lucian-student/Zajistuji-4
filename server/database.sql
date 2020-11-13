@@ -83,7 +83,6 @@ CREATE TABLE recipie_steps(
     REFERENCES recipies (recipie_id) 
       ON DELETE CASCADE
 );
-
 CREATE TABLE step_ingredients(
   ingredients_id BIGSERIAL PRIMARY KEY,
   step_id BIGINT NOT NULL,
@@ -120,7 +119,6 @@ CREATE TABLE recipie_like (
 CREATE TABLE comments (
     comment_id BIGSERIAL PRIMARY KEY,
     user_id BIGINT NOT NULL,
-    username VARCHAR(255) NOT NULL,
     recipie_id BIGINT NOT NULL,
     content VARCHAR(255) NOT NULL,
     num_of_likes BIGINT NOT NULL,

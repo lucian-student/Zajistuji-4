@@ -9,18 +9,25 @@ import Col from 'react-bootstrap/Col';
 import Dropdown from 'react-bootstrap/Dropdown';
 import RecipeDataForm from './recipeDataForm';
 import { withRouter, Redirect } from 'react-router-dom';
+import { deleteRecipe } from '../../queries/recipes/deleteRecipe';
+import { shareUnshareRecipe } from '../../queries/recipes/shareUnshareRecipe';
 function RecipeDataDisplay() {
-    const { recipe } = useContext(YourRecipeContext);
+    const { recipe, setRecipe } = useContext(YourRecipeContext);
     const [deleted, setDeleted] = useState(false);
     const {
+        recipie_id,
         name,
         category,
         imageurl,
-        description
+        description,
+        shared
     } = recipe;
     const [editing, setEditing] = useState(false);
-    function handleDeleteRecipe(){
-        setDeleted(true);
+    async function handleDeleteRecipe() {
+        await deleteRecipe(recipie_id, setDeleted);
+    }
+    async function handleShareUnshareRecipe() {
+        await shareUnshareRecipe(setRecipe, shared, recipie_id);
     }
     if (deleted) {
         return (
@@ -48,7 +55,15 @@ function RecipeDataDisplay() {
                                 onClick={() => { setEditing(true) }}>Edit
                             </Dropdown.Item>
                             <Dropdown.Item as={Button} variant='light'
-                            onClick={handleDeleteRecipe}>
+                                onClick={handleShareUnshareRecipe}>
+                                {shared ? (
+                                    <Fragment>unshare</Fragment>
+                                ):(
+                                    <Fragment>share</Fragment>
+                                )}
+                            </Dropdown.Item>
+                            <Dropdown.Item as={Button} variant='light'
+                                onClick={handleDeleteRecipe}>
                                 Delete
                             </Dropdown.Item>
                         </Dropdown.Menu>

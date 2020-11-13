@@ -1,31 +1,28 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
 import update from 'immutability-helper';
-export const changeStep = async (ingredients_id, itemIndex, oldStepIndex, newStepIndex, step_id, steps, setSteps, recipie_id) => {
+export const createUtensil = async (utensil, index, steps, setSteps, recipie_id) => {
+    const {
+        step_id,
+        name
+    } = utensil;
     return await jwtTransport({
-        method: 'PUT',
+        method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + getAcessToken(),
             'Content-Type': 'application/json'
         },
         data: {
-            id: ingredients_id,
-            step_id
+            step_id,
+            name
         },
-        url: `http://localhost:5000/step_ingredients/change_step/${recipie_id}`,
+        url: `http://localhost:5000/step_utensils/create_utensil/${recipie_id}`,
     })
         .then(res => {
             setSteps(update(steps, {
-                [newStepIndex]: {
-                    ingredients: {
+                [index]: {
+                    utensils: {
                         $push: [res.data]
-                    }
-                },
-                [oldStepIndex]: {
-                    ingredients: {
-                        $splice: [
-                            [itemIndex, 1]
-                        ]
                     }
                 }
             }))

@@ -20,11 +20,6 @@ function StepIngredients({ properties }) {
             case 'recipe':
                 return true;
             case 'step':
-                if (item.step_id !== step_id) {
-                    if (ingredients.some(ingredient => ingredient.ingredients_id === item.ingredients_id)) {
-                        return false;
-                    }
-                }
                 return true;
             case 'form':
                 return false;

@@ -1,23 +1,19 @@
-import React, { Fragment, useEffect, useContext } from 'react';
-import { getYourRecipe } from '../../queries/recipes/getYourRecipe';
-import { YourRecipeContext } from '../../context/yourRecipe';
-import RecipeDataDisplay from './recipeDataDisplay';
-import StepsDisplay from './stepComponents/stepsDisplay';
-import StepForm from './stepComponents/stepForm';
-import IngredientsAndUtensils from './ingredientsAndUtensils';
+import React, { Fragment, useContext, useEffect } from 'react'
 import Container from 'react-bootstrap/Container';
+import { YourRecipeContext } from '../../context/yourRecipe';
+import { getRecipe } from '../../queries/sharedRecipeQueries/sharedRecipe';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import CustomDragLayer from '../recipeForm/customDragLayer';
-import { StepFormProvider } from '../../context/stepForm';
+import RecipeDataDisplay from './recipeDataDisplay';
+import '../../responsiveCss/recipePage.css';
 function PageWrapper({ recipie_id }) {
     const { recipe, setRecipe } = useContext(YourRecipeContext);
     useEffect(() => {
         const reciveData = async () => {
-            await getYourRecipe(recipie_id, setRecipe);
+            await getRecipe(recipie_id, setRecipe);
         }
         reciveData();
-    }, [recipie_id, setRecipe])
+    }, [recipie_id, setRecipe]);
     return (
         <Fragment>
             {recipe && (
@@ -29,24 +25,21 @@ function PageWrapper({ recipie_id }) {
                     </Row>
                     <Row>
                         <Col>
-                            <IngredientsAndUtensils />
+                            ingredients and utensils
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            <StepFormProvider>
-                                <StepForm />
-                            </StepFormProvider>
+                            step display
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            <StepsDisplay />
+                            display comments
                         </Col>
                     </Row>
                 </Container>
             )}
-            <CustomDragLayer />
         </Fragment>
     )
 }

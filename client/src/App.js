@@ -4,6 +4,7 @@ import Menu from './components/menu';
 import Login from './pages/login';
 import Main from './pages/main';
 import RecipePage from './pages/recipePage';
+import SharedRecipePage from './pages/sharedRecipePage';
 import IngredientsAndUtensils from './pages/ingredientsAndUtensils';
 import SharedRecipes from './pages/sharedRecipes';
 import RecipeForm from './pages/recipeForm';
@@ -52,6 +53,7 @@ function App() {
             <AuthRoute exact path='/SharedRecipes' component={SharedRecipes} />
             <AuthRoute exact path='/RecipeForm' component={RecipeForm} />
             <AuthRoute exact path='/RecipePage/:id' component={RecipePage} />
+            <AuthRoute exact path='/SharedRecipePage/:id' component={SharedRecipePage} />
             <NotAuthRoute exact path='/' component={Login} />
             <NotAuthRoute exact path='/Register' component={Register} />
           </Switch>

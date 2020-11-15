@@ -51,7 +51,7 @@ function IngredientsCard({ ingredients }) {
     }
     return (
         <Fragment>
-            <Card ref={ref}>
+           <Card ref={ref}>
                 <Card.Body>
                     <div style={{ display: 'inline-block' }}>
                         <div>
@@ -82,7 +82,7 @@ function IngredientsCard({ ingredients }) {
                 editing,
                 setEditing,
                 name,
-                category,
+                category, 
                 handleUpdateIngredients
             }} />
         </Fragment>

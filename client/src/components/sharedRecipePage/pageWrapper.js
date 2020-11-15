@@ -5,6 +5,9 @@ import { getRecipe } from '../../queries/sharedRecipeQueries/sharedRecipe';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import RecipeDataDisplay from './recipeDataDisplay';
+import IngredientsAndUtensils from './ingredientsAndUtensils';
+import StepDisplay from './stepComponents/stepDisplay';
+import CommentsComponent from './commentsComponents/commentsComponent';
 import '../../responsiveCss/recipePage.css';
 function PageWrapper({ recipie_id }) {
     const { recipe, setRecipe } = useContext(YourRecipeContext);
@@ -25,17 +28,17 @@ function PageWrapper({ recipie_id }) {
                     </Row>
                     <Row>
                         <Col>
-                            ingredients and utensils
+                            <IngredientsAndUtensils />
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            step display
+                            <StepDisplay />
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            display comments
+                            <CommentsComponent />
                         </Col>
                     </Row>
                 </Container>

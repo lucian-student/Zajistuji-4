@@ -7,7 +7,10 @@ router.get('/get_recipe/:id', [authorization, sharedRecipe], async (req, res) =>
     try {
         const recipe_id = req.params.id;
         const recipe =
-            await pool.query('SELECT * from recipies WHERE recipie_id=$1',
+            await pool.query(
+                'WITH recipe AS (SELECT * FROM recipies WHERE recipie_id=$1)' +
+                ' SELECT recipe.*, u1.name as username from recipe' +
+                ' inner join users u1 on u1.user_id=recipe.user_id',
                 [
                     recipe_id
                 ]);
@@ -21,8 +24,10 @@ router.get('/shared_recipies', authorization, async (req, res) => {
     try {
         const page = req.query.page * 10;
         const recipies =
-            await pool.query('SELECT * FROM recipies WHERE shared=true ORDER BY date_of_creation' +
-                ' OFFSET $1 LIMIT 10'
+            await pool.query(
+                'WITH recipes AS (SELECT * FROM recipies WHERE shared=true ORDER BY date_of_creation desc OFFSET $1 LIMIT 10)' +
+                ' SELECT recipes.*, u1.name as username FROM recipes' +
+                ' inner join users u1 on u1.user_id=recipes.user_id'
                 , [
                     page
                 ]);
@@ -37,8 +42,11 @@ router.get('/liked_recipies', authorization, async (req, res) => {
     try {
         const page = req.query.page * 10;
         const recipies =
-            await pool.query('WITH likes AS (SELECT * FROM recipie_like WHERE user_id=$1)' +
-                'SELECT recipies.* FROM likes INNER JOIN recipies ON likes.recipie_id=recipies.recipie_id' +
+            await pool.query('WITH likes AS (SELECT * FROM recipie_like WHERE user_id=$1),' +
+                ' recipes AS (SELECT * FROM recipies WHERE shared=true)' +
+                ' SELECT recipes.*, u1.name as username FROM likes' +
+                ' INNER JOIN recipes ON likes.recipie_id=recipes.recipie_id' +
+                ' INNER JOIN users u1 on u1.user_id=recipes.user_id ' +
                 ' OFFSET $2 LIMIT 10',
                 [
                     req.user,
@@ -55,7 +63,10 @@ router.get('/popular_recipes', authorization, async (req, res) => {
     try {
         const page = req.query.page * 10;
         const recipes =
-            await pool.query('SELECT * FROM  recipies ORDER BY num_of_likes desc OFFSET $1 LIMIT 10',
+            await pool.query(
+                'WITH recipes AS (SELECT * FROM  recipies WHERE shared=true ORDER BY num_of_likes desc OFFSET $1 LIMIT 10)' +
+                ' SELECT recipes.*, u1.name as username FROM recipes' +
+                ' inner join users u1 on u1.user_id=recipes.user_id',
                 [
                     page
                 ]);

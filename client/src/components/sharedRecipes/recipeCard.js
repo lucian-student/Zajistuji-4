@@ -16,7 +16,8 @@ function RecipeCard({ recipe }) {
         imageurl,
         image_reference,
         num_of_likes,
-        num_of_comments
+        num_of_comments,
+        username
     } = recipe;
     return (
         <Fragment>
@@ -35,6 +36,11 @@ function RecipeCard({ recipe }) {
                     <Card.Title>
                         <div>
                             {name}
+                        </div>
+                    </Card.Title>
+                    <Card.Title>
+                        <div>
+                            {username}
                         </div>
                     </Card.Title>
                     {imageurl && (

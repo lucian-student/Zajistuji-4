@@ -9,12 +9,13 @@ router.get('/get_comments', authorization, async (req, res) => {
             recipie_id
         } = req.query;
         const comments =
-            await pool.query('WITH recipe_comments AS (SELECT * FROM comments WHERE recipie_id=$1 OFFSET $2 LIMIT 10)' +
-                ' SELECT recipe_comments.*, u1.name' +
+            await pool.query('WITH recipe_comments AS (SELECT * FROM comments WHERE recipie_id=$1' +
+                ' ORDER BY posting_date desc OFFSET $2 LIMIT 10)' +
+                ' SELECT recipe_comments.*, u1.name as username FROM recipe_comments' +
                 ' inner join users u1 on u1.user_id=recipe_comments.user_id',
                 [
                     recipie_id,
-                    page
+                    page * 10
                 ]);
         res.json(comments.rows);
     } catch (err) {

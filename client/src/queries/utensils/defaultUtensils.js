@@ -14,7 +14,8 @@ export const utensilsQuery = async (page, setUtensils) => {
         .then(res => {
             // 
             setUtensils(oldArray => {
-                return [...oldArray.concat(res.data)];
+                let tempArr = oldArray.concat(res.data);
+                return [...new Map(tempArr.map(item => [item['utensils_id'], item])).values()];
             })
         })
         .catch(err => console.error(err));

@@ -6,16 +6,24 @@ import Col from 'react-bootstrap/Col';
 import { YourRecipeContext } from '../../context/yourRecipe';
 import { AiOutlineLike } from 'react-icons/ai';
 import { BiCommentDetail } from 'react-icons/bi';
+import Button from 'react-bootstrap/Button';
+import { like_unlike } from '../../queries/recipeLikes/like_unlike';
 function RecipeDataDisplay() {
-    const { recipe } = useContext(YourRecipeContext);
+    const { recipe, setRecipe } = useContext(YourRecipeContext);
     const {
         name,
         category,
         imageurl,
         description,
         num_of_comments,
-        num_of_likes
+        num_of_likes,
+        recipie_id,
+        username
     } = recipe;
+
+    async function handle_like_unlike() {
+        await like_unlike(recipe, setRecipe, recipie_id)
+    }
     return (
         <Card style={{ width: '100%' }}>
             <Card.Header>
@@ -24,6 +32,13 @@ function RecipeDataDisplay() {
                         <Col>
                             <Card.Title>
                                 {name}
+                            </Card.Title>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Card.Title>
+                                {username}
                             </Card.Title>
                         </Col>
                     </Row>
@@ -38,7 +53,10 @@ function RecipeDataDisplay() {
                         <Col style={{ display: 'flex' }}>
                             <div style={{ margin: 'auto' }}>
                                 <Card.Text >
-                                    <AiOutlineLike />{num_of_likes}
+                                    <Button variant='light'
+                                        onClick={handle_like_unlike}>
+                                        <AiOutlineLike />{num_of_likes}
+                                    </Button>
                                 </Card.Text>
                             </div>
                         </Col>

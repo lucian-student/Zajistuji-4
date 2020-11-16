@@ -3,6 +3,7 @@ import { newestRecipes } from '../../queries/sharedRecipeQueries/newestRecipes';
 import { likedRecipes } from '../../queries/sharedRecipeQueries/likedRecipes';
 import { popularRecipes } from '../../queries/sharedRecipeQueries/popularRecipes';
 import RecipeCard from './recipeCard';
+import Button from 'react-bootstrap/Button';
 function DisplayRecipes({ properties: { route, setRoute, options } }) {
     const { routeName, page } = route;
     const [recipes, setRecipes] = useState([]);
@@ -34,6 +35,12 @@ function DisplayRecipes({ properties: { route, setRoute, options } }) {
                     }} />
                 </div>
             ))}
+            {(recipes.length / ((page + 1) * 10)) >= 1 && (
+                <Button variant='light' style={{ width: '100%' }}
+                    onClick={() => { setRoute(old => { return { ...old, page: old.page + 1 }; }) }}>
+                    More...
+                </Button>
+            )}
         </Fragment>
     )
 }

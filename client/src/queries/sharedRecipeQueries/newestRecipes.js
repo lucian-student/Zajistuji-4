@@ -15,7 +15,8 @@ export const newestRecipes = async (page, setRecipes) => {
         .then(res => {
             if (page !== 0) {
                 setRecipes(oldArray => {
-                    return [...oldArray.concat(res.data)];
+                    let tempArr = oldArray.concat(res.data);
+                    return [...new Map(tempArr.map(item => [item['recipie_id'], item])).values()];
                 });
             } else {
                 setRecipes(res.data);

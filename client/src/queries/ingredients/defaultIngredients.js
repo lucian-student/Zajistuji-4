@@ -14,7 +14,8 @@ export const ingredientsQuery = async (page, setIngredients) => {
         .then(res => {
             // 
             setIngredients(oldArray => {
-                    return [...oldArray.concat(res.data)];
+                let tempArr = oldArray.concat(res.data);
+                return [...new Map(tempArr.map(item => [item['ingredients_id'], item])).values()];
             })
         })
         .catch(err => console.error(err));

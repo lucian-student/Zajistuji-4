@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect, useContext, useRef, Fragment } from 'react';
 import Card from 'react-bootstrap/Card';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
@@ -8,6 +8,8 @@ import { DimensionsContext } from '../../../context/dimensions';
 import { YourRecipeContext } from '../../../context/yourRecipe';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { deleteInrgedients } from '../../../queries/stepIngredients/deleteIngredients';
+import { updateIngredients } from '../../../queries/stepIngredients/updateIngredients';
+import StepIngredientsEditForm from './stepIngredientsEditForm';
 function StepIngredientsCard({ ingredients }) {
     const {
         ingredients_id,
@@ -17,13 +19,19 @@ function StepIngredientsCard({ ingredients }) {
         step_id,
         checkCanDrop,
         moveItem1,
-        ultraOriginalStepIndex
+        ultraOriginalStepIndex,
+        unit,
+        value
     } = ingredients;
     const { height, width } = useContext(DimensionsContext);
     const { steps, setSteps, recipe: { recipie_id } } = useContext(YourRecipeContext);
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });
+    const [editing, setEditing] = useState(false);
     async function handleDeleteIngredients() {
         await deleteInrgedients(ingredients_id, index, ultraOriginalStepIndex, setSteps, steps, recipie_id);
+    }
+    async function handleUpdateIngredients(data) {
+        await updateIngredients(data, ingredients_id, index, ultraOriginalStepIndex, steps, setSteps, recipie_id);
     }
     const ref = useRef();
     const [, drop] = useDrop({
@@ -93,30 +101,47 @@ function StepIngredientsCard({ ingredients }) {
     }, [preview, height, width]);
     drop(drag(ref))
     return (
-        <Card ref={ref} style={{ opacity: (isDragging) ? 0 : 1 }}>
-            <Card.Body ref={ref} >
-                <div style={{ display: 'inline-block' }}>
-                    <Card.Text className='cardText'>
-                        {name}
-                    </Card.Text>
-                    <Card.Text className='cardText'>
-                        {category}
-                    </Card.Text>
-                </div>
-                <Dropdown style={{ display: 'inline-block', float: 'right' }}>
-                    <Dropdown.Toggle variant="dark" id="dropdown-basic">
-                        <BiMenu />
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                        <Dropdown.Item as={Button} variant='light'>Edit</Dropdown.Item>
-                        <Dropdown.Item as={Button} variant='light'
-                            onClick={handleDeleteIngredients}>
-                            Delete
+        <Fragment>
+            <Card ref={ref} style={{ opacity: (isDragging) ? 0 : 1 }}>
+                <Card.Body ref={ref} >
+                    <div style={{ display: 'inline-block' }}>
+                        <Card.Text className='cardText'>
+                            {name}
+                        </Card.Text>
+                        <Card.Text className='cardText'>
+                            {category}
+                        </Card.Text>
+                        <Card.Text className='cardText'>
+                            {value} {unit}
+                        </Card.Text>
+                    </div>
+                    <Dropdown style={{ display: 'inline-block', float: 'right' }}>
+                        <Dropdown.Toggle variant="dark" id="dropdown-basic">
+                            <BiMenu />
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            <Dropdown.Item as={Button} variant='light'
+                                onClick={() => setEditing(true)}>
+                                Edit
+                            </Dropdown.Item>
+                            <Dropdown.Item as={Button} variant='light'
+                                onClick={handleDeleteIngredients}>
+                                Delete
                         </Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
-            </Card.Body>
-        </Card>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </Card.Body>
+            </Card>
+            <StepIngredientsEditForm properties={{
+                editing,
+                setEditing,
+                name,
+                category,
+                unit,
+                value,
+                handleUpdateIngredients
+            }} />
+        </Fragment>
     )
 }
 

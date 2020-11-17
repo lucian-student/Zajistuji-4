@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import { useForm } from 'react-hook-form';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-function CommentsForm({ properties: {
-    handleCreateComment
+import Button from 'react-bootstrap/Button';
+function CommentEditForm({ properties: {
+    content,
+    handleEditComment,
+    setEditing
 } }) {
     const [validated, setValidated] = useState(false);
-    const { handleSubmit, watch, register, setValue } = useForm();
+    const { handleSubmit, watch, register } = useForm();
     const contentErrors = watch('content');
     useEffect(() => {
         if (contentErrors) {
@@ -22,10 +24,9 @@ function CommentsForm({ properties: {
             setValidated(false);
         }
     }, [contentErrors])
-
     return (
-        <Container>
-            <Form onSubmit={handleSubmit(handleCreateComment)}>
+        <Container >
+            <Form style={{ width:'100%' }} onSubmit={handleSubmit(handleEditComment)}>
                 <Row style={{ padding: 0 }}>
                     <Col style={{ padding: 0 }}>
                         <Form.Group>
@@ -36,6 +37,7 @@ function CommentsForm({ properties: {
                                 name='content'
                                 type='text'
                                 placeholder='Comment...'
+                                defaultValue={content}
                                 ref={register({
                                     required: true,
                                     maxLength: 255
@@ -45,20 +47,18 @@ function CommentsForm({ properties: {
                 </Row>
                 <Row>
                     <Col>
-                        {contentErrors && (
-                            <div style={{ float: 'right' }}>
-                                <Button onClick={() => setValue("content", null)}
-                                    variant='light'>
-                                    CANCEL
-                                </Button>
-                                <Button
-                                    disabled={!validated}
-                                    type='submit'
-                                    variant='success'>
-                                    COMMENT
-                                </Button>
-                            </div>
-                        )}
+                        <div style={{ float: 'right' }}>
+                            <Button onClick={() => { setEditing(false) }}
+                                variant='light'>
+                                CANCEL
+                            </Button>
+                            <Button
+                                disabled={!validated}
+                                type='submit'
+                                variant='success'>
+                                COMMENT
+                            </Button>
+                        </div>
                     </Col>
                 </Row>
             </Form>
@@ -66,4 +66,4 @@ function CommentsForm({ properties: {
     )
 }
 
-export default CommentsForm;
+export default CommentEditForm;

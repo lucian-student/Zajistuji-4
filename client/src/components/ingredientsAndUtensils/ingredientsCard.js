@@ -13,7 +13,6 @@ function IngredientsCard({ ingredients: { user_id, category, name, ingredients_i
     async function deleteIngredients() {
         await deleteInrgedients(ingredients_id, setIngredients);
     }
-
     const handleClose = () => setEditing(false);
     const handleShow = () => setEditing(true);
 

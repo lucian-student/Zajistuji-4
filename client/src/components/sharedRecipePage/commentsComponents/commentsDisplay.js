@@ -1,18 +1,9 @@
-import React, { Fragment, useEffect, useContext, useState } from 'react';
-import { YourRecipeContext } from '../../../context/yourRecipe';
-import { commentsQuery } from '../../../queries/comments/commentsQuery';
+import React, { Fragment, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import CommentsCard from './commentCard';
+import { CommentsContext } from '../../../context/comments';
 function CommentsDisplay() {
-    const { recipe: { recipie_id } } = useContext(YourRecipeContext);
-    const [comments, setComments] = useState([]);
-    const [commentsPage, setCommentsPage] = useState(0);
-    useEffect(() => {
-        const reciveData = async () => {
-            await commentsQuery(commentsPage, recipie_id, setComments);
-        }
-        reciveData();
-    }, [commentsPage, recipie_id, setComments])
+    const { comments, setCommentsPage, commentsPage } = useContext(CommentsContext);
     return (
         <Fragment>
             {comments.map((comment, index) => (

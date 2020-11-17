@@ -40,14 +40,14 @@ router.post('/like_unlike_comment', authorization, async (req, res) => {
         const id = req.body.id;
         await client.query('BEGIN');
         const checkComment =
-            await client.query('SELECT like_id FROM commentlikes WHERE user_id=$1 AND comment_id=$2',
+            await client.query('SELECT like_id FROM comment_likes WHERE user_id=$1 AND comment_id=$2',
                 [
                     req.user,
                     id
                 ]);
         if (checkComment.rows.length === 0) {
             const newLike =
-                await client.query('INSERT INTO commentlikes (user_id,comment_id)' +
+                await client.query('INSERT INTO comment_likes (user_id,comment_id)' +
                     ' VALUES ($1,$2) RETURNING *', [
                     req.user,
                     id
@@ -69,7 +69,7 @@ router.post('/like_unlike_comment', authorization, async (req, res) => {
                         id
                     ]);
             const deleteLike =
-                await client.query('DELETE FROM commentlikes WHERE user_id=$1 AND comment_id=$2 RETURNING *',
+                await client.query('DELETE FROM comment_likes WHERE user_id=$1 AND comment_id=$2 RETURNING *',
                     [
                         req.user,
                         id
@@ -109,21 +109,25 @@ router.delete('/delete_comment/:id', [authorization, commentOwner], async (req, 
     try {
         const id = req.params.id;
         const recipie_id = req.body.id;
+        if (!(id !== null && recipie_id !== null)) {
+            res.status('500').send('Bad Input');
+        }
         await client.query('BEGIN');
 
-        const deleteComment = await client.query('DELETE FROM comments WHERE comment_id=$1',
+        const deleteComment = await client.query('DELETE FROM comments WHERE comment_id=$1 RETURNING comment_id',
             [
                 id
             ]);
 
-        const updateTweet =
-            await client.query('UPDATE recipies SET num_of_comments=num_of_comments-1 WHERE recipie_id=$1 RETURNING *',
+        const update_recipe =
+            await client.query('UPDATE recipies SET num_of_comments=num_of_comments-1 WHERE recipie_id=$1 RETURNING num_of_comments',
                 [
                     recipie_id
                 ]);
         await client.query('COMMIT');
         res.json({
-            num_of_likes: updateTweet.rows[0].num_of_likes
+            comment_id: deleteComment.rows[0].comment_id,
+            ...update_recipe.rows[0]
         });
     } catch (err) {
         await client.query('ROLLBACK');

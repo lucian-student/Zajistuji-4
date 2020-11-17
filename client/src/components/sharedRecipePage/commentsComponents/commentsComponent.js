@@ -1,12 +1,9 @@
 import React, { Fragment, useState } from 'react';
-import CommentsDispaly from './commentsDisplay';
 import Button from 'react-bootstrap/Button';
-import CommentsForm from './commentsForm';
+import DataWrapper from './dataWrapper';
+import { CommentsProvider } from '../../../context/comments';
 function CommentsComponent() {
     const [show, setShow] = useState(false);
-    async function handleCreateComment(data) {
-        console.log(data);
-    }
     return (
         <Fragment>
             <Button variant='light' style={{ width: '100%' }}
@@ -14,10 +11,9 @@ function CommentsComponent() {
                 Comments
             </Button>
             {show && (
-                <Fragment>
-                    <CommentsForm properties={{ handleCreateComment }} />
-                    <CommentsDispaly />
-                </Fragment>
+                <CommentsProvider>
+                    <DataWrapper />
+                </CommentsProvider>
             )}
         </Fragment>
     )

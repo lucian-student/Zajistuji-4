@@ -67,7 +67,7 @@ router.put('/update_utensil/:id', [authorization, recipeOwner], async (req, res)
             name
         } = req.body;
         const updatedUtensil =
-            await pool.query('UPDATE step_utensil SET' +
+            await pool.query('UPDATE step_utensils SET' +
                 ' name=$1' +
                 ' WHERE utensils_id=$2 RETURNING *',
                 [

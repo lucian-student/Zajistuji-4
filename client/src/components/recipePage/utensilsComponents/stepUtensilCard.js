@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { Fragment, useState, useEffect, useContext, useRef } from 'react';
 import Card from 'react-bootstrap/Card';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { BiMenu } from 'react-icons/bi';
@@ -8,6 +8,8 @@ import { getEmptyImage } from 'react-dnd-html5-backend';
 import { DimensionsContext } from '../../../context/dimensions';
 import { YourRecipeContext } from '../../../context/yourRecipe';
 import { deleteUtensil } from '../../../queries/stepUtensils/deleteUtensil';
+import { updateUtensil } from '../../../queries/stepUtensils/updateUtensil';
+import UtensilEditForm from './utensilEditForm';
 function StepUtensilCard({ utensil }) {
     const {
         utensils_id,
@@ -21,8 +23,21 @@ function StepUtensilCard({ utensil }) {
     const { width, height } = useContext(DimensionsContext);
     const { steps, setSteps, recipe: { recipie_id } } = useContext(YourRecipeContext);
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });
+    const [editing, setEditing] = useState(false);
     async function handleDeleteUtensils() {
         await deleteUtensil(utensils_id, index, ultraOriginalStepIndex, setSteps, steps, recipie_id);
+    }
+    async function handleUpdateUtensils(data) {
+        await updateUtensil(
+            utensils_id,
+            index,
+            ultraOriginalStepIndex,
+            data,
+            steps,
+            setSteps,
+            recipie_id
+        );
+        setEditing(false);
     }
     const ref = useRef();
     const [, drop] = useDrop({
@@ -92,27 +107,38 @@ function StepUtensilCard({ utensil }) {
     }, [preview, height, width]);
     drop(drag(ref))
     return (
-        <Card ref={ref} style={{ opacity: (isDragging) ? 0 : 1 }}>
-            <Card.Body>
-                <div style={{ display: 'inline-block' }}>
-                    <Card.Text className='cardText'>
-                        {name}
-                    </Card.Text>
-                </div>
-                <Dropdown style={{ display: 'inline-block', float: 'right' }}>
-                    <Dropdown.Toggle variant="dark" id="dropdown-basic">
-                        <BiMenu />
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                        <Dropdown.Item as={Button} variant='light'>Edit</Dropdown.Item>
-                        <Dropdown.Item as={Button} variant='light'
-                            onClick={handleDeleteUtensils}>
-                            Delete
+        <Fragment>
+            <Card ref={ref} style={{ opacity: (isDragging) ? 0 : 1 }}>
+                <Card.Body>
+                    <div style={{ display: 'inline-block' }}>
+                        <Card.Text className='cardText'>
+                            {name}
+                        </Card.Text>
+                    </div>
+                    <Dropdown style={{ display: 'inline-block', float: 'right' }}>
+                        <Dropdown.Toggle variant="dark" id="dropdown-basic">
+                            <BiMenu />
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            <Dropdown.Item as={Button} variant='light'
+                                onClick={() => setEditing(true)}>
+                                Edit
+                            </Dropdown.Item>
+                            <Dropdown.Item as={Button} variant='light'
+                                onClick={handleDeleteUtensils}>
+                                Delete
                         </Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
-            </Card.Body>
-        </Card>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </Card.Body>
+            </Card>
+            <UtensilEditForm properties={{
+                editing,
+                setEditing,
+                name,
+                handleUpdateUtensils
+            }} />
+        </Fragment>
     )
 }
 

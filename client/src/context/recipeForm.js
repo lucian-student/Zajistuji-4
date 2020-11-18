@@ -9,7 +9,6 @@ export const RecipeFormProvider = ({ children }) => {
     //steps
     const [recipeSteps, setRecipeSteps] = useState([]);
     const [startedDragging, setStartedDragging] = useState(false);
-
     return (
         <RecipeFormContext.Provider
             value={{

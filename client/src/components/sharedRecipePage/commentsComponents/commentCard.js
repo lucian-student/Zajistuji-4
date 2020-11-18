@@ -17,7 +17,7 @@ import { YourRecipeContext } from '../../../context/yourRecipe';
 function CommentCard({ comment }) {
     const [editing, setEditing] = useState(false);
     const { currentUser } = useContext(AuthContext);
-    const { comments, setComments } = useContext(CommentsContext);
+    const { comments, setComments, source } = useContext(CommentsContext);
     const { setRecipe, recipe: { recipie_id } } = useContext(YourRecipeContext);
 
     const {
@@ -29,14 +29,13 @@ function CommentCard({ comment }) {
         index
     } = comment;
     async function handleLike() {
-        await like_unlike(index, comments, setComments, comment_id);
+        await like_unlike(index, comments, setComments, comment_id, source);
     }
     async function handleDelete() {
-        await deleteComment(setRecipe, setComments, comment_id, recipie_id);
+        await deleteComment(setRecipe, setComments, comment_id, recipie_id, source);
     }
     async function handleEditComment(data) {
-        await editComments(data.content, comment_id, setComments, comments, index);
-        setEditing(false);
+        await editComments(data.content, comment_id, setComments, comments, index, source, setEditing);
     }
     return (
         <Card>

@@ -2,11 +2,15 @@ import React, { Fragment, useEffect, useContext } from 'react';
 import { IngredientsAndUtensilsContext } from '../../context/ingredientsAndUtensils';
 import IngredientsCard from './ingredientsCard';
 import Button from 'react-bootstrap/Button';
+import { ingredientsQuery } from '../../queries/ingredients/defaultIngredients';
 function IngredinetsDisplay() {
-    const { ingredientsPage, setIngredientsPage, setIngredientsData, ingredients } = useContext(IngredientsAndUtensilsContext);
+    const { ingredientsPage, setIngredientsPage, setIngredients, ingredients, source } = useContext(IngredientsAndUtensilsContext);
     useEffect(() => {
-        setIngredientsData(ingredientsPage);
-    }, [ingredientsPage, setIngredientsData]);
+        const reciveData = async () => {
+            await ingredientsQuery(ingredientsPage, setIngredients, source);
+        }
+        reciveData();
+    }, [ingredientsPage, setIngredients, source]);
     return (
         <Fragment>
             {ingredients.map((ingredient, index) => (

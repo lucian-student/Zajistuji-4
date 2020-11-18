@@ -9,7 +9,9 @@ export const updateStep = async (
     index,
     recipie_id,
     setSteps,
-    steps
+    steps,
+    source,
+    setEditing
 ) => {
     return await jwtTransport({
         method: 'PUT',
@@ -23,6 +25,7 @@ export const updateStep = async (
             name,
             description
         },
+        cancelToken: source.token,
         url: `http://localhost:5000/recipe_steps/update_step/${recipie_id}`,
     })
         .then(res => {
@@ -31,6 +34,7 @@ export const updateStep = async (
                     $merge: res.data
                 }
             }))
+            setEditing(false);
         })
         .catch(err => console.error(err));
 };

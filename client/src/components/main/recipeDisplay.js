@@ -4,13 +4,13 @@ import { recipeQuery } from '../../queries/recipes/defaultRecipeQuery';
 import Button from 'react-bootstrap/Button';
 import RecipeCard from './recipeCard';
 function RecipeDisplay() {
-    const { yourRecipes, setYourRecipes, yourRecipesPage, setYourRecipesPage } = useContext(YourRecipesContext);
+    const { yourRecipes, setYourRecipes, yourRecipesPage, setYourRecipesPage, source } = useContext(YourRecipesContext);
     useEffect(() => {
         const reciveData = async () => {
-            await recipeQuery(yourRecipesPage, setYourRecipes);
+            await recipeQuery(yourRecipesPage, setYourRecipes, source);
         }
         reciveData();
-    }, [yourRecipesPage, setYourRecipes]);
+    }, [yourRecipesPage, setYourRecipes, source]);
     return (
         <Fragment>
             {yourRecipes.map((recipe, index) => (

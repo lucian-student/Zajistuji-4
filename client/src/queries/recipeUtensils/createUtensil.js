@@ -1,7 +1,7 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
 
-export const createUtensil = async (name, setUtensils, recipie_id) => {
+export const createUtensil = async (name, setUtensils, recipie_id, source) => {
     return await jwtTransport({
         method: 'POST',
         headers: {
@@ -11,6 +11,7 @@ export const createUtensil = async (name, setUtensils, recipie_id) => {
         data: {
             name
         },
+        cancelToken: source.token,
         url: `http://localhost:5000/recipe_utensils/create_utensil/${recipie_id}`,
     })
         .then(res => {

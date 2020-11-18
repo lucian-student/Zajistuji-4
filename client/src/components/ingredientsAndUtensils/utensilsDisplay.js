@@ -4,13 +4,13 @@ import { IngredientsAndUtensilsContext } from '../../context/ingredientsAndUtens
 import { utensilsQuery } from '../../queries/utensils/defaultUtensils';
 import UtensilsCard from './utensilsCard';
 function UtensilsDisplay() {
-    const { setUtensils, utensilsPage, setUtensilsPage, utensils } = useContext(IngredientsAndUtensilsContext);
+    const { setUtensils, utensilsPage, setUtensilsPage, utensils, source } = useContext(IngredientsAndUtensilsContext);
     useEffect(() => {
         const reciveData = async () => {
-            await utensilsQuery(utensilsPage, setUtensils);
+            await utensilsQuery(utensilsPage, setUtensils, source);
         }
         reciveData();
-    }, [utensilsPage, setUtensils])
+    }, [utensilsPage, setUtensils,source])
     return (
         <Fragment>
             {utensils.map((utensil, index) => (

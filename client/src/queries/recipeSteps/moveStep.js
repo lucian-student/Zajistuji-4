@@ -4,7 +4,8 @@ export const moveStep = async (
     step_id,
     start_index,
     finish_index,
-    recipie_id
+    recipie_id,
+    source
 ) => {
     return await jwtTransport({
         method: 'PUT',
@@ -17,10 +18,11 @@ export const moveStep = async (
             start_index,
             finish_index
         },
+        cancelToken: source.token,
         url: `http://localhost:5000/recipe_steps/move_step/${recipie_id}`,
     })
         .then(res => {
-           console.log(res.data);
+            console.log(res.data);
         })
         .catch(err => console.error(err));
 };

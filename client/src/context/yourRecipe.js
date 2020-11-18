@@ -1,5 +1,5 @@
-import React, { createContext, useState } from 'react';
-
+import React, { createContext, useState, useRef, useEffect } from 'react';
+import axios from 'axios';
 export const YourRecipeContext = createContext();
 
 export const YourRecipeProvider = ({ children }) => {
@@ -8,6 +8,14 @@ export const YourRecipeProvider = ({ children }) => {
     const [utensils, setUtensils] = useState([]);
     const [steps, setSteps] = useState([]);
     const [startedDragging, setStartedDragging] = useState(false);
+
+    const source = useRef(axios.CancelToken.source());
+    useEffect(() => {
+        const cancelToken = source.current;
+        return () => {
+            cancelToken.cancel('canceled');
+        }
+    }, []);
     return (
         <YourRecipeContext.Provider value={{
             recipe,
@@ -19,7 +27,8 @@ export const YourRecipeProvider = ({ children }) => {
             steps,
             setSteps,
             startedDragging,
-            setStartedDragging
+            setStartedDragging,
+            source: source.current
         }}>
             {children}
         </YourRecipeContext.Provider>

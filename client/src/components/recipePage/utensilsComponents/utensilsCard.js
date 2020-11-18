@@ -10,7 +10,9 @@ import { deleteUtensil } from '../../../queries/recipeUtensils/deleteUtensil';
 import { useDrag } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { DimensionsContext } from '../../../context/dimensions';
+import axios from 'axios';
 function UtensilCard({ utensil }) {
+    const source = useRef(axios.CancelToken.source());
     const {
         name,
         index,
@@ -33,19 +35,23 @@ function UtensilCard({ utensil }) {
     useEffect(() => {
         if (ref.current) {
             setDimensions({
-                width:ref.current.clientWidth,
+                width: ref.current.clientWidth,
                 height: ref.current.clientHeight
             });
         }
         preview(getEmptyImage(), { captureDraggingState: true });
+        const cancelToken = source.current;
+        return () => {
+            cancelToken.cancel('canceled');
+        }
     }, [preview, height, width]);
     drag(ref);
     async function handleUpdateUtensils(data) {
-        await updateUtensil(utensils, setUtensils, index, data.name, utensils_id, recipie_id);
+        await updateUtensil(utensils, setUtensils, index, data.name, utensils_id, recipie_id, setEditing, source.current);
         setEditing(false);
     }
     async function handleDeleteUtensil() {
-        await deleteUtensil(utensils_id, setUtensils, recipie_id);
+        await deleteUtensil(utensils_id, setUtensils, recipie_id, source.current);
     }
     return (
         <Fragment>

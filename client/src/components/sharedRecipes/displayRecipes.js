@@ -4,26 +4,31 @@ import { likedRecipes } from '../../queries/sharedRecipeQueries/likedRecipes';
 import { popularRecipes } from '../../queries/sharedRecipeQueries/popularRecipes';
 import RecipeCard from './recipeCard';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 function DisplayRecipes({ properties: { route, setRoute, options } }) {
     const { routeName, page } = route;
     const [recipes, setRecipes] = useState([]);
     useEffect(() => {
+        const source = axios.CancelToken.source();
         const reciveData = async () => {
             switch (routeName) {
                 case options[0]:
-                    await newestRecipes(page, setRecipes);
+                    await newestRecipes(page, setRecipes, source);
                     break;
                 case options[1]:
-                    await popularRecipes(page, setRecipes);
+                    await popularRecipes(page, setRecipes, source);
                     break;
                 case options[2]:
-                    await likedRecipes(page, setRecipes);
+                    await likedRecipes(page, setRecipes, source);
                     break;
                 default:
                     console.log('error');
             }
         }
         reciveData();
+        return () => {
+            source.cancel('canceled');
+        }
     }, [options, page, routeName])
     return (
         <Fragment>

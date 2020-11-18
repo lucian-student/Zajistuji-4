@@ -10,7 +10,9 @@ import { YourRecipeContext } from '../../../context/yourRecipe';
 import { deleteUtensil } from '../../../queries/stepUtensils/deleteUtensil';
 import { updateUtensil } from '../../../queries/stepUtensils/updateUtensil';
 import UtensilEditForm from './utensilEditForm';
+import axios from 'axios';
 function StepUtensilCard({ utensil }) {
+    const source = useRef(axios.CancelToken.source());
     const {
         utensils_id,
         name,
@@ -25,7 +27,7 @@ function StepUtensilCard({ utensil }) {
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });
     const [editing, setEditing] = useState(false);
     async function handleDeleteUtensils() {
-        await deleteUtensil(utensils_id, index, ultraOriginalStepIndex, setSteps, steps, recipie_id);
+        await deleteUtensil(utensils_id, index, ultraOriginalStepIndex, setSteps, steps, recipie_id, source.current);
     }
     async function handleUpdateUtensils(data) {
         await updateUtensil(
@@ -35,9 +37,10 @@ function StepUtensilCard({ utensil }) {
             data,
             steps,
             setSteps,
-            recipie_id
+            recipie_id,
+            source.current,
+            setEditing
         );
-        setEditing(false);
     }
     const ref = useRef();
     const [, drop] = useDrop({
@@ -86,6 +89,7 @@ function StepUtensilCard({ utensil }) {
             status: 'step',
             dimensions,
             originalIndex: index,
+            source: source.current
         },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
@@ -104,6 +108,10 @@ function StepUtensilCard({ utensil }) {
             });
         }
         preview(getEmptyImage(), { captureDraggingState: true });
+        const cancelToken = source.current;
+        return () => {
+            cancelToken.cancel('canceled');
+        }
     }, [preview, height, width]);
     drop(drag(ref))
     return (

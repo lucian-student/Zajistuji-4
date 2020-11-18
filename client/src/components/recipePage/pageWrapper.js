@@ -11,13 +11,13 @@ import Col from 'react-bootstrap/Col';
 import CustomDragLayer from '../recipeForm/customDragLayer';
 import { StepFormProvider } from '../../context/stepForm';
 function PageWrapper({ recipie_id }) {
-    const { recipe, setRecipe } = useContext(YourRecipeContext);
+    const { recipe, setRecipe, source } = useContext(YourRecipeContext);
     useEffect(() => {
         const reciveData = async () => {
-            await getYourRecipe(recipie_id, setRecipe);
+            await getYourRecipe(recipie_id, setRecipe, source);
         }
         reciveData();
-    }, [recipie_id, setRecipe])
+    }, [recipie_id, setRecipe, source]);
     return (
         <Fragment>
             {recipe && (

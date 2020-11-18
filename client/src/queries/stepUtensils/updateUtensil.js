@@ -8,7 +8,9 @@ export const updateUtensil = async (
     data,
     steps,
     setSteps,
-    recipie_id
+    recipie_id,
+    source,
+    setEditing
 ) => {
     const {
         name
@@ -23,6 +25,7 @@ export const updateUtensil = async (
             id: utensils_id,
             name
         },
+        cancelToken: source.token,
         url: `http://localhost:5000/step_utensils/update_utensil/${recipie_id}`,
     })
         .then(res => {
@@ -34,7 +37,8 @@ export const updateUtensil = async (
                         }
                     }
                 }
-            }))
+            }));
+            setEditing(false);
         })
         .catch(err => console.error(err));
 };

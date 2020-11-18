@@ -9,7 +9,7 @@ import { BiCommentDetail } from 'react-icons/bi';
 import Button from 'react-bootstrap/Button';
 import { like_unlike } from '../../queries/recipeLikes/like_unlike';
 function RecipeDataDisplay() {
-    const { recipe, setRecipe } = useContext(YourRecipeContext);
+    const { recipe, setRecipe, source } = useContext(YourRecipeContext);
     const {
         name,
         category,
@@ -22,7 +22,7 @@ function RecipeDataDisplay() {
     } = recipe;
 
     async function handle_like_unlike() {
-        await like_unlike(recipe, setRecipe, recipie_id)
+        await like_unlike(recipe, setRecipe, recipie_id, source);
     }
     return (
         <Card style={{ width: '100%' }}>

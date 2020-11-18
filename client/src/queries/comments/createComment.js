@@ -1,7 +1,7 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
 
-export const createComment = async (recipie_id, content, setComments, username, setRecipe) => {
+export const createComment = async (recipie_id, content, setComments, username, setRecipe, source) => {
     return await jwtTransport({
         method: 'POST',
         headers: {
@@ -12,6 +12,7 @@ export const createComment = async (recipie_id, content, setComments, username, 
             content,
             recipieId: recipie_id
         },
+        cancelToken: source.token,
         url: `http://localhost:5000/comments/create_comment`,
     })
         .then(res => {

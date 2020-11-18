@@ -53,7 +53,7 @@ function StepUtensils({ properties }) {
                 name: item.name
             }
             if (item.status === 'recipe') {
-                await createUtensil(card, index, steps, setSteps, recipie_id);
+                await createUtensil(card, index, steps, setSteps, recipie_id, item.source);
             }
             if (item.status === 'step' && item.ultraOriginalStepIndex !== index) {
                 await changeStep(
@@ -61,7 +61,8 @@ function StepUtensils({ properties }) {
                     item.index,
                     item.ultraOriginalStepIndex,
                     index, step_id, steps,
-                    setSteps, recipie_id
+                    setSteps, recipie_id,
+                    item.source
                 );
             }
         }

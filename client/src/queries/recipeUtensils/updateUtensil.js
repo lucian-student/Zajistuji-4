@@ -1,7 +1,7 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
 import update from 'immutability-helper';
-export const updateUtensil = async (utensils, setUtensils, index, name, utensils_id, recipie_id) => {
+export const updateUtensil = async (utensils, setUtensils, index, name, utensils_id, recipie_id, setEditing, source) => {
     return await jwtTransport({
         method: 'PUT',
         headers: {
@@ -12,6 +12,7 @@ export const updateUtensil = async (utensils, setUtensils, index, name, utensils
             name,
             id: utensils_id
         },
+        cancelToken: source.token,
         url: `http://localhost:5000/recipe_utensils/update_utensil/${recipie_id}`,
     })
         .then(res => {
@@ -20,6 +21,7 @@ export const updateUtensil = async (utensils, setUtensils, index, name, utensils
                     $merge: res.data
                 }
             }))
+            setEditing(false);
         })
         .catch(err => console.error(err));
 };

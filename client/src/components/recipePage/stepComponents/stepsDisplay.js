@@ -6,13 +6,13 @@ import update from 'immutability-helper';
 import { useDrop } from 'react-dnd';
 import { moveStep } from '../../../queries/recipeSteps/moveStep';
 function StepsDisplay() {
-    const { steps, setSteps, recipe: { recipie_id } } = useContext(YourRecipeContext);
+    const { steps, setSteps, recipe: { recipie_id }, source } = useContext(YourRecipeContext);
     useEffect(() => {
         const reciveData = async () => {
-            await recipeStepsQuery(recipie_id, setSteps);
+            await recipeStepsQuery(recipie_id, setSteps, source);
         }
         reciveData();
-    }, [setSteps, recipie_id]);
+    }, [setSteps, recipie_id, source]);
     // same list 
     const moveItem1 = useCallback((dragIndex, hoverIndex) => {
         const dragCard = steps[dragIndex];
@@ -29,7 +29,7 @@ function StepsDisplay() {
         drop(item, monitor) {
             if (item.originalIndex !== item.index) {
                 const moveData = async () => {
-                    await moveStep(item.step_id, item.originalIndex, item.index, recipie_id);
+                    await moveStep(item.step_id, item.originalIndex, item.index, recipie_id, item.source);
                 }
                 moveData();
             }

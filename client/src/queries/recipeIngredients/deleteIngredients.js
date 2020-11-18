@@ -1,13 +1,14 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
 
-export const deleteInrgedients = async (ingredients_id, setIngredients, recipie_id) => {
+export const deleteInrgedients = async (ingredients_id, setIngredients, recipie_id, source) => {
     return await jwtTransport({
         method: 'DELETE',
         headers: {
             'Authorization': 'Bearer ' + getAcessToken(),
             'Content-Type': 'application/json'
         },
+        cancelToken: source.token,
         url: `http://localhost:5000/recipe_ingredients/delete_ingredients/${recipie_id}`,
         data: {
             id: ingredients_id

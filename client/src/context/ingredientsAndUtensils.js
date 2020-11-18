@@ -1,5 +1,5 @@
-import React, { useState, createContext, useCallback } from 'react';
-import { ingredientsQuery } from '../queries/ingredients/defaultIngredients';
+import React, { useState, createContext, useRef, useEffect } from 'react';
+import axios from 'axios';
 export const IngredientsAndUtensilsContext = createContext();
 
 export const IngredientsAndUtensilsProvider = ({ children }) => {
@@ -8,21 +8,25 @@ export const IngredientsAndUtensilsProvider = ({ children }) => {
     const [utensils, setUtensils] = useState([]);
     const [utensilsPage, setUtensilsPage] = useState(0);
 
-    const setIngredientsData = useCallback(async (page) => {
-        ingredientsQuery(page, setIngredients)
-    }, [])
+    const source = useRef(axios.CancelToken.source());
+    useEffect(() => {
+        const cancelToken = source.current;
+        return () => {
+            cancelToken.cancel('canceled');
+        }
+    }, []);
     return (
         <IngredientsAndUtensilsContext.Provider
             value={{
                 ingredients,
                 setIngredients,
-                setIngredientsData,
                 ingredientsPage,
                 setIngredientsPage,
                 utensils,
                 setUtensils,
                 utensilsPage,
-                setUtensilsPage
+                setUtensilsPage,
+                source: source.current
             }}>
             {children}
         </IngredientsAndUtensilsContext.Provider>

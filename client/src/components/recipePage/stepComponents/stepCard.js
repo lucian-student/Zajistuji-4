@@ -12,7 +12,9 @@ import { DimensionsContext } from '../../../context/dimensions';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { useDrop, useDrag } from 'react-dnd';
 import { deleteStep } from '../../../queries/recipeSteps/deleteStep';
+import axios from 'axios';
 function StepCard({ step }) {
+    const source = useRef(axios.CancelToken.source());
     const {
         step_id,
         name,
@@ -55,7 +57,7 @@ function StepCard({ step }) {
         }
     });
     const [{ isDragging }, drag, preview] = useDrag({
-        item: { ...step, type: 'STEP', dimensions, originalIndex: index },
+        item: { ...step, type: 'STEP', dimensions, originalIndex: index, source: source.current },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
@@ -80,6 +82,10 @@ function StepCard({ step }) {
             setShow(false);
         }
         preview(getEmptyImage(), { captureDraggingState: true });
+        const cancelToken = source.current;
+        return () => {
+            cancelToken.cancel('canceled');
+        }
     }, [preview, height, width, startedDragging]);
     drop(ref);
     async function handleUpdateStep(data) {
@@ -91,12 +97,13 @@ function StepCard({ step }) {
             index,
             recipie_id,
             setSteps,
-            steps
+            steps,
+            source.current,
+            setEditing
         );
-        setEditing(false);
     }
     async function handleDeleteStep() {
-        await deleteStep(step_id, setSteps, recipie_id);
+        await deleteStep(step_id, setSteps, recipie_id, source.current);
     }
     return (
         <Fragment>

@@ -10,7 +10,9 @@ import { updateIngredients } from '../../../queries/recipeIngredients/updateIngr
 import { deleteInrgedients } from '../../../queries/recipeIngredients/deleteIngredients';
 import { useDrag } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
+import axios from 'axios';
 function IngredientsCard({ ingredients }) {
+    const source = useRef(axios.CancelToken.source());
     const {
         name,
         category,
@@ -40,18 +42,21 @@ function IngredientsCard({ ingredients }) {
             });
         }
         preview(getEmptyImage(), { captureDraggingState: true });
+        const cancelToken = source.current;
+        return () => {
+            cancelToken.cancel('canceled');
+        }
     }, [preview, height, width]);
     drag(ref);
     async function handleUpdateIngredients(data) {
-        await updateIngredients(recipeData.ingredients, setIngredients, index, data.name, data.category, ingredients_id, recipie_id);
-        setEditing(false);
+        await updateIngredients(recipeData.ingredients, setIngredients, index, data.name, data.category, ingredients_id, recipie_id, setEditing, source.current);
     }
     async function handleDeleteIngredients() {
-        await deleteInrgedients(ingredients_id, setIngredients, recipie_id);
+        await deleteInrgedients(ingredients_id, setIngredients, recipie_id, source.current);
     }
     return (
         <Fragment>
-           <Card ref={ref}>
+            <Card ref={ref}>
                 <Card.Body>
                     <div style={{ display: 'inline-block' }}>
                         <div>
@@ -82,7 +87,7 @@ function IngredientsCard({ ingredients }) {
                 editing,
                 setEditing,
                 name,
-                category, 
+                category,
                 handleUpdateIngredients
             }} />
         </Fragment>

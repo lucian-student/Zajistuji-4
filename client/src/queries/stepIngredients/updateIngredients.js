@@ -1,7 +1,7 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
 import update from 'immutability-helper';
-export const updateIngredients = async (data, ingredients_id, itemIndex, stepIndex, steps, setSteps, recipie_id) => {
+export const updateIngredients = async (data, ingredients_id, itemIndex, stepIndex, steps, setSteps, recipie_id, source) => {
     const {
         unit,
         value,
@@ -21,6 +21,7 @@ export const updateIngredients = async (data, ingredients_id, itemIndex, stepInd
             name,
             category
         },
+        cancelToken: source.token,
         url: `http://localhost:5000/step_ingredients/update_ingredients/${recipie_id}`,
     })
         .then(res => {

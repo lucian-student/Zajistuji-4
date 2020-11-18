@@ -8,19 +8,15 @@ import { deleteUtensil } from '../../queries/utensils/deleteUtensil';
 import { updateUtensil } from '../../queries/utensils/updateUtensil';
 import UtensilEditForm from '../recipePage/utensilsComponents/utensilEditForm';
 function UtensilsCard({ utensil: { utensils_id, name, index } }) {
-    const { setUtensils, utensils } = useContext(IngredientsAndUtensilsContext);
+    const { setUtensils, utensils, source } = useContext(IngredientsAndUtensilsContext);
     const [editing, setEditing] = useState(false);
 
     async function handleDeleteUtensil() {
-        await deleteUtensil(utensils_id, setUtensils);
+        await deleteUtensil(utensils_id, setUtensils, source);
     }
 
-    const handleClose = () => setEditing(false);
-    const handleShow = () => setEditing(true);
-
     async function handleUpdateUtensils(data) {
-        await updateUtensil(data.name, utensils_id, setUtensils, utensils, index);
-        handleClose();
+        await updateUtensil(data.name, utensils_id, setUtensils, utensils, index, source, setEditing);
     }
     const options = ['Edit', 'Delete']
     return (
@@ -41,7 +37,7 @@ function UtensilsCard({ utensil: { utensils_id, name, index } }) {
                                     ) : (
                                             <Button variant=''
                                                 style={{ width: '100%' }}
-                                                onClick={handleShow}>{option}</Button>
+                                                onClick={() => setEditing(true)}>{option}</Button>
                                         )}
                                 </div>
                             ))}

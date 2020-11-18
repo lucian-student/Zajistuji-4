@@ -16,7 +16,7 @@ import { CgRemove } from 'react-icons/cg';
 function RecipeDataForm({ properties: { editing, setEditing } }) {
     const { handleSubmit, register, errors, watch } = useForm();
     const { currentUser: { user_id } } = useContext(AuthContext);
-    const { recipe, setRecipe } = useContext(YourRecipeContext);
+    const { recipe, setRecipe, source } = useContext(YourRecipeContext);
     const {
         recipie_id,
         name,
@@ -95,8 +95,7 @@ function RecipeDataForm({ properties: { editing, setEditing } }) {
             imageUrl: newImageUrl,
             image_reference: newImageReference
         };
-        setRemoveImage(false);
-        await updateRecipe(setRecipe, updateData);
+        await updateRecipe(setRecipe, updateData, setRemoveImage, source);
     }
 
     async function uploadImage(storageRef, data) {

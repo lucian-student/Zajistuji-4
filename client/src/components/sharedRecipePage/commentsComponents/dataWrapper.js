@@ -7,18 +7,18 @@ import { CommentsContext } from '../../../context/comments';
 import { AuthContext } from '../../../context/auth';
 import { commentsQuery } from '../../../queries/comments/commentsQuery';
 function DataWrapper() {
-    const { recipe: { recipie_id }, setRecipe } = useContext(YourRecipeContext);
+    const { recipe: { recipie_id }, setRecipe, source } = useContext(YourRecipeContext);
     const { setComments, commentsPage } = useContext(CommentsContext);
     const { currentUser: { name } } = useContext(AuthContext);
     useEffect(() => {
         const reciveData = async () => {
-            await commentsQuery(commentsPage, recipie_id, setComments);
+            await commentsQuery(commentsPage, recipie_id, setComments, source);
         }
         reciveData();
-    }, [commentsPage, recipie_id, setComments]);
+    }, [commentsPage, recipie_id, setComments, source]);
 
     async function handleCreateComment(data) {
-        await createComment(recipie_id, data.content, setComments, name, setRecipe);
+        await createComment(recipie_id, data.content, setComments, name, setRecipe, source);
     }
     return (
         <Fragment>

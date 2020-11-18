@@ -1,7 +1,7 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
 
-export const updateRecipe = async (setRecipe, data) => {
+export const updateRecipe = async (setRecipe, data, setRemoveImage, source) => {
     const {
         id,
         name,
@@ -23,9 +23,11 @@ export const updateRecipe = async (setRecipe, data) => {
             imageUrl,
             image_reference
         },
+        cancelToken: source.token,
         url: `http://localhost:5000/recipeUpdate/update_recipe_data/${id}`,
     })
         .then(res => {
+            setRemoveImage(false);
             setRecipe(res.data);
         })
         .catch(err => console.error(err));

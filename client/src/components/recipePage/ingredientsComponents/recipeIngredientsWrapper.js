@@ -2,13 +2,13 @@ import React, { Fragment, useEffect, useContext } from 'react';
 import { YourRecipeContext } from '../../../context/yourRecipe';
 import { recipeIngredientsQuery } from '../../../queries/recipeIngredients/recipeIngredientsDefault';
 function RecipeIngredientsWrapper({ children, show }) {
-    const { setIngredients, recipe: { recipie_id } } = useContext(YourRecipeContext);
+    const { setIngredients, recipe: { recipie_id }, source } = useContext(YourRecipeContext);
     useEffect(() => {
         const reciveData = async () => {
-            await recipeIngredientsQuery(recipie_id, setIngredients)
+            await recipeIngredientsQuery(recipie_id, setIngredients, source)
         };
         reciveData();
-    }, [recipie_id, setIngredients])
+    }, [recipie_id, setIngredients, source])
     return (
         <Fragment>
             {show && (

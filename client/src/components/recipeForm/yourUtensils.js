@@ -3,15 +3,20 @@ import { utensilsQuery } from '../../queries/utensils/defaultUtensils';
 import YourUtensilCard from './yourUtensilCard';
 import Button from 'react-bootstrap/Button';
 import withScrolling from 'react-dnd-scrolling';
+import axios from 'axios';
 const ScrollingComponent = withScrolling('div');
 function YourUtensils() {
     const [yourUtensilsPage, setYourUtensilsPage] = useState(0);
     const [yourUtensils, setYourUtensils] = useState([]);
     useEffect(() => {
+        const source = axios.CancelToken.source();
         const reciveData = async () => {
-            await utensilsQuery(yourUtensilsPage, setYourUtensils);
+            await utensilsQuery(yourUtensilsPage, setYourUtensils, source);
         }
         reciveData();
+        return () => {
+            source.cancel('canceled');
+        }
     }, [yourUtensilsPage, setYourUtensils]);
     return (
         <Fragment>

@@ -1,7 +1,7 @@
 import { getAcessToken } from '../../utils/accessToken';
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 
-export const newestRecipes = async (page, setRecipes) => {
+export const newestRecipes = async (page, setRecipes,source) => {
     return await jwtTransport
         .get(`http://localhost:5000/shared_recipie_query/shared_recipies`, {
             headers: {
@@ -10,7 +10,8 @@ export const newestRecipes = async (page, setRecipes) => {
             },
             params: {
                 page
-            }
+            },
+            cancelToken: source.token
         })
         .then(res => {
             if (page !== 0) {

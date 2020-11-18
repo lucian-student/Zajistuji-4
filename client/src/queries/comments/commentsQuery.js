@@ -1,6 +1,6 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
-export const commentsQuery = async (page, recipie_id, setComments) => {
+export const commentsQuery = async (page, recipie_id, setComments, source) => {
     return await jwtTransport
         .get(`http://localhost:5000/comments_queries/get_comments`, {
             headers: {
@@ -10,7 +10,8 @@ export const commentsQuery = async (page, recipie_id, setComments) => {
             params: {
                 recipie_id,
                 page
-            }
+            },
+            cancelToken: source.token
         })
         .then(res => {
             // 

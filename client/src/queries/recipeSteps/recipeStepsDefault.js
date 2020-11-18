@@ -1,6 +1,6 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
-export const recipeStepsQuery = async (recipie_id, setSteps) => {
+export const recipeStepsQuery = async (recipie_id, setSteps, source) => {
     return await jwtTransport
         .get(`http://localhost:5000/recipieQuery/get_steps`, {
             headers: {
@@ -9,7 +9,8 @@ export const recipeStepsQuery = async (recipie_id, setSteps) => {
             },
             params: {
                 id: recipie_id
-            }
+            },
+            cancelToken: source.token
         })
         .then(res => {
             setSteps([...res.data]);

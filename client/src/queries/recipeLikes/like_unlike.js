@@ -2,7 +2,7 @@ import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
 import update from 'immutability-helper';
 
-export const like_unlike = async (recipe, setRecipe, recipie_id) => {
+export const like_unlike = async (recipe, setRecipe, recipie_id, source) => {
     return await jwtTransport({
         method: 'POST',
         headers: {
@@ -12,6 +12,7 @@ export const like_unlike = async (recipe, setRecipe, recipie_id) => {
         data: {
             id: recipie_id
         },
+        cancelToken: source.token,
         url: `http://localhost:5000/shared_recipies/like_unlike_recipie`,
     })
         .then(res => {

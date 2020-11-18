@@ -8,17 +8,13 @@ import { IngredientsAndUtensilsContext } from '../../context/ingredientsAndUtens
 import { updateIngredients } from '../../queries/ingredients/updateIngredients';
 import IngredinetsEditForm from '../recipePage/ingredientsComponents/ingredientsEditForm';
 function IngredientsCard({ ingredients: { user_id, category, name, ingredients_id, index } }) {
-    const { setIngredients, ingredients } = useContext(IngredientsAndUtensilsContext);
+    const { setIngredients, ingredients, source } = useContext(IngredientsAndUtensilsContext);
     const [editing, setEditing] = useState(false);
     async function deleteIngredients() {
-        await deleteInrgedients(ingredients_id, setIngredients);
+        await deleteInrgedients(ingredients_id, setIngredients, source);
     }
-    const handleClose = () => setEditing(false);
-    const handleShow = () => setEditing(true);
-
     async function handleUpdateIngredients(data) {
-        await updateIngredients(data.name, data.category, ingredients_id, setIngredients, ingredients, index);
-        handleClose();
+        await updateIngredients(data.name, data.category, ingredients_id, setIngredients, ingredients, index, source, setEditing);
     }
 
     const options = ['Edit', 'Delete']
@@ -40,7 +36,7 @@ function IngredientsCard({ ingredients: { user_id, category, name, ingredients_i
                                     ) : (
                                             <Button variant=''
                                                 style={{ width: '100%' }}
-                                                onClick={handleShow}>{option}</Button>
+                                                onClick={() => setEditing(true)}>{option}</Button>
                                         )}
                                 </div>
                             ))}

@@ -59,7 +59,7 @@ function StepIngredients({ properties }) {
                 value: item.status === 'recipe' ? '' : item.value
             }
             if (item.status === 'recipe') {
-                await createIngredients(card, index, steps, setSteps, recipie_id);
+                await createIngredients(card, index, steps, setSteps, recipie_id, item.source);
             }
             if (item.status === 'step' && item.ultraOriginalStepIndex !== index) {
                 await changeStep(
@@ -67,7 +67,9 @@ function StepIngredients({ properties }) {
                     item.index,
                     item.ultraOriginalStepIndex,
                     index, step_id, steps,
-                    setSteps, recipie_id
+                    setSteps,
+                    recipie_id,
+                    item.source
                 );
             }
         }

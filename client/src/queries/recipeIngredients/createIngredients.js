@@ -1,7 +1,7 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
 
-export const createIngredients = async (name, category, setIngredients, recipie_id) => {
+export const createIngredients = async (name, category, setIngredients, recipie_id, setEditing, source) => {
     return await jwtTransport({
         method: 'POST',
         headers: {
@@ -12,10 +12,12 @@ export const createIngredients = async (name, category, setIngredients, recipie_
             category,
             name
         },
+        cancelToken: source.token,
         url: `http://localhost:5000/recipe_ingredients/create_ingredients/${recipie_id}`,
     })
         .then(res => {
-            setIngredients(oldIngredients => [res.data, ...oldIngredients])
+            setIngredients(oldIngredients => [res.data, ...oldIngredients]);
+            setEditing(false);
         })
         .catch(err => console.error(err));
 };

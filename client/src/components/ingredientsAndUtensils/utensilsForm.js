@@ -4,10 +4,9 @@ import { createUtensil } from '../../queries/utensils/createUtensils';
 import UtensilFormComponent from '../reusableComponents/utensilForm';
 function UtensilsForm() {
     const [editing, setEditing] = useState(false);
-    const { setUtensils } = useContext(IngredientsAndUtensilsContext);
+    const { setUtensils, source } = useContext(IngredientsAndUtensilsContext);
     async function handleCreateUtensil(data) {
-        await createUtensil(data.name, setUtensils);
-        setEditing(false);
+        await createUtensil(data.name, setUtensils, source, setEditing);
     }
     return (
         <Fragment>
@@ -15,7 +14,7 @@ function UtensilsForm() {
                 handleCreateUtensil,
                 editing,
                 setEditing
-            }}/>
+            }} />
         </Fragment>
     )
 }

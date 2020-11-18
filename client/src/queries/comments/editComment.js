@@ -1,7 +1,7 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
 import update from 'immutability-helper';
-export const editComments = async (content, comment_id, setComments, comments, index) => {
+export const editComments = async (content, comment_id, setComments, comments, index, source, setEditing) => {
     return await jwtTransport({
         method: 'PUT',
         headers: {
@@ -11,6 +11,7 @@ export const editComments = async (content, comment_id, setComments, comments, i
         data: {
             content
         },
+        cancelToken: source.token,
         url: `http://localhost:5000/comments/update_comment/${comment_id}`,
     })
         .then(res => {
@@ -18,7 +19,8 @@ export const editComments = async (content, comment_id, setComments, comments, i
                 [index]: {
                     $merge: res.data
                 }
-            }))
+            }));
+            setEditing(false);
         })
         .catch(err => console.error(err));
 };

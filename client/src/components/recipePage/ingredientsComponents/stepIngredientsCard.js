@@ -10,7 +10,9 @@ import { getEmptyImage } from 'react-dnd-html5-backend';
 import { deleteInrgedients } from '../../../queries/stepIngredients/deleteIngredients';
 import { updateIngredients } from '../../../queries/stepIngredients/updateIngredients';
 import StepIngredientsEditForm from './stepIngredientsEditForm';
+import axios from 'axios';
 function StepIngredientsCard({ ingredients }) {
+    const source = useRef(axios.CancelToken.source());
     const {
         ingredients_id,
         name,
@@ -28,10 +30,10 @@ function StepIngredientsCard({ ingredients }) {
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });
     const [editing, setEditing] = useState(false);
     async function handleDeleteIngredients() {
-        await deleteInrgedients(ingredients_id, index, ultraOriginalStepIndex, setSteps, steps, recipie_id);
+        await deleteInrgedients(ingredients_id, index, ultraOriginalStepIndex, setSteps, steps, recipie_id, source.current);
     }
     async function handleUpdateIngredients(data) {
-        await updateIngredients(data, ingredients_id, index, ultraOriginalStepIndex, steps, setSteps, recipie_id);
+        await updateIngredients(data, ingredients_id, index, ultraOriginalStepIndex, steps, setSteps, recipie_id, source.current);
     }
     const ref = useRef();
     const [, drop] = useDrop({
@@ -80,6 +82,7 @@ function StepIngredientsCard({ ingredients }) {
             status: 'step',
             dimensions,
             originalIndex: index,
+            source: source.current
         },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
@@ -98,6 +101,10 @@ function StepIngredientsCard({ ingredients }) {
             });
         }
         preview(getEmptyImage(), { captureDraggingState: true });
+        const cancelToken = source.current;
+        return () => {
+            cancelToken.cancel('canceled');
+        }
     }, [preview, height, width]);
     drop(drag(ref))
     return (

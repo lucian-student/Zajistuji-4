@@ -1,17 +1,26 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { jwtTransport } from '../axios/refreshTokenAxios';
 import { getAcessToken, setAccessToken } from '../utils/accessToken';
+import axios from 'axios';
 export const AuthContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
+    const source = useRef(axios.CancelToken.source());
+    useEffect(() => {
+        const cancelToken = source.current;
+        return () => {
+            cancelToken.cancel('canceled');
+        }
+    }, []);
     const loginUser = useCallback(async () => {
         return await jwtTransport
             .get('http://localhost:5000/users/me', {
                 headers: {
                     'Authorization': 'Bearer ' + getAcessToken(),
                     'Content-Type': 'application/json'
-                }
+                },
+                cancelToken: source.current.token
             })
             .then(res => {
                 setCurrentUser(res.data);
@@ -25,7 +34,8 @@ export const AuthProvider = ({ children }) => {
                 headers: {
                     'Authorization': 'Bearer ' + getAcessToken(),
                     'Content-Type': 'application/json'
-                }
+                },
+                cancelToken: source.current.token
             })
             .then(res => {
                 setAccessToken('');

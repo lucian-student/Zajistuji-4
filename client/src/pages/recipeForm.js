@@ -3,10 +3,12 @@ import FirstStep from '../components/recipeForm/firstStep';
 import SecondStep from '../components/recipeFormStep2/secondStep';
 import { RecipeFormProvider } from '../context/recipeForm';
 import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+//import { HTML5Backend } from 'react-dnd-html5-backend';
 import '../responsiveCss/recipeForm.css';
 import DragScrollWrapper from '../components/recipeForm/dragScrollWrapper';
 import { DimensionsProvider } from '../context/dimensions';
+import MultiBackend from 'react-dnd-multi-backend';
+import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch';
 function RecipeForm() {
     const [step, setStep] = useState(1);
     return (
@@ -14,7 +16,7 @@ function RecipeForm() {
             <DimensionsProvider>
                 <RecipeFormProvider>
                     {step === 1 && (
-                        <DndProvider backend={HTML5Backend}>
+                        <DndProvider backend={MultiBackend} options={HTML5toTouch}>
                             <DragScrollWrapper ITEM_TYPE={'UTENSILS'}>
                                 <DragScrollWrapper ITEM_TYPE={'INGREDIENTS'}>
                                     <div className='firstCenterDiv'>
@@ -27,7 +29,7 @@ function RecipeForm() {
                         </DndProvider>
                     )}
                     {step === 2 && (
-                        <DndProvider backend={HTML5Backend} >
+                        <DndProvider backend={MultiBackend} options={HTML5toTouch}>
                             <DragScrollWrapper ITEM_TYPE={'UTENSILS'}>
                                 <DragScrollWrapper ITEM_TYPE={'INGREDIENTS'}>
                                     <DragScrollWrapper ITEM_TYPE={'STEP'}>

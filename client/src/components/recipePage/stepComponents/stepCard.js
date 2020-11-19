@@ -137,7 +137,7 @@ function StepCard({ step }) {
                         {duration}
                         <MdTimer />
                     </Card.Title>
-                    <Card.Text>
+                    <Card.Text className='textView'>
                         {description}
                     </Card.Text>
                     {show && (

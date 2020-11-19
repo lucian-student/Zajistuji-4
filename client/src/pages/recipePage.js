@@ -3,16 +3,16 @@ import { YourRecipeProvider } from '../context/yourRecipe';
 import PageWrapper from '../components/recipePage/pageWrapper';
 import '../responsiveCss/recipePage.css';
 import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+//import { HTML5Backend } from 'react-dnd-html5-backend';
 import DragScrollWrapper from '../components/recipeForm/dragScrollWrapper';
 import { DimensionsProvider } from '../context/dimensions';
-/*import MultiBackend from 'react-dnd-multi-backend';
-import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch';*/
+import MultiBackend from 'react-dnd-multi-backend';
+import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch';
 function RecipePage(props) {
     const recipie_id = props.match.params.id;
     return (
         <Fragment>
-            <DndProvider backend={HTML5Backend}>
+            <DndProvider backend={MultiBackend} options={HTML5toTouch}>
                 <DimensionsProvider>
                     <YourRecipeProvider>
                         <DragScrollWrapper ITEM_TYPE={'UTENSILS'}>

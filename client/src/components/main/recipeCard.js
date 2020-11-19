@@ -1,15 +1,17 @@
 import React, { Fragment } from 'react';
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import { BiMenu } from 'react-icons/bi';
 import { IoMdOpen } from 'react-icons/io';
 import { Link } from 'react-router-dom';
+import Dropdown from 'react-bootstrap/Dropdown';
 function RecipeCard({ recipe }) {
     const {
         recipie_id,
         name,
         category,
         imageurl,
-        image_reference
+        image_reference,
+        shared
     } = recipe;
     return (
         <Fragment>
@@ -19,9 +21,21 @@ function RecipeCard({ recipe }) {
                         {category}
                     </div>
                     <div style={{ display: 'inline-block', float: 'right' }}>
-                        <Button variant='light' as={Link} to={`/RecipePage/${recipie_id}`}>
-                            <IoMdOpen />
-                        </Button>
+                        <Dropdown style={{ display: 'inline' }}>
+                            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                <BiMenu />
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item as={Link} to={`/RecipePage/${recipie_id}`}>
+                                    <IoMdOpen />Private
+                                </Dropdown.Item>
+                                {shared && (
+                                    <Dropdown.Item as={Link} to={`/SharedRecipePage/${recipie_id}`}>
+                                        <IoMdOpen />Shared
+                                    </Dropdown.Item>
+                                )}
+                            </Dropdown.Menu>
+                        </Dropdown>
                     </div>
                 </Card.Header>
                 <Card.Body>

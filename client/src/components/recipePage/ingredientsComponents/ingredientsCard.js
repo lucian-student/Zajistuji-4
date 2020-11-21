@@ -31,7 +31,8 @@ function IngredientsCard({ ingredients }) {
             type: 'INGREDIENTS',
             status: 'recipe',
             dimensions,
-            ultraOriginalStepIndex: null
+            ultraOriginalStepIndex: null,
+            source:source.current
         }
     });
     useEffect(() => {

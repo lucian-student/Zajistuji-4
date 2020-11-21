@@ -29,7 +29,8 @@ function UtensilCard({ utensil }) {
             type: 'UTENSILS',
             status: 'recipe',
             dimensions,
-            ultraOriginalStepIndex: null
+            ultraOriginalStepIndex: null,
+            source: source.current
         }
     });
     useEffect(() => {

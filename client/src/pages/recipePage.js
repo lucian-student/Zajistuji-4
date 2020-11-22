@@ -12,9 +12,9 @@ function RecipePage(props) {
     const recipie_id = props.match.params.id;
     return (
         <Fragment>
-            <DndProvider backend={MultiBackend} options={HTML5toTouch}>
-                <DimensionsProvider>
-                    <YourRecipeProvider>
+            <DimensionsProvider>
+                <YourRecipeProvider>
+                    <DndProvider backend={MultiBackend} options={HTML5toTouch}>
                         <DragScrollWrapper ITEM_TYPE={'UTENSILS'}>
                             <DragScrollWrapper ITEM_TYPE={'INGREDIENTS'}>
                                 <DragScrollWrapper ITEM_TYPE={'STEP'}>
@@ -26,9 +26,9 @@ function RecipePage(props) {
                                 </DragScrollWrapper>
                             </DragScrollWrapper>
                         </DragScrollWrapper>
-                    </YourRecipeProvider>
-                </DimensionsProvider>
-            </DndProvider>
+                    </DndProvider>
+                </YourRecipeProvider>
+            </DimensionsProvider>
         </Fragment >
     )
 }

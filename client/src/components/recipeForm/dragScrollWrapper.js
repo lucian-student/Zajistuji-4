@@ -12,7 +12,9 @@ function DragScrollWrapper({ children, ITEM_TYPE }) {
             return false;
         },
         hover(item, monitor) {
+            console.log(height);
             const position = monitor.getClientOffset().y;
+            console.log(position);
             if ((height / 10) > position) {
                 if (scrollState !== 4) {
                     setScrollState(4);

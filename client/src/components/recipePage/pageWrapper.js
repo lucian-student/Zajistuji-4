@@ -44,9 +44,9 @@ function PageWrapper({ recipie_id }) {
                             <StepsDisplay />
                         </Col>
                     </Row>
+                    <CustomDragLayer />
                 </Container>
             )}
-            <CustomDragLayer />
         </Fragment>
     )
 }

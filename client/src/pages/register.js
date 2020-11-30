@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState } from 'react';
+import React, { Fragment, useContext, useState, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { setAccessToken } from '../utils/accessToken';
 import { transport } from '../axios/cookieAxios';
@@ -7,25 +7,49 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { ValidateUnneceserrySpaceUsage, ValidateTextInput } from '../utils/validators';
 import '../responsiveCss/registerLoginCss.css';
+import axios from 'axios';
+
 function Register() {
+    let btnRef = useRef();
+    const source = useRef(axios.CancelToken.source());
+    const [loginErrors, setLoginErrors] = useState(null);
+    useEffect(() => {
+        const cancelToken = source.current;
+        return () => {
+            cancelToken.cancel();
+        }
+    }, []);
     const regEx = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
     const [valdiPassword, setValidPassword] = useState(true);
     const { register, handleSubmit, errors } = useForm();
     const { loginUser } = useContext(AuthContext);
     async function handleRegister(data) {
+        if (btnRef.current) {
+            btnRef.current.setAttribute("disabled", "disabled");
+        }
         const { email, password, username, confirmpassword } = data;
         if (password === confirmpassword) {
             setValidPassword(true);
-            return await transport
-                .post('http://localhost:5000/users/register/', {
-                    data: { email, password, username },
-                    headers: { 'Content-Type': 'application/json' }
-                })
+            return await transport({
+                method: 'post',
+                data: { email, password, username },
+                headers: { 'Content-Type': 'application/json' },
+                cancelToken: source.current.token,
+                url: 'http://localhost:5000/users/register/'
+            })
                 .then(res => {
                     setAccessToken(res.data.accessToken);
                     loginUser();
                 })
-                .catch(err => console.error(err));
+                .catch(err => {
+                    if (err.response) {
+                        setLoginErrors(err.response.data);
+                    }
+                    if (btnRef.current) {
+                        btnRef.current.removeAttribute("disabled");
+                    }
+                    console.error(err.message)
+                });
         } else {
             setValidPassword(false);
         }
@@ -35,6 +59,9 @@ function Register() {
             <div className='firstCenterDiv'>
                 <div className='secondCenterDiv'>
                     <Form onSubmit={handleSubmit(handleRegister)}>
+                        {loginErrors && (
+                            <Form.Text className="helperText">{loginErrors}</Form.Text>
+                        )}
                         <Form.Group controlId="formGroupUsername">
                             <Form.Label>Username</Form.Label>
                             <Form.Control autoComplete="on"
@@ -126,7 +153,7 @@ function Register() {
                                 <Form.Text className="helperText">Password doesnt match!</Form.Text>
                             )}
                         </Form.Group>
-                        <Button type='submit' >
+                        <Button type='submit' ref={btnRef} onClick={() => { setLoginErrors(null) }}>
                             Submit
                         </Button>
                     </Form>

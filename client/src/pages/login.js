@@ -1,33 +1,59 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useState, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { setAccessToken } from '../utils/accessToken';
 import { transport } from '../axios/cookieAxios';
 import { AuthContext } from '../context/auth';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 import '../responsiveCss/registerLoginCss.css';
 function Login() {
+    let btnRef = useRef();
+    const source = useRef(axios.CancelToken.source());
+    const [loginErrors, setLoginErrors] = useState(null);
+    useEffect(() => {
+        const cancelToken = source.current;
+        return () => {
+            cancelToken.cancel();
+        }
+    }, []);
     const regEx = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
     const { register, handleSubmit, errors } = useForm();
     const { loginUser } = useContext(AuthContext);
     async function handleLogin(data) {
+        if (btnRef.current) {
+            btnRef.current.setAttribute("disabled", "disabled");
+        }
         const { email, password } = data;
-        return await transport
-            .post('http://localhost:5000/users/login/', {
-                data: { email, password },
-                headers: { 'Content-Type': 'application/json' }
-            })
+        return await transport({
+            method: 'post',
+            data: { email, password },
+            headers: { 'Content-Type': 'application/json' },
+            cancelToken: source.current.token,
+            url: 'http://localhost:5000/users/login/'
+        })
             .then(res => {
                 setAccessToken(res.data.accessToken);
                 loginUser();
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                if (err.response) {
+                    setLoginErrors(err.response.data);
+                }
+                if (btnRef.current) {
+                    btnRef.current.removeAttribute("disabled");
+                }
+                console.error(err.message)
+            });
     }
     return (
         <Fragment>
             <div className='firstCenterDiv'>
                 <div className='secondCenterDiv'>
                     <Form onSubmit={handleSubmit(handleLogin)}>
+                        {loginErrors && (
+                            <Form.Text className="helperText">{loginErrors}</Form.Text>
+                        )}
                         <Form.Group controlId="formGroupEmail">
                             <Form.Label>Email Address</Form.Label>
                             <Form.Control autoComplete="on"
@@ -62,7 +88,9 @@ function Login() {
                                 <Form.Text className="helperText">Password has to be atleast 8 chars long!</Form.Text>
                             )}
                         </Form.Group>
-                        <Button type='submit' >
+                        <Button type='submit' ref={btnRef} onClick={() => {
+                            setLoginErrors(null)
+                        }} >
                             Submit
                         </Button>
                     </Form>

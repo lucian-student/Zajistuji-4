@@ -36,8 +36,8 @@ router.get('/me', authorization, async (req, res) => {
 router.post('/register/', validation, async (req, res) => {
     const client = await pool.connect();
     try {
-        const { username, email, password } = req.body.data;
-        console.log(req.body.data);
+        const { username, email, password } = req.body;
+        console.log(req.body);
         // start transaction
         await client.query('BEGIN');
         const userCheck = await client.query('SELECT * FROM users WHERE email=$1', [email]);
@@ -84,7 +84,7 @@ router.post('/register/', validation, async (req, res) => {
 router.post('/login/', validation, async (req, res) => {
     const client = await pool.connect();
     try {
-        const { email, password } = req.body.data;
+        const { email, password } = req.body;
         // start transaction
         await client.query('BEGIN');
         const userCheck = await client.query('SELECT * FROM users WHERE email=$1', [email]);
@@ -111,11 +111,11 @@ router.post('/login/', validation, async (req, res) => {
                 res.status(200).json({ accessToken });
             } else {
                 await client.query('ROLLBACK');
-                return res.status(401).send('Password doesnt match!');
+                return res.status(401).json('Password doesnt match!');
             }
         } else {
             await client.query('ROLLBACK');
-            res.status(401).json('Somthing went wrong!');
+            res.status(401).json('User doesnt exist!');
         }
     } catch (err) {
         await client.query('ROLLBACK');

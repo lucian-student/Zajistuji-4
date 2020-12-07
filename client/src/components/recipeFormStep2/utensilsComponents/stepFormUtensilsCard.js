@@ -54,7 +54,7 @@ function StepFormUtensilsCard({ utensil }) {
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
                 return;
             }
-            if (dragIndex > hoverIndex && hoverClientY < hoverMiddleY) {
+            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
                 return;
             }
             //logic here

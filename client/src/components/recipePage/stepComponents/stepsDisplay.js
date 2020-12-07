@@ -35,7 +35,7 @@ function StepsDisplay() {
         drop(item, monitor) {
             if (item.originalIndex !== item.index) {
                 const moveData = async () => {
-                    await moveStep(item.step_id, item.originalIndex, item.index, recipie_id, displaySource.current);
+                    await moveStep(item.step_id, item.originalIndex, item.index, recipie_id, displaySource.current, moveItem1);
                 }
                 moveData();
             }

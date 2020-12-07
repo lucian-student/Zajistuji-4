@@ -52,7 +52,6 @@ function StepCard({ step }) {
             if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
                 return;
             }
-            console.log('moved');
             moveItem1(dragIndex, hoverIndex);
             item.index = hoverIndex;
         }

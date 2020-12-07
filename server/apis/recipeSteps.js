@@ -10,9 +10,13 @@ router.put('/move_step/:id', [authorization, recipeOwner], async (req, res) => {
         await client.query('BEGIN');
         const {
             id,
-            start_index,
             finish_index
         } = req.body;
+        const step = await client.query('SELECT order_index FROM recipie_steps WHERE step_id=$1',
+            [
+                id
+            ]);
+        const start_index = step.rows[0].order_index;
         if (start_index < finish_index) {
             await client.query('UPDATE recipie_steps' +
                 ' set order_index=order_index-1' +

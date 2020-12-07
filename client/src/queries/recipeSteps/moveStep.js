@@ -16,7 +16,6 @@ export const moveStep = async (
         },
         data: {
             id: step_id,
-            start_index,
             finish_index
         },
         cancelToken: source.token,

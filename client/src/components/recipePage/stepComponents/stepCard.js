@@ -64,7 +64,7 @@ function StepCard({ step }) {
         end(item, monitor) {
             setStartedDragging(false);
             if (!monitor.didDrop()) {
-                moveItem1(item.index, item.originalIndex)
+                moveItem1(item.index, item.originalIndex);
             }
         },
         begin(item, monitor) {
@@ -73,6 +73,7 @@ function StepCard({ step }) {
     });
     useEffect(() => {
         if (ref.current) {
+            console.log()
             setDimensions({
                 width: ref.current.clientWidth,
                 height: ref.current.clientHeight

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState, useContext } from 'react';
+import React, { Fragment, useEffect, useState, useContext, useRef } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -11,10 +11,11 @@ import Firebase from '../../config/firebase';
 import { createRecipe } from '../../queries/recipes/createRecipe';
 import { v4 as uuidv4 } from 'uuid';
 import RecipeCreateDataParser from '../../utils/recipeCreateDataParser';
-import { AuthContext } from '../../context/auth'
+import { AuthContext } from '../../context/auth';
 //image validation
 function RecipeForm() {
-    const { recipeSteps, recipeUtensils, recipeIngredients } = useContext(RecipeFormContext);
+    let btnRef = useRef();
+    const { recipeSteps, recipeUtensils, recipeIngredients, source } = useContext(RecipeFormContext);
     const { currentUser: { user_id } } = useContext(AuthContext);
     const { register, errors, handleSubmit, watch } = useForm();
     const previewImage = watch('image');
@@ -46,6 +47,9 @@ function RecipeForm() {
     steps
     */
     async function saveRecipe(data) {
+        if (btnRef.current) {
+            btnRef.current.setAttribute("disabled", "disabled");
+        }
         const storageRef = Firebase.storage().ref();
         let imageReference = null;
         let imageUrl = null;
@@ -59,7 +63,7 @@ function RecipeForm() {
         }
         const { name, category, description } = data;
         const { ingredients, utensils, steps } = RecipeCreateDataParser(recipeIngredients, recipeUtensils, recipeSteps);
-        await createRecipe(name, category, description, imageUrl, imageReference, ingredients, utensils, steps);
+        await createRecipe(name, category, description, imageUrl, imageReference, ingredients, utensils, steps, btnRef, source);
     }
     return (
         <Fragment>
@@ -68,7 +72,9 @@ function RecipeForm() {
                     <Row>
                         <Form.Group style={{ width: '100%', display: 'inline-block' }}>
                             <Form.Label>Name</Form.Label>
-                            <Button type='submit' style={{ width: '20%', display: 'inline-block', float: 'right' }}
+                            <Button type='submit'
+                                ref={btnRef}
+                                style={{ width: '20%', display: 'inline-block', float: 'right' }}
                                 variant='success'>
                                 Save
                             </Button>

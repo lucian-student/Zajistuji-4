@@ -6,6 +6,7 @@ import { AuthContext } from '../context/auth';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
+import firebase from '../config/firebase';
 import '../responsiveCss/registerLoginCss.css';
 function Login() {
     let btnRef = useRef();
@@ -33,8 +34,14 @@ function Login() {
             url: 'http://localhost:5000/users/login/'
         })
             .then(res => {
-                setAccessToken(res.data.accessToken);
-                loginUser();
+                firebase.auth().signInWithCustomToken(res.data.firebaseToken)
+                    .then(() => {
+                        setAccessToken(res.data.accessToken);
+                        loginUser();
+                    })
+                    .catch((error) => {
+                        console.log(error.message)
+                    });
             })
             .catch(err => {
                 if (err.response) {

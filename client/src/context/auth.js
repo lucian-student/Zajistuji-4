@@ -2,6 +2,7 @@ import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { jwtTransport } from '../axios/refreshTokenAxios';
 import { getAcessToken, setAccessToken } from '../utils/accessToken';
 import axios from 'axios';
+import firebase from '../config/firebase';
 export const AuthContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -40,6 +41,9 @@ export const AuthProvider = ({ children }) => {
             .then(res => {
                 setAccessToken('');
                 setCurrentUser(null);
+                firebase.auth().signOut().catch(function (error) {
+                    console.error(error.message);
+                });
                 console.log(res.data);
             })
             .catch(err => console.error(err));

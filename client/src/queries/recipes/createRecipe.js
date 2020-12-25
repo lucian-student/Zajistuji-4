@@ -9,13 +9,16 @@ export const createRecipe = async (
     imageReference,
     ingredients,
     utensils,
-    steps) => {
+    steps,
+    btnRef,
+    source) => {
     return await jwtTransport({
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + getAcessToken(),
             'Content-Type': 'application/json'
         },
+        cancelToken: source.token,
         data: {
             category,
             name,
@@ -30,6 +33,14 @@ export const createRecipe = async (
     })
         .then(res => {
             console.log(res.data);
+            if (btnRef.current) {
+                btnRef.current.removeAttribute("disabled");
+            }
         })
-        .catch(err => console.error(err));
+        .catch(err => {
+            if (btnRef.current) {
+                btnRef.current.removeAttribute("disabled");
+            }
+            console.error(err)
+        });
 };

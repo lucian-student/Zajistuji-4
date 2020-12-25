@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 import { ValidateUnneceserrySpaceUsage, ValidateTextInput } from '../utils/validators';
 import '../responsiveCss/registerLoginCss.css';
 import axios from 'axios';
-
+import firebase from '../config/firebase';
 function Register() {
     let btnRef = useRef();
     const source = useRef(axios.CancelToken.source());
@@ -38,8 +38,14 @@ function Register() {
                 url: 'http://localhost:5000/users/register/'
             })
                 .then(res => {
-                    setAccessToken(res.data.accessToken);
-                    loginUser();
+                    firebase.auth().signInWithCustomToken(res.data.firebaseToken)
+                        .then(() => {
+                            setAccessToken(res.data.accessToken);
+                            loginUser();
+                        })
+                        .catch((error) => {
+                            console.log(error.message)
+                        });
                 })
                 .catch(err => {
                     if (err.response) {

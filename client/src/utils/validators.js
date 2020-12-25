@@ -35,7 +35,7 @@ export function ValidateEmptiness(data) {
 }
 
 export function isFileImage(file,image) {
-    if (image) {
+    if (image&&file[0]) {
         const acceptedImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
         return acceptedImageTypes.includes(file[0].type);
     }

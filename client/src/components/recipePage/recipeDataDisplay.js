@@ -19,12 +19,13 @@ function RecipeDataDisplay() {
         name,
         category,
         imageurl,
+        image_reference,
         description,
         shared
     } = recipe;
     const [editing, setEditing] = useState(false);
     async function handleDeleteRecipe() {
-        await deleteRecipe(recipie_id, setDeleted, source);
+        await deleteRecipe(recipie_id, setDeleted, source, image_reference);
     }
     async function handleShareUnshareRecipe() {
         await shareUnshareRecipe(setRecipe, shared, recipie_id, source);

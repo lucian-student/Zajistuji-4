@@ -2,10 +2,9 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../configuration/db');
 const bcrypt = require('bcrypt');
-const { generateAccessToken, generateRefreshToken } = require('../utils/jwtGenerator');
+const { generateAccessToken, generateRefreshToken, generateFirebaseToken } = require('../utils/jwtGenerator');
 const authorization = require('../midelware/authorization');
 const validation = require('../midelware/validation');
-const jwt = require('jsonwebtoken');
 require('dotenv').config();
 //user calls
 
@@ -53,6 +52,7 @@ router.post('/register/', validation, async (req, res) => {
                 );
             //token handelingew
             const accessToken = generateAccessToken(newUser.rows[0].user_id);
+            const firebaseToken = generateFirebaseToken(newUser.rows[0].user_id);
             //refresh token insert to database
             const refreshToken = generateRefreshToken(newUser.rows[0].user_id);
             const newRefreshToken = await client.query
@@ -67,7 +67,7 @@ router.post('/register/', validation, async (req, res) => {
                 //secure:true
             });
             await client.query('COMMIT');
-            res.status(200).json({ accessToken });
+            res.status(200).json({ accessToken, firebaseToken });
         } else {
             await client.query('ROLLBACK');
             res.status(401).json('User Exists');
@@ -94,6 +94,7 @@ router.post('/login/', validation, async (req, res) => {
             if (validPassword) {
                 // token handeling
                 const accessToken = generateAccessToken(userCheck.rows[0].user_id);
+                const firebaseToken = generateFirebaseToken(userCheck.rows[0].user_id);
                 const refreshToken = generateRefreshToken(userCheck.rows[0].user_id);
                 // delete all previous refresh tokens
                 const deleteTokens = await client.query('DELETE FROM refreshTokens WHERE user_id=$1', [userCheck.rows[0].user_id]);
@@ -108,7 +109,7 @@ router.post('/login/', validation, async (req, res) => {
                     // secure:true
                 });
                 await client.query('COMMIT');
-                res.status(200).json({ accessToken });
+                res.status(200).json({ accessToken, firebaseToken });
             } else {
                 await client.query('ROLLBACK');
                 return res.status(401).json('Password doesnt match!');

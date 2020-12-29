@@ -38,12 +38,14 @@ function App() {
         })
         .catch(err => {
           console.error(err.message);
-          firebase.auth().signOut()
-            .catch(function (error) {
-              console.error(error.message);
-            }).finally(function () {
-              setLoading(false);
-            });
+          if (err.message === 'Request failed with status code 403') {
+            firebase.auth().signOut()
+              .catch(function (error) {
+                console.error(error.message);
+              }).finally(function () {
+                setLoading(false);
+              });
+          }
         });
     };
     reciveData();

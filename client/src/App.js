@@ -15,6 +15,7 @@ import { setAccessToken } from './utils/accessToken';
 import { transport } from './axios/cookieAxios';
 import AuthRoute from './utils/authRoute';
 import axios from 'axios';
+import firebase from './config/firebase';
 import './App.css';
 
 function App() {
@@ -37,7 +38,12 @@ function App() {
         })
         .catch(err => {
           console.error(err.message);
-          setLoading(false);
+          firebase.auth().signOut()
+            .catch(function (error) {
+              console.error(error.message);
+            }).finally(function () {
+              setLoading(false);
+            });
         });
     };
     reciveData();

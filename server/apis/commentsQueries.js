@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const pool = require('../configuration/db');
 const authorization = require('../midelware/authorization');
-
+// vrati komentare jednoho receptu
 router.get('/get_comments', authorization, async (req, res) => {
     try {
         const {

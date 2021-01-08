@@ -2,7 +2,7 @@ const router = require('express').Router();
 const pool = require('../configuration/db');
 const authorization = require('../midelware/authorization');
 const ingredientsOwner = require('../midelware/ingredientsOwner');
-
+// vrati iuzivatelovi ingredience
 router.get('/get_ingredients', authorization, async (req, res) => {
     try {
         const page = req.query.page * 10;
@@ -19,7 +19,7 @@ router.get('/get_ingredients', authorization, async (req, res) => {
         res.status('500').json('server error');
     }
 });
-
+// vytvori ingredience
 router.post('/create_ingredients', authorization, async (req, res) => {
     try {
         const { category, name } = req.body;
@@ -37,7 +37,7 @@ router.post('/create_ingredients', authorization, async (req, res) => {
         res.status('500').json('server error');
     }
 });
-
+// upravi ingredienci
 router.put('/update_ingredients/:id', [authorization, ingredientsOwner], async (req, res) => {
     try {
         const { category, name } = req.body;
@@ -55,7 +55,7 @@ router.put('/update_ingredients/:id', [authorization, ingredientsOwner], async (
         res.status('500').json('server error');
     }
 });
-
+// smaze ingredienci
 router.delete('/delete_ingredients/:id', [authorization, ingredientsOwner], async (req, res) => {
     try {
         const deleteIngredients =

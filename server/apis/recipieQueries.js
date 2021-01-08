@@ -3,7 +3,7 @@ const pool = require('../configuration/db');
 const authorization = require('../midelware/authorization');
 const recipeOwner = require('../midelware/recipeOwner');
 
-
+//vrati izivatelovy recepty
 router.get('/get_recipies', authorization, async (req, res) => {
     try {
         const page = req.query.page * 10;
@@ -22,7 +22,7 @@ router.get('/get_recipies', authorization, async (req, res) => {
         res.status('500').json('server error');
     }
 });
-
+// vrati 1 konkretni recept
 router.get('/get_recipe/:id', [authorization, recipeOwner], async (req, res) => {
     try {
         const recipe_id = req.params.id;
@@ -37,7 +37,7 @@ router.get('/get_recipe/:id', [authorization, recipeOwner], async (req, res) => 
         res.status('500').json('server error');
     }
 });
-
+// vrati kroky receptu
 router.get('/get_steps', authorization, async (req, res) => {
     try {
         const recipieId = req.query.id;
@@ -87,7 +87,7 @@ router.get('/get_steps', authorization, async (req, res) => {
     }
 });
 
-
+// vrati ingredience receptu
 router.get('/get_recipie_ingredients', authorization, async (req, res) => {
     try {
         const recipieId = req.query.id;
@@ -102,7 +102,7 @@ router.get('/get_recipie_ingredients', authorization, async (req, res) => {
         res.status('500').json('server error');
     }
 });
-
+// vrati  nastroje receptu
 router.get('/get_recipie_utensils', authorization, async (req, res) => {
     try {
         const recipieId = req.query.id;

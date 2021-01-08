@@ -1,3 +1,6 @@
+/*
+vytvori nove ingredience a nastroje
+*/
 module.exports = async (client, ingredients, utensils, step_id) => {
     let result = {};
     /*

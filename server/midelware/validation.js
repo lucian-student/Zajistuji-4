@@ -1,3 +1,6 @@
+/*
+zjisti jestli data pro registraci jsou vhodna
+*/
 module.exports = function (req, res, next) {
     const { email, username, password } = req.body;
     function validEmail(userEmail) {

@@ -2,6 +2,9 @@ const router = require('express').Router();
 const pool = require('../configuration/db');
 const authorization = require('../midelware/authorization');
 const utensilOwner = require('../midelware/utensilOwner');
+/*
+vrati nastroje
+*/
 router.get('/get_utensils', authorization, async (req, res) => {
     try {
         const page = req.query.page * 10;
@@ -18,7 +21,9 @@ router.get('/get_utensils', authorization, async (req, res) => {
         res.status('500').json('server error');
     }
 });
-
+/*
+vytvori nastroje
+*/
 
 router.post('/create_utensil', authorization, async (req, res) => {
     try {
@@ -36,7 +41,9 @@ router.post('/create_utensil', authorization, async (req, res) => {
         res.status('500').json('server error');
     }
 });
-
+/*
+upravi nastroje
+*/
 router.put('/update_utensil/:id', [authorization, utensilOwner], async (req, res) => {
     try {
         const { name } = req.body;
@@ -52,7 +59,9 @@ router.put('/update_utensil/:id', [authorization, utensilOwner], async (req, res
         res.status('500').json('server error');
     }
 });
-
+/*
+smaze nastrtoje
+*/
 router.delete('/delete_utensil/:id', [authorization, utensilOwner], async (req, res) => {
     try {
         const deleteUtensil =

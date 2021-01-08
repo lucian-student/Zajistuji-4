@@ -1,6 +1,11 @@
 const Pool = require('pg').Pool;
 require('dotenv').config()
 
+/*
+lokalni konfigurace database
+pokud chcete zprovoznit vytvorte .env file
+v .env file promeny prostredi
+*/
 const pool = new Pool({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,

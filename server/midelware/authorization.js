@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-
+/*
+zjisiti jestli uzivatel je prihlaseny
+*/
 module.exports = async (req, res, next) => {
     let authorization = req.headers['authorization'];
 

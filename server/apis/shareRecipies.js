@@ -2,6 +2,9 @@ const router = require('express').Router();
 const pool = require('../configuration/db');
 const authorization = require('../midelware/authorization');
 const recipeOwner = require('../midelware/recipeOwner');
+/*
+sdili recept a pokud je sdileny tak ho odsdili
+*/
 router.put('/share_unshare_recipie/:id', [authorization, recipeOwner], async (req, res) => {
     try {
         const id = req.params.id;
@@ -18,7 +21,9 @@ router.put('/share_unshare_recipie/:id', [authorization, recipeOwner], async (re
         res.status(500).send('Server Error');
     }
 });
-
+/*
+ohodnoti recept a pokud je ohodnoceny tak smaze ohodnoceni
+*/
 router.post('/like_unlike_recipie', authorization, async (req, res) => {
     const client = await pool.connect();
     try {

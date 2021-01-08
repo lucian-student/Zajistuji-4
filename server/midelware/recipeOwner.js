@@ -1,5 +1,7 @@
 const pool = require('../configuration/db');
-
+/*
+vlastnik receptu
+*/
 module.exports = async (req, res, next) => {
     try {
         const id = req.user;

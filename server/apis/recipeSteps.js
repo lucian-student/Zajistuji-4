@@ -3,7 +3,7 @@ const pool = require('../configuration/db');
 const authorization = require('../midelware/authorization');
 const recipeOwner = require('../midelware/recipeOwner');
 const newStepIngredientsUtensilsCreate = require('../query_functions/newStepIngredientsUtensilsCreate');
-
+// presune krok u jenoho receptu
 router.put('/move_step/:id', [authorization, recipeOwner], async (req, res) => {
     const client = await pool.connect();
     try {
@@ -54,6 +54,7 @@ router.put('/move_step/:id', [authorization, recipeOwner], async (req, res) => {
         client.release();
     }
 });
+// upravi krok
 router.put('/update_step/:id', [authorization, recipeOwner], async (req, res) => {
     try {
         const {
@@ -79,7 +80,7 @@ router.put('/update_step/:id', [authorization, recipeOwner], async (req, res) =>
         res.status('500').json('server error');
     }
 });
-
+// smaze krok
 router.delete('/delete_step/:id', [authorization, recipeOwner], async (req, res) => {
     try {
         const {
@@ -96,7 +97,7 @@ router.delete('/delete_step/:id', [authorization, recipeOwner], async (req, res)
         res.status('500').json('server error');
     }
 });
-
+// vytvori krok
 router.post('/create_step/:id', [authorization, recipeOwner], async (req, res) => {
     const client = await pool.connect();
     try {

@@ -1,3 +1,6 @@
+/*
+ulozi ingredience pri vytvareni receptu
+*/
 module.exports.saveIngredients = async (client, recipie_id, ingredients) => {
     let recipieIds = [];
     let count;
@@ -16,7 +19,9 @@ module.exports.saveIngredients = async (client, recipie_id, ingredients) => {
             ]);
     return newIngredients.rows;
 };
-
+/*
+ulozi nastroje pri vytvareni receptu
+*/
 module.exports.saveUtensils = async (client, recipie_id, utensils) => {
     let recipieIds = [];
     let count;

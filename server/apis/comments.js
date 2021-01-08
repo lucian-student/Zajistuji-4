@@ -2,8 +2,7 @@ const router = require('express').Router();
 const pool = require('../configuration/db');
 const authorization = require('../midelware/authorization');
 const commentOwner = require('../midelware/commentOwner');
-//post
-//create comment
+// vytvori komentar
 router.post('/create_comment', authorization, async (req, res) => {
     const client = await pool.connect();
     try {
@@ -33,7 +32,7 @@ router.post('/create_comment', authorization, async (req, res) => {
         client.release();
     }
 });
-//like comment
+// ohodnoti a popripade smaze hodnoceni komentare
 router.post('/like_unlike_comment', authorization, async (req, res) => {
     const client = await pool.connect();
     try {
@@ -88,6 +87,7 @@ router.post('/like_unlike_comment', authorization, async (req, res) => {
         client.release();
     }
 });
+// zmeni komentar pookud uzivatel ma prava
 router.put('/update_comment/:id', [authorization, commentOwner], async (req, res) => {
     try {
         const id = req.params.id;
@@ -103,7 +103,7 @@ router.put('/update_comment/:id', [authorization, commentOwner], async (req, res
         res.status(500).send('Server Error');
     }
 });
-//delete
+//smaze komentar
 router.delete('/delete_comment/:id', [authorization, commentOwner], async (req, res) => {
     const client = await pool.connect();
     try {

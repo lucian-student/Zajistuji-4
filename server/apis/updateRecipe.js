@@ -2,7 +2,9 @@ const router = require('express').Router();
 const pool = require('../configuration/db');
 const authorization = require('../midelware/authorization');
 const recipeOwner = require('../midelware/recipeOwner');
-
+/*
+upravi recept
+*/
 router.put('/update_recipe_data/:id', [authorization, recipeOwner], async (req, res) => {
     try {
         const id = req.params.id;

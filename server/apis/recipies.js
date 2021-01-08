@@ -7,6 +7,7 @@ const stepCreate = require('../query_functions/stepCreate');
 const { updateIngredients, updateUtensils } = require('../query_functions/recipieUpdateFunctions');
 const stepUpdate = require('../query_functions/stepUpdate');
 
+//vytvori recept
 router.post('/create_recipie', authorization, async (req, res) => {
     const client = await pool.connect();
     try {
@@ -74,7 +75,7 @@ router.post('/create_recipie', authorization, async (req, res) => {
         client.release();
     }
 });
-
+// smaze recept
 router.delete('/delete_recipie/:id', [authorization, recipeOwner], async (req, res) => {
     try {
         const deleteRecipie =
@@ -88,7 +89,7 @@ router.delete('/delete_recipie/:id', [authorization, recipeOwner], async (req, r
         res.status('500').json('server error');
     }
 });
-
+// upravi recept
 router.put('/update_recipie/:id', [authorization, recipeOwner], async (req, res) => {
     const client = await pool.connect();
     try {

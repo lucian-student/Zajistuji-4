@@ -2,7 +2,7 @@ const router = require('express').Router();
 const pool = require('../configuration/db');
 const authorization = require('../midelware/authorization');
 const sharedRecipe = require('../midelware/sharedRecipe');
-
+// vrati sdileny recept
 router.get('/get_recipe/:id', [authorization, sharedRecipe], async (req, res) => {
     try {
         const recipe_id = req.params.id;
@@ -20,6 +20,7 @@ router.get('/get_recipe/:id', [authorization, sharedRecipe], async (req, res) =>
         res.status(500).send('Server Error');
     }
 });
+// vrati sdilenee recpety
 router.get('/shared_recipies', authorization, async (req, res) => {
     try {
         const page = req.query.page * 10;
@@ -37,7 +38,7 @@ router.get('/shared_recipies', authorization, async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
-
+// vrati oblibene recepty
 router.get('/liked_recipies', authorization, async (req, res) => {
     try {
         const page = req.query.page * 10;
@@ -58,7 +59,7 @@ router.get('/liked_recipies', authorization, async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
-
+// vrati popularni recepty
 router.get('/popular_recipes', authorization, async (req, res) => {
     try {
         const page = req.query.page * 10;

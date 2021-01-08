@@ -1,3 +1,6 @@
+/*
+vytvori kroky pri vytvareni receptu
+*/
 module.exports = async (client, recipie_id, steps) => {
     let recipieIds = [];
     let result;

@@ -2,7 +2,7 @@ const router = require('express').Router();
 const pool = require('../configuration/db');
 const authorization = require('../midelware/authorization');
 const recipeOwner = require('../midelware/recipeOwner');
-
+// upravit nastroj
 router.put('/update_utensil/:id', [authorization, recipeOwner], async (req, res) => {
     try {
         const {
@@ -24,6 +24,7 @@ router.put('/update_utensil/:id', [authorization, recipeOwner], async (req, res)
         res.status('500').json('server error');
     }
 });
+// vytvorit nastroj
 router.post('/create_utensil/:id', [authorization, recipeOwner], async (req, res) => {
     try {
         const {
@@ -42,7 +43,7 @@ router.post('/create_utensil/:id', [authorization, recipeOwner], async (req, res
         res.status('500').json('server error');
     }
 });
-
+// smazat nastroj receptu
 router.delete('/delete_utensil/:id', [authorization, recipeOwner], async (req, res) => {
     try {
         const {

@@ -8,7 +8,9 @@ const validation = require('../midelware/validation');
 require('dotenv').config();
 //user calls
 
-//get 
+/*
+vrati uzivatelovy data
+*/
 router.get('/me', authorization, async (req, res) => {
     try {
         const user = req.user;
@@ -32,6 +34,9 @@ router.get('/me', authorization, async (req, res) => {
     }
 });
 // post 
+/*
+registruje uzvivatele
+*/
 router.post('/register/', validation, async (req, res) => {
     const client = await pool.connect();
     try {
@@ -80,7 +85,9 @@ router.post('/register/', validation, async (req, res) => {
         client.release();
     }
 });
-
+/*
+prihlasi uzivatele
+*/
 router.post('/login/', validation, async (req, res) => {
     const client = await pool.connect();
     try {
@@ -130,6 +137,9 @@ router.post('/login/', validation, async (req, res) => {
 
 //delete
 // needs rework:3
+/*
+odhlasi uzivatele
+*/
 router.delete('/logout', authorization, async (req, res) => {
     try {
         await pool.query('DELETE FROM refreshTokens WHERE user_id=$1', [req.user]);

@@ -1,5 +1,7 @@
 const pool = require('../configuration/db');
-
+/*
+zjisti jestli recept je sdileny
+*/
 module.exports = async (req, res, next) => {
     try {
         const recipe_id = req.params.id;

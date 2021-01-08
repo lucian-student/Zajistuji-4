@@ -2,7 +2,7 @@ const router = require('express').Router();
 const pool = require('../configuration/db');
 const authorization = require('../midelware/authorization');
 const recipeOwner = require('../midelware/recipeOwner');
-
+// upravi ingredienci
 router.put('/update_ingredients/:id', [authorization, recipeOwner], async (req, res) => {
     try {
         const {
@@ -26,7 +26,7 @@ router.put('/update_ingredients/:id', [authorization, recipeOwner], async (req, 
     }
 });
 
-
+// vytvori ingredienci
 router.post('/create_ingredients/:id', [authorization, recipeOwner], async (req, res) => {
     try {
         const {
@@ -47,7 +47,7 @@ router.post('/create_ingredients/:id', [authorization, recipeOwner], async (req,
         res.status('500').json('server error');
     }
 });
-
+// smaze ingredienci
 router.delete('/delete_ingredients/:id', [authorization, recipeOwner], async (req, res) => {
     try {
         const {

@@ -7,6 +7,7 @@ import { deleteInrgedients } from '../../queries/ingredients/deleteIngredients';
 import { IngredientsAndUtensilsContext } from '../../context/ingredientsAndUtensils';
 import { updateIngredients } from '../../queries/ingredients/updateIngredients';
 import IngredinetsEditForm from '../recipePage/ingredientsComponents/ingredientsEditForm';
+
 function IngredientsCard({ ingredients: { user_id, category, name, ingredients_id, index } }) {
     const { setIngredients, ingredients, source } = useContext(IngredientsAndUtensilsContext);
     const [editing, setEditing] = useState(false);

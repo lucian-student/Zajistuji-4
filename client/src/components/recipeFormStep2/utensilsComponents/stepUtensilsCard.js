@@ -7,6 +7,9 @@ import { RecipeFormContext } from '../../../context/recipeForm';
 import { DimensionsContext } from '../../../context/dimensions';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import update from 'immutability-helper';
+/*
+Karta nacini kroku
+*/
 function StepUtensilsCard({ utensil }) {
     const {
         name,

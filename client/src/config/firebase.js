@@ -2,6 +2,9 @@ import firebase from 'firebase/app';
 import 'firebase/storage';
 import 'firebase/auth';
 
+/*
+konfigurace firebase
+*/
 const firebaseConfig = {
     apiKey: "AIzaSyAU9K2vRtV-uawTLXhMNAAqfZwQ4Z953is",
     authDomain: "recepty-2c93a.firebaseapp.com",

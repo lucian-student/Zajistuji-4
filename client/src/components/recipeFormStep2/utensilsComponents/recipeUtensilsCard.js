@@ -3,6 +3,9 @@ import Card from 'react-bootstrap/Card';
 import { useDrag } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { DimensionsContext } from '../../../context/dimensions';
+/*
+Karta nacini receptu
+*/
 function RecipeUtensilsCard({ utensil }) {
     const { name } = utensil;
     const [dimensions, setDimensions] = useState({ width: 0, heigth: 0 });

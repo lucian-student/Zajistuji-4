@@ -7,6 +7,9 @@ import { DimensionsContext } from '../../context/dimensions';
 import { CgRemove } from 'react-icons/cg';
 import Button from 'react-bootstrap/Button';
 import update from 'immutability-helper';
+/*
+Vase karta nacini v prvnim kroku formulare na recepty
+*/
 function YourUtensilCard({ utensil }) {
     const {
         name,

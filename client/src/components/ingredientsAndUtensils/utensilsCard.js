@@ -7,6 +7,11 @@ import { IngredientsAndUtensilsContext } from '../../context/ingredientsAndUtens
 import { deleteUtensil } from '../../queries/utensils/deleteUtensil';
 import { updateUtensil } from '../../queries/utensils/updateUtensil';
 import UtensilEditForm from '../recipePage/utensilsComponents/utensilEditForm';
+/*
+Karta zobrazi vase nacini ve skrini
+handleDeleteUtensil smaze nadobi
+handleUpdateUtensils upravi nadobi 
+*/
 function UtensilsCard({ utensil: { utensils_id, name, index } }) {
     const { setUtensils, utensils, source } = useContext(IngredientsAndUtensilsContext);
     const [editing, setEditing] = useState(false);

@@ -8,9 +8,15 @@ import { IngredientsAndUtensilsContext } from '../../context/ingredientsAndUtens
 import { updateIngredients } from '../../queries/ingredients/updateIngredients';
 import IngredinetsEditForm from '../recipePage/ingredientsComponents/ingredientsEditForm';
 
+/*
+Karta ingredience
+deleteIngretiend smaze ingredienci
+handleUpdate Upravi ingredienci
+*/
 function IngredientsCard({ ingredients: { user_id, category, name, ingredients_id, index } }) {
     const { setIngredients, ingredients, source } = useContext(IngredientsAndUtensilsContext);
     const [editing, setEditing] = useState(false);
+    
     async function deleteIngredients() {
         await deleteInrgedients(ingredients_id, setIngredients, source);
     }

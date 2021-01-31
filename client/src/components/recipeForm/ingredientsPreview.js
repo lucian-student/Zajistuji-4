@@ -1,5 +1,8 @@
 import React, { Fragment } from 'react';
 import Card from 'react-bootstrap/Card';
+/*
+zobrazi ingredienci pri tazeni
+*/
 function IngredientsPreview({ ingredients: {
     name,
     category,

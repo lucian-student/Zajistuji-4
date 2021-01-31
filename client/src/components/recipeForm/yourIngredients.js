@@ -4,6 +4,9 @@ import YourIngredientsCard from '../../components/recipeForm/yourIngredientsCard
 import Button from 'react-bootstrap/Button';
 import withScrolling from 'react-dnd-scrolling';
 import axios from 'axios';
+/*
+zobrazi karty vasich ingredienci v prvnim kroku
+*/
 const ScrollingComponent = withScrolling('div');
 function YourIngredients() {
     const [yourIngredientsPage, setyouIngredientsPage] = useState(0);

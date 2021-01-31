@@ -4,6 +4,9 @@ import YourUtensilCard from './yourUtensilCard';
 import Button from 'react-bootstrap/Button';
 import withScrolling from 'react-dnd-scrolling';
 import axios from 'axios';
+/*
+Zobrazi karty vaseho nacini v prvnim kroku formulare na recepty
+*/
 const ScrollingComponent = withScrolling('div');
 function YourUtensils() {
     const [yourUtensilsPage, setYourUtensilsPage] = useState(0);

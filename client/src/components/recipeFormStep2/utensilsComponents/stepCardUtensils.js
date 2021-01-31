@@ -4,6 +4,9 @@ import StepUtensilsCard from './stepUtensilsCard';
 import { useDrop } from 'react-dnd';
 import update from 'immutability-helper';
 import { RecipeFormContext } from '../../../context/recipeForm';
+/*
+zobrazi karty nacini kroku
+*/
 const ScrollingComponent = withScrolling('div');
 
 function StepCardUtensils({ properties }) {

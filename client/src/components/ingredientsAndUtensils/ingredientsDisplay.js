@@ -3,6 +3,9 @@ import { IngredientsAndUtensilsContext } from '../../context/ingredientsAndUtens
 import IngredientsCard from './ingredientsCard';
 import Button from 'react-bootstrap/Button';
 import { ingredientsQuery } from '../../queries/ingredients/defaultIngredients';
+/*
+Zobrazi vase karty ingredienci v spizi
+*/
 function IngredinetsDisplay() {
     const { ingredientsPage, setIngredientsPage, setIngredients, ingredients, source } = useContext(IngredientsAndUtensilsContext);
     useEffect(() => {

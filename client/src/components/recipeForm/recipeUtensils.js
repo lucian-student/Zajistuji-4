@@ -4,7 +4,9 @@ import RecipeUtensilCard from './recipeUtensilCard';
 import update from 'immutability-helper';
 import { useDrop } from 'react-dnd';
 import withScrolling from 'react-dnd-scrolling';
-
+/*
+nacini receptu v prvnim kroku formulare na recepty
+*/
 const ScrollingComponent = withScrolling('div');
 
 function RecipeUtensils() {

@@ -4,7 +4,9 @@ import update from 'immutability-helper';
 import { useDrop } from 'react-dnd';
 import StepFormUtensilCard from './stepFormUtensilsCard';
 import withScrolling from 'react-dnd-scrolling';
-
+/*
+nacini formulare na kroky
+*/
 const ScrollingComponent = withScrolling('div');
 
 function FormStepUtensils() {

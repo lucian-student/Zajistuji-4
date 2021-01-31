@@ -4,6 +4,9 @@ import { BiMenu } from 'react-icons/bi';
 import { IoMdOpen } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
+/*
+Zobrazi kartu vaseho receptu na strance s vasimi recepty
+*/
 function RecipeCard({ recipe }) {
     const {
         recipie_id,

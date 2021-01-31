@@ -15,6 +15,9 @@ import { DimensionsContext } from '../../../context/dimensions';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import StepEditForm from './stepEditForm';
 import update from 'immutability-helper';
+/*
+karta kroku receptu
+*/
 function StepCard({ step }) {
     const {
         step_id,

@@ -1,5 +1,8 @@
 import React, { Fragment } from 'react';
 import Card from 'react-bootstrap/Card';
+/*
+zobrazeni nacini pri tahani nacini
+*/
 function UtensilPreview({ utensil: {
     name,
     dimensions

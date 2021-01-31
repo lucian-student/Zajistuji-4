@@ -4,7 +4,9 @@ import { useDrop } from 'react-dnd';
 import StepCard from './stepCard';
 import withScrolling from 'react-dnd-scrolling';
 import update from 'immutability-helper';
-
+/*
+zobrazi kroky receptu
+*/
 const ScrollingComponent = withScrolling('div');
 function StepDisplay() {
     const { recipeSteps, setRecipeSteps } = useContext(RecipeFormContext);

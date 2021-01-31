@@ -1,7 +1,9 @@
 import React, { Fragment, useRef, useEffect, useState, useContext } from 'react';
 import { useDrop } from 'react-dnd';
 import { DimensionsContext } from '../../context/dimensions';
-
+/*
+Umoznuje verticalni scrollovani kdyz tahnete objekt
+*/
 function DragScrollWrapper({ children, ITEM_TYPE }) {
     const ref = useRef();
     const { height } = useContext(DimensionsContext);

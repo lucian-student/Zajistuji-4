@@ -2,6 +2,10 @@ import React, { Fragment, useState, useContext } from 'react';
 import { IngredientsAndUtensilsContext } from '../../context/ingredientsAndUtensils';
 import { createIngredients } from '../../queries/ingredients/createIngredients';
 import IngredientsFormComponent from '../reusableComponents/ingredientsForm';
+/*
+Zobrazi formular na vyrobu ingredienci
+handleCreateIngredients vytvori ingredienci 
+*/
 function IngredientsForm() {
     const [editing, setEditing] = useState(false);
     const { setIngredients, source } = useContext(IngredientsAndUtensilsContext);

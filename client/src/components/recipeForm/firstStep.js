@@ -9,6 +9,10 @@ import RecipeIngredients from './recipeIngredients';
 import RecipeUtensils from './recipeUtensils';
 import CustomDragLayer from './customDragLayer';
 
+/*
+Zobrazuje prvni krok formulare na vyrobu receptu
+*/
+
 // problem its width is reduced cuz of styles needs to be full width of page
 function FirstStep({ properties: { setStep } }) {
     return (

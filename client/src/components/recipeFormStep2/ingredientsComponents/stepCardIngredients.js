@@ -4,6 +4,9 @@ import StepIngredientsCard from './stepIngredientsCard';
 import { useDrop } from 'react-dnd';
 import update from 'immutability-helper';
 import { RecipeFormContext } from '../../../context/recipeForm';
+/*
+Zobrazi kartu ingredience ve kroku receptu
+*/
 const ScrollingComponent = withScrolling('div');
 
 

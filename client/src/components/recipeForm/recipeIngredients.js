@@ -4,7 +4,10 @@ import RecipeIngredientsCard from './recipeIngredientsCard';
 import update from 'immutability-helper';
 import { useDrop } from 'react-dnd';
 import withScrolling from 'react-dnd-scrolling';
-
+/*
+zobrazi karty ingredienci v prvnim kroku 
+karty patri receptu
+*/
 const ScrollingComponent = withScrolling('div');
 
 function RecipeIngredients() {

@@ -2,7 +2,9 @@ import React, { Fragment, useContext } from 'react';
 import { RecipeFormContext } from '../../../context/recipeForm';
 import RecipeIngredientsCard from './recipeIngredientsCard';
 import withScrolling from 'react-dnd-scrolling';
-
+/*
+zobrazi ingredience receptu ve druhem kroku formulare na recepty
+*/
 const ScrollingComponent = withScrolling('div');
 
 function IngredientsDisplay() {

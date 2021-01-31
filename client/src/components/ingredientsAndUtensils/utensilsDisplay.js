@@ -3,6 +3,9 @@ import Button from 'react-bootstrap/Button';
 import { IngredientsAndUtensilsContext } from '../../context/ingredientsAndUtensils';
 import { utensilsQuery } from '../../queries/utensils/defaultUtensils';
 import UtensilsCard from './utensilsCard';
+/*
+Zobrazi karty nacini
+*/
 function UtensilsDisplay() {
     const { setUtensils, utensilsPage, setUtensilsPage, utensils, source } = useContext(IngredientsAndUtensilsContext);
     useEffect(() => {

@@ -7,6 +7,9 @@ import { CgRemove } from 'react-icons/cg';
 import Button from 'react-bootstrap/Button';
 import update from 'immutability-helper';
 import { StepFormContext } from '../../../context/stepForm';
+/*
+zobrazi kartu ingredience ve formulari na kroky
+*/
 function StepFormIngredientsCard({ ingredients }) {
     const {
         name,

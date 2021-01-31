@@ -4,7 +4,9 @@ import update from 'immutability-helper';
 import { useDrop } from 'react-dnd';
 import StepFormIngredientsCard from './stepFormIngredientsCard';
 import withScrolling from 'react-dnd-scrolling';
-
+/*
+Zobrazi ingredience ve formulari na kroky
+*/
 const ScrollingComponent = withScrolling('div');
 
 function FormStepIngredients() {

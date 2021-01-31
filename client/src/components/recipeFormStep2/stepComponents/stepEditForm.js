@@ -3,6 +3,9 @@ import Modal from 'react-bootstrap/Modal';
 import { useForm } from 'react-hook-form';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+/*
+Formular na upraveni kroku receptu
+*/
 function StepEditForm({ properties: { editing, setEditing, name, duration, description, handleUpdateStep } }) {
     const { register, handleSubmit, errors } = useForm();
     return (

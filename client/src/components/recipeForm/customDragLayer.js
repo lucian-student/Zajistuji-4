@@ -4,6 +4,10 @@ import IngredientsPreview from './ingredientsPreview';
 import UtensilPreview from './utensilPreview';
 import StepPreview from '../recipeFormStep2/stepComponents/stepPreview';
 
+/*
+Vytvori vrstvu pro zobrazi vasich vytvorenych zobrazeni pro tahane objekty
+*/
+
 const layerStyles = {
     position: 'fixed',
     pointerEvents: 'none',

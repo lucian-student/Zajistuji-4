@@ -1,6 +1,9 @@
 import React, { Fragment } from 'react';
 import Card from 'react-bootstrap/Card';
 import { MdTimer } from 'react-icons/md';
+/*
+Zobrazeni kroku pri tahnuti
+*/
 function StepPreview({ step: { name, duration, description, dimensions } }) {
     return (
         <Fragment>

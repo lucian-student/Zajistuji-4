@@ -3,6 +3,9 @@ import { YourRecipesContext } from '../../context/yourRecipes';
 import { recipeQuery } from '../../queries/recipes/defaultRecipeQuery';
 import Button from 'react-bootstrap/Button';
 import RecipeCard from './recipeCard';
+/*
+zobrazi karty vasich receptu
+*/
 function RecipeDisplay() {
     const { yourRecipes, setYourRecipes, yourRecipesPage, setYourRecipesPage, source } = useContext(YourRecipesContext);
     useEffect(() => {

@@ -7,7 +7,9 @@ import { CgRemove } from 'react-icons/cg';
 import Button from 'react-bootstrap/Button';
 import update from 'immutability-helper';
 import { StepFormContext } from '../../../context/stepForm';
-
+/*
+Karta nacini formulare na kroky
+*/
 function StepFormUtensilsCard({ utensil }) {
     const {
         name,

@@ -2,6 +2,9 @@ import React, { Fragment, useContext } from 'react';
 import { RecipeFormContext } from '../../../context/recipeForm';
 import withScrolling from 'react-dnd-scrolling';
 import RecipeUtensilsCard from './recipeUtensilsCard';
+/*
+zobrazi karty nacini receptu
+*/
 const ScrollingComponent = withScrolling('div');
 
 function UtensilsDisplay() {

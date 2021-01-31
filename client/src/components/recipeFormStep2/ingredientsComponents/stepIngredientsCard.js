@@ -7,6 +7,9 @@ import { useDrag, useDrop } from 'react-dnd'
 import { RecipeFormContext } from '../../../context/recipeForm';
 import { DimensionsContext } from '../../../context/dimensions';
 import { getEmptyImage } from 'react-dnd-html5-backend';
+/*
+zobrazi karty ingredienci ve formulari na kroky
+*/
 function StepIngredientsCard({ ingredients }) {
     const {
         name,

@@ -2,6 +2,9 @@ import React, { Fragment, useEffect, useContext } from 'react';
 import { recipeStepsQuery } from '../../../queries/recipeSteps/recipeStepsDefault';
 import { YourRecipeContext } from '../../../context/yourRecipe';
 import StepCard from './stepCard';
+/*
+zobrazi karty kroku
+*/
 function StepDisplay() {
     const { steps, setSteps, recipe: { recipie_id }, source } = useContext(YourRecipeContext);
     useEffect(() => {

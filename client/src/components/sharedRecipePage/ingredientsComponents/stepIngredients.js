@@ -1,5 +1,8 @@
 import React from 'react';
 import StepIngredientsCard from './StepIngredientsCard';
+/*
+Zobrazi ingredience kroku
+*/
 function StepIngredients({ properties: { ingredients } }) {
     return (
         <div className='column'>

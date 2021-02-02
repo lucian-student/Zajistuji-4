@@ -1,5 +1,8 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
+/*
+Karta ingredienci kroku
+*/
 function StepIngredientsCard({ ingredients }) {
     const {
         name,

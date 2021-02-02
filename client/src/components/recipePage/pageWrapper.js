@@ -10,6 +10,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import CustomDragLayer from '../recipeForm/customDragLayer';
 import { StepFormProvider } from '../../context/stepForm';
+/*
+Kontroluje jestli recept existuje nebo jestli data prisli o receptu
+*/
 function PageWrapper({ recipie_id }) {
     const { recipe, setRecipe, source } = useContext(YourRecipeContext);
     useEffect(() => {

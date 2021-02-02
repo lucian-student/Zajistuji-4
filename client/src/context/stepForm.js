@@ -1,4 +1,7 @@
 import React, { createContext, useState } from 'react';
+/*
+prechovava data o kroku ve formulari
+*/
 export const StepFormContext = createContext();
 
 export const StepFormProvider = ({ children }) => {

@@ -12,6 +12,10 @@ import { StepFormContext } from '../../../context/stepForm';
 import { YourRecipeContext } from '../../../context/yourRecipe';
 import { createStep } from '../../../queries/recipeSteps/createStep';
 import stepCreateParser from '../../../utils/stepCreateParser';
+/*
+Zobrazi formular kroku
+handleCreateStep vytvori krok
+*/
 function StepForm() {
     const [show, setShow] = useState(false);
     const { formIngredients, formUtensils } = useContext(StepFormContext);

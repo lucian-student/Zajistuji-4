@@ -5,6 +5,9 @@ import { popularRecipes } from '../../queries/sharedRecipeQueries/popularRecipes
 import RecipeCard from './recipeCard';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
+/*
+Zobrazi sdilene recepty a da moznost is vybrat kriterium receptu
+*/
 function DisplayRecipes({ properties: { route, setRoute, options } }) {
     const { routeName, page } = route;
     const [recipes, setRecipes] = useState([]);

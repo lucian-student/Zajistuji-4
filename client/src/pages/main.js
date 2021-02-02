@@ -5,6 +5,9 @@ import Button from 'react-bootstrap/Button';
 import { FiPlusCircle } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import '../responsiveCss/mainCss.css';
+/*
+Stranka s vasimi recepty a formularem na recepty
+*/
 function Main() {
     return (
         <Fragment>

@@ -6,6 +6,9 @@ import withScrolling from 'react-dnd-scrolling';
 import { YourRecipeContext } from '../../../context/yourRecipe';
 import { createUtensil } from '../../../queries/stepUtensils/createUtensils';
 import { changeStep } from '../../../queries/stepUtensils/changeStep';
+/*
+Zobrazi karty nacini kroku
+*/
 const ScrollingComponent = withScrolling('div');
 function StepUtensils({ properties }) {
     const {

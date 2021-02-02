@@ -6,6 +6,9 @@ import update from 'immutability-helper';
 import { useDrop } from 'react-dnd';
 import { moveStep } from '../../../queries/recipeSteps/moveStep';
 import axios from 'axios';
+/*
+Zobrazi karty kroku receptu
+*/
 function StepsDisplay() {
     const displaySource = useRef(axios.CancelToken.source());
     const { steps, setSteps, recipe: { recipie_id }, source } = useContext(YourRecipeContext);

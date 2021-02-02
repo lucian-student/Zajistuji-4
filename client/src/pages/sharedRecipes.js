@@ -4,6 +4,9 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import DisplayRecipes from '../components/sharedRecipes/displayRecipes';
+/*
+Stranka zobrazujici sdilene recepty
+*/
 function SharedRecipes() {
     const [route, setRoute] = useState({
         routeName: 'Newest',

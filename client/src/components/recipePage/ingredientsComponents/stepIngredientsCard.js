@@ -11,6 +11,11 @@ import { deleteInrgedients } from '../../../queries/stepIngredients/deleteIngred
 import { updateIngredients } from '../../../queries/stepIngredients/updateIngredients';
 import StepIngredientsEditForm from './stepIngredientsEditForm';
 import axios from 'axios';
+/*
+karta ingredience receptu
+handleDeleteIngredients smaze ingredienci
+handleUpdateIngredients upravi ingredienci
+*/
 function StepIngredientsCard({ ingredients }) {
     const source = useRef(axios.CancelToken.source());
     const {

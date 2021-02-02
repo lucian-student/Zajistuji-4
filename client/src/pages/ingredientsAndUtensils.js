@@ -5,6 +5,9 @@ import Col from 'react-bootstrap/Col';
 import UtensilsMain from '../components/ingredientsAndUtensils/utensilsMain';
 import IngredientsMain from '../components/ingredientsAndUtensils/IngredientsMain';
 import { IngredientsAndUtensilsProvider } from '../context/ingredientsAndUtensils';
+/*
+stranka zobrazujici vasi spiz a skrin s nacinim
+*/
 function IngredientsAndUtensils() {
     return (
         <Fragment>

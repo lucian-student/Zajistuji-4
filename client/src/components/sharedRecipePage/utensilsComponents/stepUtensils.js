@@ -1,5 +1,8 @@
 import React from 'react';
 import StepUtensilCard from './stepUtensilCard';
+/*
+Zobrazi karty nacini kroku
+*/
 function StepUtensils({ properties }) {
     const {
         utensils

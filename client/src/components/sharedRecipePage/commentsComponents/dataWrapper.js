@@ -6,6 +6,9 @@ import { YourRecipeContext } from '../../../context/yourRecipe';
 import { CommentsContext } from '../../../context/comments';
 import { AuthContext } from '../../../context/auth';
 import { commentsQuery } from '../../../queries/comments/commentsQuery';
+/*
+kontroluje nacteni dat komentaru
+*/
 function DataWrapper() {
     const { recipe: { recipie_id }, setRecipe, source } = useContext(YourRecipeContext);
     const { setComments, commentsPage } = useContext(CommentsContext);

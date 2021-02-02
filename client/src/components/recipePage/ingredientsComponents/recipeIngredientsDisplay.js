@@ -1,6 +1,9 @@
 import React, { Fragment, useContext } from 'react';
 import { YourRecipeContext } from '../../../context/yourRecipe';
 import IngredientsCard from './ingredientsCard';
+/*
+Zobrazi karty ingredienci receptu
+*/
 function RecipeIngredientsDisplay() {
     const { ingredients } = useContext(YourRecipeContext);
     return (

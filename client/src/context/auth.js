@@ -3,6 +3,9 @@ import { jwtTransport } from '../axios/refreshTokenAxios';
 import { getAcessToken, setAccessToken } from '../utils/accessToken';
 import axios from 'axios';
 import firebase from '../config/firebase';
+/*
+Ukladá v pameti data o uzivatelovi
+*/
 export const AuthContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {

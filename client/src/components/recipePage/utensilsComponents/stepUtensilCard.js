@@ -11,6 +11,11 @@ import { deleteUtensil } from '../../../queries/stepUtensils/deleteUtensil';
 import { updateUtensil } from '../../../queries/stepUtensils/updateUtensil';
 import UtensilEditForm from './utensilEditForm';
 import axios from 'axios';
+/*
+Zobrazi Karta nacini kroku
+handleDeleteUtensils smaze nacini
+handleUpdateUtensils upravi nacini
+*/
 function StepUtensilCard({ utensil }) {
     const source = useRef(axios.CancelToken.source());
     const {

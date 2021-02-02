@@ -11,6 +11,11 @@ import { deleteInrgedients } from '../../../queries/recipeIngredients/deleteIngr
 import { useDrag } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import axios from 'axios';
+/*
+zobrazi kartu ingredience na osobni strance s receptem
+handleUpdateIngredients Upravi ingredienci
+handleDeleteIngredients Smaze ingredienci
+*/
 function IngredientsCard({ ingredients }) {
     const source = useRef(axios.CancelToken.source());
     const {

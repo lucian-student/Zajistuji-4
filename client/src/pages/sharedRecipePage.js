@@ -1,6 +1,9 @@
 import React, { Fragment } from 'react';
 import { YourRecipeProvider } from '../context/yourRecipe';
 import PageWrapper from '../components/sharedRecipePage/pageWrapper';
+/*
+Stranka sdileneho receptu
+*/
 function SharedRecipePage(props) {
     const recipie_id = props.match.params.id;
     return (

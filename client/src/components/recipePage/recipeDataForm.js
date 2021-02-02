@@ -13,6 +13,9 @@ import Firebase from '../../config/firebase';
 import { updateRecipe } from '../../queries/recipes/updateRecipe';
 import { v4 as uuidv4 } from 'uuid';
 import { CgRemove } from 'react-icons/cg';
+/*
+Formular na upravu zakladnich dat receptu
+*/
 function RecipeDataForm({ properties: { editing, setEditing } }) {
     const { handleSubmit, register, errors, watch } = useForm();
     const { currentUser: { user_id } } = useContext(AuthContext);

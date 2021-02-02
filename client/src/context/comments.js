@@ -1,5 +1,8 @@
 import React, { createContext, useState, useRef, useEffect } from 'react';
 import axios from 'axios';
+/*
+Uklada v pameti data o komentarich
+*/
 export const CommentsContext = createContext();
 
 export const CommentsProvider = ({ children }) => {

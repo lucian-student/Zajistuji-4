@@ -8,6 +8,10 @@ import { AiOutlineLike } from 'react-icons/ai';
 import { BiCommentDetail } from 'react-icons/bi';
 import Button from 'react-bootstrap/Button';
 import { like_unlike } from '../../queries/recipeLikes/like_unlike';
+/*
+Zobrazi data receptu
+handle_like_unlike ohodnoti recept
+*/
 function RecipeDataDisplay() {
     const { recipe, setRecipe, source } = useContext(YourRecipeContext);
     const {

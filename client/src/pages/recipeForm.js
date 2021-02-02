@@ -9,6 +9,9 @@ import DragScrollWrapper from '../components/recipeForm/dragScrollWrapper';
 import { DimensionsProvider } from '../context/dimensions';
 import MultiBackend from 'react-dnd-multi-backend';
 import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch';
+/*
+stranka s formularem na recepty
+*/
 function RecipeForm() {
     const [step, setStep] = useState(1);
     return (

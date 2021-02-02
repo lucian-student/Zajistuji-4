@@ -5,6 +5,9 @@ import { BiMenu } from 'react-icons/bi';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
 import StepIngredientsAndUtensils from './stepIngredientsAndUtensils';
+/*
+karta kroku
+*/
 function StepCard({ step }) {
     const {
         name,

@@ -2,6 +2,9 @@ import React, { Fragment, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import CommentsCard from './commentCard';
 import { CommentsContext } from '../../../context/comments';
+/*
+Zobrazi karty komentaru
+*/
 function CommentsDisplay() {
     const { comments, setCommentsPage, commentsPage } = useContext(CommentsContext);
     return (

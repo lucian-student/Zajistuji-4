@@ -1,5 +1,8 @@
 import React, { createContext, useState, useRef, useEffect } from 'react';
 import axios from 'axios';
+/*
+prechova data o receptu
+*/
 export const YourRecipeContext = createContext();
 
 export const YourRecipeProvider = ({ children }) => {

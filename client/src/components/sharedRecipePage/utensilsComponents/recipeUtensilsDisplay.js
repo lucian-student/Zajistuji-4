@@ -1,6 +1,9 @@
 import React, { Fragment, useContext } from 'react';
 import { YourRecipeContext } from '../../../context/yourRecipe';
 import RecipeUtensilCard from './recipeUtensilCard';
+/*
+Zobrazi karty nacini receptu
+*/
 function RecipeUtensilsDisplay() {
     const { utensils } = useContext(YourRecipeContext);
     return (

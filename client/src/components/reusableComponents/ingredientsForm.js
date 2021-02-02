@@ -4,6 +4,9 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useForm } from 'react-hook-form';
 import { FiPlusCircle } from 'react-icons/fi';
+/*
+formular na ingredience
+*/
 function IngredientsForm({ properties: {
     handleCreateIngredients,
     editing,

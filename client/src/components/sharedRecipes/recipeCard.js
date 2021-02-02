@@ -8,6 +8,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { AiOutlineLike } from 'react-icons/ai';
 import { BiCommentDetail } from 'react-icons/bi';
+/*
+Karta receptu
+*/
 function RecipeCard({ recipe }) {
     const {
         recipie_id,

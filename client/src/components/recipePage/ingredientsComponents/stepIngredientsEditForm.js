@@ -3,6 +3,9 @@ import { useForm } from 'react-hook-form';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+/*
+Formular na upravu ingredienci kroku
+*/
 function StepIngredientEditForm({ properties: {
     editing,
     setEditing,

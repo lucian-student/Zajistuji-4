@@ -9,6 +9,9 @@ import IngredientsAndUtensils from './ingredientsAndUtensils';
 import StepDisplay from './stepComponents/stepDisplay';
 import CommentsComponent from './commentsComponents/commentsComponent';
 import '../../responsiveCss/recipePage.css';
+/*
+Kontroluje jestli dostane data receptu
+*/
 function PageWrapper({ recipie_id }) {
     const { recipe, setRecipe, source } = useContext(YourRecipeContext);
     useEffect(() => {

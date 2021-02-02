@@ -9,6 +9,10 @@ import { ValidateUnneceserrySpaceUsage, ValidateTextInput } from '../utils/valid
 import '../responsiveCss/registerLoginCss.css';
 import axios from 'axios';
 import firebase from '../config/firebase';
+/*
+Stranka, co souzi pro registraci uzivatele
+handleRegister zaregistruje uzivatele
+*/
 function Register() {
     let btnRef = useRef();
     const source = useRef(axios.CancelToken.source());

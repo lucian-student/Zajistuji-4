@@ -3,6 +3,9 @@ import UtensilFormComponent from '../../reusableComponents/utensilForm';
 import { YourRecipeContext } from '../../../context/yourRecipe';
 import { createUtensil } from '../../../queries/recipeUtensils/createUtensil';
 import axios from 'axios';
+/*
+Formular na nacini receptu
+*/
 function RecipeUtensilForm() {
     const source = useRef(axios.CancelToken.source());
     const [editing, setEditing] = useState(false);

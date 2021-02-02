@@ -8,6 +8,10 @@ import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import firebase from '../config/firebase';
 import '../responsiveCss/registerLoginCss.css';
+/*
+Stranka pro prihlaseni uzivatele
+handleLogin prihlasi uzivatele
+*/
 function Login() {
     let btnRef = useRef();
     const source = useRef(axios.CancelToken.source());

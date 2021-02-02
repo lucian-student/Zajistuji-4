@@ -14,6 +14,12 @@ import { deleteComment } from '../../../queries/comments/deleteComment';
 import { editComments } from '../../../queries/comments/editComment';
 import { CommentsContext } from '../../../context/comments';
 import { YourRecipeContext } from '../../../context/yourRecipe';
+/*
+karta komentare
+handleLike ohodnoti komentar
+handleDelete smaze komentar
+handleEditComment smaze komentar
+*/
 function CommentCard({ comment }) {
     const [editing, setEditing] = useState(false);
     const { currentUser } = useContext(AuthContext);

@@ -3,6 +3,10 @@ import IngredientsForm from '../../reusableComponents/ingredientsForm';
 import { YourRecipeContext } from '../../../context/yourRecipe';
 import { createIngredients } from '../../../queries/recipeIngredients/createIngredients';
 import axios from 'axios';
+/*
+Zobrazi Formular na ingredience receptu
+handleCreateIngredients vytvori ingredienci
+*/
 function RecipeIngredientsForm() {
     const source = useRef(axios.CancelToken.source());
     const [editing, setEditing] = useState(false);

@@ -7,7 +7,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import '../responsiveCss/menuCss.css';
-
+/*
+Navigace aplikace
+*/
 function Menu() {
     const { currentUser, logout } = useContext(AuthContext);
     const pathname = window.location.pathname;

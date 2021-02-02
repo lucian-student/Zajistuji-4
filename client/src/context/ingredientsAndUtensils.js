@@ -1,5 +1,8 @@
 import React, { useState, createContext, useRef, useEffect } from 'react';
 import axios from 'axios';
+/*
+prechovava data o ingrediencich a nacini
+*/
 export const IngredientsAndUtensilsContext = createContext();
 
 export const IngredientsAndUtensilsProvider = ({ children }) => {

@@ -5,6 +5,9 @@ import { useForm } from 'react-hook-form';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+/*
+Formular na vytvareni komentaru
+*/
 function CommentsForm({ properties: {
     handleCreateComment
 } }) {

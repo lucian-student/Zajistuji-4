@@ -13,6 +13,11 @@ import { getEmptyImage } from 'react-dnd-html5-backend';
 import { useDrop, useDrag } from 'react-dnd';
 import { deleteStep } from '../../../queries/recipeSteps/deleteStep';
 import axios from 'axios';
+/*
+Karta kroku receptu
+handleUpdateStep upravi krok
+handleDeleteStep smaze krok
+*/
 function StepCard({ step }) {
     const source = useRef(axios.CancelToken.source());
     const {

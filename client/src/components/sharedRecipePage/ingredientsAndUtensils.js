@@ -7,6 +7,9 @@ import RecipeIngredientsDisplay from './ingredientsComponents/recipeIngredientsD
 import RecipeUtensilsDisplay from './utensilsComponents/recipeUtensilsDisplay';
 import RecipeIngredientsWrapper from '../recipePage/ingredientsComponents/recipeIngredientsWrapper';
 import RecipeUtensilsWrapper from '../recipePage/utensilsComponents/recipeUtensilsWrapper';
+/*
+Zobrazi ingredience a nacini receptu
+*/
 function IngredientsAndUtensils() {
     const [show, setShow] = useState(false);
     return (

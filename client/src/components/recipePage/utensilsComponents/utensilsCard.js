@@ -11,6 +11,11 @@ import { useDrag } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { DimensionsContext } from '../../../context/dimensions';
 import axios from 'axios';
+/*
+Karta nacini receptu
+handleUpdateUtensils upravi nacini
+handleDeleteUtensil smaze nacini
+*/
 function UtensilCard({ utensil }) {
     const source = useRef(axios.CancelToken.source());
     const {

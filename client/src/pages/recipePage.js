@@ -8,6 +8,9 @@ import DragScrollWrapper from '../components/recipeForm/dragScrollWrapper';
 import { DimensionsProvider } from '../context/dimensions';
 import MultiBackend from 'react-dnd-multi-backend';
 import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch';
+/*
+Stranka s receptem
+*/
 function RecipePage(props) {
     const recipie_id = props.match.params.id;
     return (

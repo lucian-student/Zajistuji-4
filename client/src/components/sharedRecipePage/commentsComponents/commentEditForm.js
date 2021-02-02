@@ -5,6 +5,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+/*
+Formular na upravu komentaru
+*/
 function CommentEditForm({ properties: {
     content,
     handleEditComment,

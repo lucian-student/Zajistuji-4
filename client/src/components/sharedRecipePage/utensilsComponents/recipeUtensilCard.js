@@ -1,6 +1,8 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-
+/*
+Karta nacini receptu
+*/
 function RecipeUtensilCard({ utensil }) {
     const {
         name

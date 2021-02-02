@@ -6,6 +6,9 @@ import update from 'immutability-helper';
 import { changeStep } from '../../../queries/stepIngredients/changeStep';
 import { createIngredients } from '../../../queries/stepIngredients/creatIngredients';
 import withScrolling from 'react-dnd-scrolling';
+/*
+Zobrazi ingredience kroku
+*/
 const ScrollingComponent = withScrolling('div');
 
 function StepIngredients({ properties }) {

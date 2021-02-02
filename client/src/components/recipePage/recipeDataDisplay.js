@@ -11,6 +11,11 @@ import RecipeDataForm from './recipeDataForm';
 import { withRouter, Redirect } from 'react-router-dom';
 import { deleteRecipe } from '../../queries/recipes/deleteRecipe';
 import { shareUnshareRecipe } from '../../queries/recipes/shareUnshareRecipe';
+/*
+zobrazi zakladni data receptu
+handleDeleteRecipe smaze recept
+handůeShareUnshareRecipe sdili recept a pokud je sdileny tak ho prestane sdilet
+*/
 function RecipeDataDisplay() {
     const { recipe, setRecipe, source } = useContext(YourRecipeContext);
     const [deleted, setDeleted] = useState(false);

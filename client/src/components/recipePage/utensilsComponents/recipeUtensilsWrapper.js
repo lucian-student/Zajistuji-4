@@ -1,6 +1,9 @@
 import React, { Fragment, useEffect, useContext } from 'react';
 import { YourRecipeContext } from '../../../context/yourRecipe';
 import { recipeUtensilsQuery } from '../../../queries/recipeUtensils/recipeUtensilsDefault';
+/*
+Kontroluje jestli prisly data ze serveru o nacinich receptu
+*/
 function RecipeUtensilsWrapper({ children, show }) {
     const { setUtensils, recipe: { recipie_id }, source } = useContext(YourRecipeContext);
     useEffect(() => {

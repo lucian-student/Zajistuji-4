@@ -1,6 +1,8 @@
 import React, { useState, createContext, useEffect, useRef } from 'react';
 import axios from 'axios';
-
+/*
+prechovava data o receptu ve formulari
+*/
 export const RecipeFormContext = createContext();
 
 export const RecipeFormProvider = ({ children }) => {

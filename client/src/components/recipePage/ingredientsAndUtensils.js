@@ -9,6 +9,9 @@ import RecipeIngredientsWrapper from './ingredientsComponents/recipeIngredientsW
 import RecipeUtensilsWrapper from './utensilsComponents/recipeUtensilsWrapper';
 import RecipeIngredientsForm from './ingredientsComponents/recipeIngredientsForm';
 import RecipeUtensilForm from './utensilsComponents/recipeUtensilForm';
+/*
+Zobrazi ingredience a nacini receptu
+*/
 function IngredientsAndUtensils() {
     const [show, setShow] = useState(false);
     return (

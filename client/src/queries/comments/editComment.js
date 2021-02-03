@@ -1,6 +1,9 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
 import update from 'immutability-helper';
+/*
+posle serveru prikaz upravit komentar v databazi
+*/
 export const editComments = async (content, comment_id, setComments, comments, index, source, setEditing) => {
     return await jwtTransport({
         method: 'PUT',

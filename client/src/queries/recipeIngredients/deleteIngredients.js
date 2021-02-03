@@ -1,6 +1,8 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
-
+/*
+posle prikaz serveru na smazani ingredience receptu
+*/
 export const deleteInrgedients = async (ingredients_id, setIngredients, recipie_id, source) => {
     return await jwtTransport({
         method: 'DELETE',

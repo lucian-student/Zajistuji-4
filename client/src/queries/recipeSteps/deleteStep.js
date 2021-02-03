@@ -1,6 +1,8 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
-
+/*
+posle prikaz serveru prikaz na smazani kroku receptu
+*/
 export const deleteStep = async (step_id, setSteps, recipie_id, source) => {
     return await jwtTransport({
         method: 'DELETE',

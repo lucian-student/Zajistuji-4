@@ -1,7 +1,9 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
 import Firebase from '../../config/firebase';
-
+/*
+posle prikaz serveru na smazani receptu v databazi
+*/
 
 export const deleteRecipe = async (recipie_id, setDeleted, source, image_reference) => {
     return await jwtTransport({

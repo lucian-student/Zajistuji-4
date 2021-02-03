@@ -1,6 +1,8 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
-
+/*
+posle serveru prikaz na upraveni nacini ve skrini
+*/
 export const updateUtensil = async (name, utensils_id, setUtensils, utensils, index, source,setEditing) => {
     return await jwtTransport({
         method: 'PUT',

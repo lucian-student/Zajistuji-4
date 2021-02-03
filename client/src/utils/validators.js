@@ -1,3 +1,9 @@
+/*
+ValidateTextInput zkontroluje jestli na konci a na zacatku neni mezera
+ValidateUnneceserrySpaceUsage zkontroluje jestli se ne naduzivaji mezery
+ValidateEmptiness zkontroluje jestli vstup je prazdny
+isFileImage zkontroluje jestli soubor neni prazdny a jestli je obrazek
+*/
 export function ValidateTextInput(text) {
     if (text) {
         const splitedText = text.split('');

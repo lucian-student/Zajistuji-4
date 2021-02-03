@@ -1,5 +1,8 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
+/*
+posle prikaz serveru na poslani nacini receptu klientovi
+*/
 export const recipeUtensilsQuery = async (recipie_id, setUtensils, source) => {
     return await jwtTransport
         .get(`http://localhost:5000/recipieQuery/get_recipie_utensils`, {

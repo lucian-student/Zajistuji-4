@@ -1,6 +1,9 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
 import update from 'immutability-helper';
+/*
+posle prikaz serveru na upravu nacini receptu
+*/
 export const updateUtensil = async (utensils, setUtensils, index, name, utensils_id, recipie_id, setEditing, source) => {
     return await jwtTransport({
         method: 'PUT',

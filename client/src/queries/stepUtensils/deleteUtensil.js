@@ -1,7 +1,9 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
 import update from 'immutability-helper';
-
+/*
+posle prikaz serveru na smazani nacini
+*/
 export const deleteUtensil = async (utensils_id, utensilsIndex, stepIndex, setSteps, steps, recipie_id, source) => {
     return await jwtTransport({
         method: 'DELETE',

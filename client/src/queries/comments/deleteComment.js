@@ -1,6 +1,8 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
-
+/*
+rekne serveru at smaze v databazi komentar
+*/
 export const deleteComment = async (setRecipe, setComments, comment_id, recipie_id, source) => {
     return await jwtTransport({
         method: 'DELETE',

@@ -1,7 +1,9 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
 import update from 'immutability-helper';
-
+/*
+posle prikaz serveru ohodnotit komentar
+*/
 export const like_unlike = async (index, comments, setComments, comment_id,source) => {
     return await jwtTransport({
         method: 'POST',

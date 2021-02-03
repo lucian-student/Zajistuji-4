@@ -5,7 +5,9 @@ import App from './App';
 import { AuthProvider } from './context/auth';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+/*
+Zobrazuje celou aplikaci
+*/
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>

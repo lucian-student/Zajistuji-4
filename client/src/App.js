@@ -17,7 +17,10 @@ import AuthRoute from './utils/authRoute';
 import axios from 'axios';
 import firebase from './config/firebase';
 import './App.css';
-
+/*
+Kontroluje jestli je uzivatel prihlasen
+Obsahuje vsechny cesty aplikace
+*/
 function App() {
   const [loading, setLoading] = useState(true);
   const { loginUser } = useContext(AuthContext);

@@ -1,6 +1,9 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
 import update from 'immutability-helper';
+/*
+posle prikaz serveru na upraveni ingredience kroku v databazi
+*/
 export const updateIngredients = async (data, ingredients_id, itemIndex, stepIndex, steps, setSteps, recipie_id, source) => {
     const {
         unit,

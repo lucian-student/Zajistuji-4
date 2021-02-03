@@ -1,5 +1,8 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
+/*
+posle prikaz serveru na poslani nacini do skrine
+*/
 export const utensilsQuery = async (page, setUtensils, source) => {
     return await jwtTransport
         .get(`http://localhost:5000/utensils/get_utensils`, {

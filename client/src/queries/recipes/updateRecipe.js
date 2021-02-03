@@ -1,6 +1,8 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
-
+/*
+posle prikaz serveru upravit recept v databazi
+*/
 export const updateRecipe = async (setRecipe, data, setRemoveImage, source) => {
     const {
         id,

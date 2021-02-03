@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-
+/*
+hak co vrati dimenze obrazovky
+*/
 function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height, outerHeight } = window;
     return {

@@ -1,6 +1,8 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
-
+/*
+posle prikaz serveru aby se recept sdilel nebo aby se sdileni zrusilo
+*/
 export const shareUnshareRecipe = async (setRecipe, shared, recipie_id, source) => {
     return await jwtTransport({
         method: 'PUT',

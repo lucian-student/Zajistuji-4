@@ -1,5 +1,8 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
+/*
+nacte z databaze commentare receptu
+*/
 export const commentsQuery = async (page, recipie_id, setComments, source) => {
     return await jwtTransport
         .get(`http://localhost:5000/comments_queries/get_comments`, {

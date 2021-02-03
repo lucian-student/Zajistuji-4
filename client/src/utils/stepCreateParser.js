@@ -1,3 +1,7 @@
+/*
+
+predela format dat kroku na prijatelny pro server
+*/
 function StepCreateParser(ingredients, utensils) {
     let stepIngredientsNames = [];
     let stepIngredientsCategorys = [];

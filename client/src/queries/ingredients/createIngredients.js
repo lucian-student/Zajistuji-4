@@ -1,6 +1,8 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
-
+/*
+posle prikaz serveru vytvorit ingredienci ve spizi
+*/
 export const createIngredients = async (name, category, setIngredients, source,setEditing) => {
     return await jwtTransport({
         method: 'POST',

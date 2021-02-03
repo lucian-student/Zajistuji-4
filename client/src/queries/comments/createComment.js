@@ -1,6 +1,8 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
-
+/*
+posle prikaz na server vytvorit komentar receptu
+*/
 export const createComment = async (recipie_id, content, setComments, username, setRecipe, source) => {
     return await jwtTransport({
         method: 'POST',

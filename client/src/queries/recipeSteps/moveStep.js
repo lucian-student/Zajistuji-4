@@ -1,5 +1,8 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
+/*
+posle prikaz serveru aby v databzi zmenil serazeni kroku v databazi
+*/
 export const moveStep = async (
     step_id,
     start_index,

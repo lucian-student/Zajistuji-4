@@ -1,6 +1,8 @@
 import { getAcessToken } from '../../utils/accessToken';
 import { jwtTransport } from '../../axios/refreshTokenAxios';
-
+/*
+posle prikaz serveru vytvorit recept v databazi
+*/
 export const createRecipe = async (
     name,
     category,

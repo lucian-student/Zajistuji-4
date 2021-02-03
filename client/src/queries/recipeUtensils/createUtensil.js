@@ -1,6 +1,8 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
-
+/*
+posle prikaz serveru na vytvoreni nacini receptu v databzi
+*/
 export const createUtensil = async (name, setUtensils, recipie_id, source) => {
     return await jwtTransport({
         method: 'POST',

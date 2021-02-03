@@ -1,6 +1,8 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
-
+/*
+posle prikaz serveru na smazani nacini ve skrini
+*/
 export const deleteUtensil = async (utensils_id, setUtensils, source) => {
     return await jwtTransport({
         method: 'DELETE',

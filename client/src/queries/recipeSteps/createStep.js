@@ -1,6 +1,9 @@
 import { jwtTransport } from '../../axios/refreshTokenAxios';
 import { getAcessToken } from '../../utils/accessToken';
 import update from 'immutability-helper';
+/*
+posle prikaz serveru na vytvoreni kroku
+*/
 export const createStep = async (step, setSteps, steps, recipie_id, source) => {
     const {
         duration,

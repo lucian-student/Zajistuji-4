@@ -1,6 +1,8 @@
 import { getAcessToken } from '../../utils/accessToken';
 import { jwtTransport } from '../../axios/refreshTokenAxios';
-
+/*
+posle prikaz serveru na poslani nejlepe ohodnocenych receptu klientovi
+*/
 export const popularRecipes = async (page, setRecipes,source) => {
     return await jwtTransport
         .get(`http://localhost:5000/shared_recipie_query/popular_recipes`, {

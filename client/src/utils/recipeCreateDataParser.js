@@ -1,3 +1,6 @@
+/*
+predela format dat receptu na prijatelny pro server
+*/
 function RecipeCreateDataParser(ingredients, utensils, steps) {
     let ingredientsNames = [];
     let ingredientsCategorys = [];

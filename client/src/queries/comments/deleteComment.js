@@ -11,7 +11,7 @@ export const deleteComment = async (setRecipe, setComments, comment_id, recipie_
             'Content-Type': 'application/json'
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/comments/delete_comment/${comment_id}`,
+        url: `/comments/delete_comment/${comment_id}`,
         data: {
             id: recipie_id
         }

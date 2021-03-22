@@ -11,7 +11,7 @@ export const deleteStep = async (step_id, setSteps, recipie_id, source) => {
             'Content-Type': 'application/json'
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/recipe_steps/delete_step/${recipie_id}`,
+        url: `/recipe_steps/delete_step/${recipie_id}`,
         data: {
             id: step_id
         }

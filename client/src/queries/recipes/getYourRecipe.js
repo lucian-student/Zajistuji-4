@@ -5,7 +5,7 @@ posle prikaz serveru na poslani klientovi zvoleny jeho recept
 */
 export const getYourRecipe = async (id, setRecipe, source) => {
     return await jwtTransport
-        .get(`http://localhost:5000/recipieQuery/get_recipe/${id}`, {
+        .get(`/recipieQuery/get_recipe/${id}`, {
             headers: {
                 'Authorization': 'Bearer ' + getAcessToken(),
                 'Content-Type': 'application/json'

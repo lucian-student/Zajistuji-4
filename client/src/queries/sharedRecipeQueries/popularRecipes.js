@@ -5,7 +5,7 @@ posle prikaz serveru na poslani nejlepe ohodnocenych receptu klientovi
 */
 export const popularRecipes = async (page, setRecipes,source) => {
     return await jwtTransport
-        .get(`http://localhost:5000/shared_recipie_query/popular_recipes`, {
+        .get(`/shared_recipie_query/popular_recipes`, {
             headers: {
                 'Authorization': 'Bearer ' + getAcessToken(),
                 'Content-Type': 'application/json'

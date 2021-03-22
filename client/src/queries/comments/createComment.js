@@ -15,7 +15,7 @@ export const createComment = async (recipie_id, content, setComments, username, 
             recipieId: recipie_id
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/comments/create_comment`,
+        url: `/comments/create_comment`,
     })
         .then(res => {
             setComments(oldComments => [{ ...res.data, username: username }, ...oldComments]);

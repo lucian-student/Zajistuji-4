@@ -14,7 +14,7 @@ export const shareUnshareRecipe = async (setRecipe, shared, recipie_id, source) 
             share: !shared
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/shared_recipies/share_unshare_recipie/${recipie_id}`,
+        url: `/shared_recipies/share_unshare_recipie/${recipie_id}`,
     })
         .then(res => {
             setRecipe(prevValue => { return { ...prevValue, ...res.data } });

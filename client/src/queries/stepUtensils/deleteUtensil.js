@@ -12,7 +12,7 @@ export const deleteUtensil = async (utensils_id, utensilsIndex, stepIndex, setSt
             'Content-Type': 'application/json'
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/step_utensils/delete_utensil/${recipie_id}`,
+        url: `/step_utensils/delete_utensil/${recipie_id}`,
         data: {
             id: utensils_id
         }

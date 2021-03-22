@@ -13,7 +13,7 @@ export const deleteRecipe = async (recipie_id, setDeleted, source, image_referen
             'Content-Type': 'application/json'
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/recipies/delete_recipie/${recipie_id}`
+        url: `/recipies/delete_recipie/${recipie_id}`
     })
         .then(res => {
             if (image_reference !== null) {

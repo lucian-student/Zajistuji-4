@@ -22,7 +22,7 @@ export const moveStep = async (
             finish_index
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/recipe_steps/move_step/${recipie_id}`,
+        url: `/recipe_steps/move_step/${recipie_id}`,
     })
         .then(res => {
             console.log(res.data);

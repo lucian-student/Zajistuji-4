@@ -26,7 +26,7 @@ export const createIngredients = async (ingredients, index, steps, setSteps, rec
             name
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/step_ingredients/create_ingredients/${recipie_id}`,
+        url: `/step_ingredients/create_ingredients/${recipie_id}`,
     })
         .then(res => {
             setSteps(update(steps, {

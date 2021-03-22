@@ -5,7 +5,7 @@ posle prikaz serveru na poslani klientovi jeho recepty
 */
 export const recipeQuery = async (page, setYourRecipes, source) => {
     return await jwtTransport
-        .get(`http://localhost:5000/recipieQuery/get_recipies`, {
+        .get(`/recipieQuery/get_recipies`, {
             headers: {
                 'Authorization': 'Bearer ' + getAcessToken(),
                 'Content-Type': 'application/json'

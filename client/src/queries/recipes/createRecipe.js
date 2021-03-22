@@ -31,7 +31,7 @@ export const createRecipe = async (
             utensils,
             steps
         },
-        url: `http://localhost:5000/recipies/create_recipie`,
+        url: `/recipies/create_recipie`,
     })
         .then(res => {
             console.log(res.data);

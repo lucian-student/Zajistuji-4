@@ -14,7 +14,7 @@ export const updateUtensil = async (name, utensils_id, setUtensils, utensils, in
             name
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/utensils/update_utensil/${utensils_id}`,
+        url: `/utensils/update_utensil/${utensils_id}`,
     })
         .then(res => {
             let tempUtensils = utensils;

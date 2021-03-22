@@ -15,7 +15,7 @@ export const editComments = async (content, comment_id, setComments, comments, i
             content
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/comments/update_comment/${comment_id}`,
+        url: `/comments/update_comment/${comment_id}`,
     })
         .then(res => {
             setComments(update(comments, {

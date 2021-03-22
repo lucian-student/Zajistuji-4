@@ -19,7 +19,7 @@ jwtTransport.interceptors.request.use(async function (config) {
     const decodedToken = jwtDecode(getAcessToken());
     if (decodedToken.exp * 1000 <= Date.now()) {
         await transport
-            .post('http://localhost:5000/token/refresh_token', {
+            .post('/token/refresh_token', {
                 headers: { 'Content-Type': 'application/json' }
             })
             .then(res => {

@@ -16,7 +16,7 @@ export const updateUtensil = async (utensils, setUtensils, index, name, utensils
             id: utensils_id
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/recipe_utensils/update_utensil/${recipie_id}`,
+        url: `/recipe_utensils/update_utensil/${recipie_id}`,
     })
         .then(res => {
             setUtensils(update(utensils, {

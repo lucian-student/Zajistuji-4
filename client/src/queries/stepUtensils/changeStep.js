@@ -16,7 +16,7 @@ export const changeStep = async (utensils_id, itemIndex, oldStepIndex, newStepIn
             step_id
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/step_utensils/change_step/${recipie_id}`,
+        url: `/step_utensils/change_step/${recipie_id}`,
     })
         .then(res => {
             setSteps(update(steps, {

@@ -14,7 +14,7 @@ export const createUtensil = async (name, setUtensils, source, setEditing) => {
             name
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/utensils/create_utensil`,
+        url: `/utensils/create_utensil`,
     })
         .then(res => {
             setUtensils(oldUtensils => [res.data, ...oldUtensils])

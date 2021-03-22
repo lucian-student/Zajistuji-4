@@ -5,7 +5,7 @@ posle prikaz serveru na poslani nejnovejsich receptu klientovi
 */
 export const newestRecipes = async (page, setRecipes,source) => {
     return await jwtTransport
-        .get(`http://localhost:5000/shared_recipie_query/shared_recipies`, {
+        .get(`/shared_recipie_query/shared_recipies`, {
             headers: {
                 'Authorization': 'Bearer ' + getAcessToken(),
                 'Content-Type': 'application/json'

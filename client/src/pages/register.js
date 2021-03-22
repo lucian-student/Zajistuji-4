@@ -39,7 +39,7 @@ function Register() {
                 data: { email, password, username },
                 headers: { 'Content-Type': 'application/json' },
                 cancelToken: source.current.token,
-                url: 'http://localhost:5000/users/register/'
+                url: '/users/register/'
             })
                 .then(res => {
                     firebase.auth().signInWithCustomToken(res.data.firebaseToken)

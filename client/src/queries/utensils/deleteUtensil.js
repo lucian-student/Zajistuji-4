@@ -11,7 +11,7 @@ export const deleteUtensil = async (utensils_id, setUtensils, source) => {
             'Content-Type': 'application/json'
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/utensils/delete_utensil/${utensils_id}`,
+        url: `/utensils/delete_utensil/${utensils_id}`,
     })
         .then(res => {
             setUtensils(oldUtnesils =>

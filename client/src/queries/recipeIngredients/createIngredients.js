@@ -15,7 +15,7 @@ export const createIngredients = async (name, category, setIngredients, recipie_
             name
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/recipe_ingredients/create_ingredients/${recipie_id}`,
+        url: `/recipe_ingredients/create_ingredients/${recipie_id}`,
     })
         .then(res => {
             setIngredients(oldIngredients => [res.data, ...oldIngredients]);

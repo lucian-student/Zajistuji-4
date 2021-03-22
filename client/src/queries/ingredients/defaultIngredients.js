@@ -5,7 +5,7 @@ posle prikaz databazi abys klientovi poslal server ingredience do spize
 */
 export const ingredientsQuery = async (page, setIngredients, source) => {
     return await jwtTransport
-        .get(`http://localhost:5000/ingredients/get_ingredients`, {
+        .get(`/ingredients/get_ingredients`, {
             headers: {
                 'Authorization': 'Bearer ' + getAcessToken(),
                 'Content-Type': 'application/json'

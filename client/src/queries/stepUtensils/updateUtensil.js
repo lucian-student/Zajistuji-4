@@ -29,7 +29,7 @@ export const updateUtensil = async (
             name
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/step_utensils/update_utensil/${recipie_id}`,
+        url: `/step_utensils/update_utensil/${recipie_id}`,
     })
         .then(res => {
             setSteps(update(steps, {

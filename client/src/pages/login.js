@@ -35,7 +35,7 @@ function Login() {
             data: { email, password },
             headers: { 'Content-Type': 'application/json' },
             cancelToken: source.current.token,
-            url: 'http://localhost:5000/users/login/'
+            url: '/users/login/'
         })
             .then(res => {
                 firebase.auth().signInWithCustomToken(res.data.firebaseToken)

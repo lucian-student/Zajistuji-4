@@ -15,7 +15,7 @@ export const like_unlike = async (recipe, setRecipe, recipie_id, source) => {
             id: recipie_id
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/shared_recipies/like_unlike_recipie`,
+        url: `/shared_recipies/like_unlike_recipie`,
     })
         .then(res => {
             const { num_of_likes } = res.data;

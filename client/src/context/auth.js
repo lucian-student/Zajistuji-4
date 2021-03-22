@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
     const loginUser = useCallback(async () => {
         return await jwtTransport
-            .get('http://localhost:5000/users/me', {
+            .get('/users/me', {
                 headers: {
                     'Authorization': 'Bearer ' + getAcessToken(),
                     'Content-Type': 'application/json'
@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
 
     async function logout() {
         return await jwtTransport
-            .delete('http://localhost:5000/users/logout', {
+            .delete('/users/logout', {
                 headers: {
                     'Authorization': 'Bearer ' + getAcessToken(),
                     'Content-Type': 'application/json'

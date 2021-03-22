@@ -9,7 +9,7 @@ module.exports.generateAccessToken = function generateAccessToken(user_id) {
         user: user_id
     };
 
-    return jwt.sign(payload, process.env.SECRET1, { expiresIn: '1m' });
+    return jwt.sign(payload, process.env.SECRET1, { expiresIn: '15m' });
 }
 
 /*

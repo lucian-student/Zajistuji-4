@@ -31,7 +31,7 @@ function App() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         cancelToken: source.token,
-        url: 'http://localhost:5000/token/refresh_token'
+        url: '/token/refresh_token'
       })
         .then(res => {
           setAccessToken(res.data.accessToken);

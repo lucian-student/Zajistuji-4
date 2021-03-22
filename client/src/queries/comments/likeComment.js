@@ -15,7 +15,7 @@ export const like_unlike = async (index, comments, setComments, comment_id,sourc
             id: comment_id
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/comments/like_unlike_comment`,
+        url: `/comments/like_unlike_comment`,
     })
         .then(res => {
             const { num_of_likes } = res.data;

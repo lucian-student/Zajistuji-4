@@ -11,7 +11,7 @@ export const deleteInrgedients = async (ingredients_id, setIngredients, recipie_
             'Content-Type': 'application/json'
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/recipe_ingredients/delete_ingredients/${recipie_id}`,
+        url: `/recipe_ingredients/delete_ingredients/${recipie_id}`,
         data: {
             id: ingredients_id
         }

@@ -20,7 +20,7 @@ export const createUtensil = async (utensil, index, steps, setSteps, recipie_id,
             name
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/step_utensils/create_utensil/${recipie_id}`,
+        url: `/step_utensils/create_utensil/${recipie_id}`,
     })
         .then(res => {
             setSteps(update(steps, {

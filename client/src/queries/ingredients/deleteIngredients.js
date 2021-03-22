@@ -11,7 +11,7 @@ export const deleteInrgedients = async (ingredients_id, setIngredients, source) 
             'Content-Type': 'application/json'
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/ingredients/delete_ingredients/${ingredients_id}`,
+        url: `/ingredients/delete_ingredients/${ingredients_id}`,
     })
         .then(res => {
             setIngredients(oldIngredients =>

@@ -15,7 +15,7 @@ export const updateIngredients = async (name, category, ingredients_id, setIngre
             name
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/ingredients/update_ingredients/${ingredients_id}`,
+        url: `/ingredients/update_ingredients/${ingredients_id}`,
     })
         .then(res => {
             let tempIngredients = ingredients;

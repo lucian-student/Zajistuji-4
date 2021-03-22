@@ -26,7 +26,7 @@ export const updateRecipe = async (setRecipe, data, setRemoveImage, source) => {
             image_reference
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/recipeUpdate/update_recipe_data/${id}`,
+        url: `/recipeUpdate/update_recipe_data/${id}`,
     })
         .then(res => {
             setRemoveImage(false);

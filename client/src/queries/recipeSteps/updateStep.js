@@ -29,7 +29,7 @@ export const updateStep = async (
             description
         },
         cancelToken: source.token,
-        url: `http://localhost:5000/recipe_steps/update_step/${recipie_id}`,
+        url: `/recipe_steps/update_step/${recipie_id}`,
     })
         .then(res => {
             setSteps(update(steps, {

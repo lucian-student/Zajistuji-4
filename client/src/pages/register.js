@@ -61,6 +61,7 @@ function Register() {
                     console.error(err.message)
                 });
         } else {
+            btnRef.current.removeAttribute("disabled");
             setValidPassword(false);
         }
     }

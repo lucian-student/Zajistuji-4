@@ -52,7 +52,8 @@ function StepsDisplay() {
                         <StepCard step={{
                             ...step,
                             index,
-                            moveItem1
+                            moveItem1,
+                            source:displaySource
                         }} />
                     </div>
                 ))}

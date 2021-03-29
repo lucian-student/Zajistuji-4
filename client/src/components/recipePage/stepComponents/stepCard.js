@@ -12,14 +12,13 @@ import { DimensionsContext } from '../../../context/dimensions';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { useDrop, useDrag } from 'react-dnd';
 import { deleteStep } from '../../../queries/recipeSteps/deleteStep';
-import axios from 'axios';
 /*
 Karta kroku receptu
 handleUpdateStep upravi krok
 handleDeleteStep smaze krok
 */
 function StepCard({ step }) {
-    const source = useRef(axios.CancelToken.source());
+    //const source = useRef(axios.CancelToken.source());
     const {
         step_id,
         name,
@@ -28,7 +27,8 @@ function StepCard({ step }) {
         ingredients,
         utensils,
         index,
-        moveItem1
+        moveItem1,
+        source
     } = step;
     const { recipe: { recipie_id }, steps, setSteps, startedDragging, setStartedDragging } = useContext(YourRecipeContext);
     const [show, setShow] = useState(false);
@@ -88,10 +88,6 @@ function StepCard({ step }) {
             setShow(false);
         }
         preview(getEmptyImage(), { captureDraggingState: true });
-        const cancelToken = source.current;
-        return () => {
-            cancelToken.cancel('canceled');
-        }
     }, [preview, height, width, startedDragging]);
     drop(ref);
     async function handleUpdateStep(data) {

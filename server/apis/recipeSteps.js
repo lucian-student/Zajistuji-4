@@ -82,19 +82,33 @@ router.put('/update_step/:id', [authorization, recipeOwner], async (req, res) =>
 });
 // smaze krok
 router.delete('/delete_step/:id', [authorization, recipeOwner], async (req, res) => {
+    const client = await pool.connect();
     try {
+        await client.query('BEGIN');
+        const recipe_id = req.params.id
         const {
-            id
+            id,
         } = req.body;
         const deleteStep =
-            await pool.query('DELETE FROM recipie_steps WHERE step_id=$1 RETURNING step_id',
+            await client.query('DELETE FROM recipie_steps WHERE step_id=$1 RETURNING step_id,order_index',
                 [
                     id
                 ]);
+        await client.query('UPDATE recipie_steps' +
+            ' set order_index=order_index-1' +
+            ' WHERE order_index>$1 and recipie_id=$2 ',
+            [
+                deleteStep.rows[0].order_index,
+                recipe_id
+            ]);
+        await client.query('COMMIT');
         res.json(deleteStep.rows[0]);
     } catch (err) {
+        await client.query('ROLLBACK');
         console.log(err.message);
         res.status('500').json('server error');
+    } finally {
+        client.release();
     }
 });
 // vytvori krok

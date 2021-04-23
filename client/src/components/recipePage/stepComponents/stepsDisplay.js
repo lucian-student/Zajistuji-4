@@ -17,11 +17,14 @@ function StepsDisplay() {
             await recipeStepsQuery(recipie_id, setSteps, source);
         }
         reciveData();
+    }, [setSteps, recipie_id, source]);
+
+    useEffect(() => {
         const cancelToken = displaySource.current;
         return () => {
             cancelToken.cancel('canceled');
         }
-    }, [setSteps, recipie_id, source]);
+    }, [])
     // same list 
     const moveItem1 = useCallback((dragIndex, hoverIndex) => {
         const dragCard = steps[dragIndex];
@@ -53,7 +56,7 @@ function StepsDisplay() {
                             ...step,
                             index,
                             moveItem1,
-                            source:displaySource
+                            source: displaySource
                         }} />
                     </div>
                 ))}

@@ -46,11 +46,13 @@ function UtensilCard({ utensil }) {
             });
         }
         preview(getEmptyImage(), { captureDraggingState: true });
+    }, [preview, height, width]);
+    useEffect(() => {
         const cancelToken = source.current;
         return () => {
             cancelToken.cancel('canceled');
         }
-    }, [preview, height, width]);
+    }, [])
     drag(ref);
     async function handleUpdateUtensils(data) {
         await updateUtensil(utensils, setUtensils, index, data.name, utensils_id, recipie_id, setEditing, source.current);

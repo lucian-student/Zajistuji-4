@@ -113,11 +113,14 @@ function StepUtensilCard({ utensil }) {
             });
         }
         preview(getEmptyImage(), { captureDraggingState: true });
+    }, [preview, height, width]);
+
+    useEffect(() => {
         const cancelToken = source.current;
         return () => {
             cancelToken.cancel('canceled');
         }
-    }, [preview, height, width]);
+    }, [])
     drop(drag(ref))
     return (
         <Fragment>

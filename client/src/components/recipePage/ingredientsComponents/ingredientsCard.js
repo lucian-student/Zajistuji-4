@@ -37,7 +37,7 @@ function IngredientsCard({ ingredients }) {
             status: 'recipe',
             dimensions,
             ultraOriginalStepIndex: null,
-            source:source.current
+            source: source.current
         }
     });
     useEffect(() => {
@@ -48,11 +48,14 @@ function IngredientsCard({ ingredients }) {
             });
         }
         preview(getEmptyImage(), { captureDraggingState: true });
-        const cancelToken = source.current;
+    }, [preview, height, width]);
+
+    useEffect(() => {
+        const cancelToken = source.current
         return () => {
             cancelToken.cancel('canceled');
         }
-    }, [preview, height, width]);
+    }, [])
     drag(ref);
     async function handleUpdateIngredients(data) {
         await updateIngredients(recipeData.ingredients, setIngredients, index, data.name, data.category, ingredients_id, recipie_id, setEditing, source.current);

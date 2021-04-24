@@ -1,7 +1,7 @@
 .column{
     border-radius: 10px;
-    border: 2px solid #F2F2F2;
-    background:linear-gradient(70deg,#F2F2F2 40%,#FFFFFF 60%);
+    border: 2px solid #F69137;
+    background:linear-gradient(70deg,#F69137 40%,#4ABB9E 60%);
     height: 400px;
     overflow: hidden;
     overflow-y: scroll;

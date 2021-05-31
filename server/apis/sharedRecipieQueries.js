@@ -28,7 +28,8 @@ router.get('/shared_recipies', authorization, async (req, res) => {
             await pool.query(
                 'WITH recipes AS (SELECT * FROM recipies WHERE shared=true ORDER BY date_of_creation desc OFFSET $1 LIMIT 10)' +
                 ' SELECT recipes.*, u1.name as username FROM recipes' +
-                ' inner join users u1 on u1.user_id=recipes.user_id'
+                ' inner join users u1 on u1.user_id=recipes.user_id' +
+                ' ORDER BY recipes.date_of_creation desc'
                 , [
                     page
                 ]);
@@ -47,7 +48,8 @@ router.get('/liked_recipies', authorization, async (req, res) => {
                 ' recipes AS (SELECT * FROM recipies WHERE shared=true)' +
                 ' SELECT recipes.*, u1.name as username FROM likes' +
                 ' INNER JOIN recipes ON likes.recipie_id=recipes.recipie_id' +
-                ' INNER JOIN users u1 on u1.user_id=recipes.user_id ' +
+                ' INNER JOIN users u1 on u1.user_id=recipes.user_id' +
+                ' ORDER BY recipes.date_of_creation desc' +
                 ' OFFSET $2 LIMIT 10',
                 [
                     req.user,
@@ -67,7 +69,8 @@ router.get('/popular_recipes', authorization, async (req, res) => {
             await pool.query(
                 'WITH recipes AS (SELECT * FROM  recipies WHERE shared=true ORDER BY num_of_likes desc OFFSET $1 LIMIT 10)' +
                 ' SELECT recipes.*, u1.name as username FROM recipes' +
-                ' inner join users u1 on u1.user_id=recipes.user_id',
+                ' inner join users u1 on u1.user_id=recipes.user_id' +
+                ' ORDER BY recipes.num_of_likes desc, recipes.date_of_creation desc',
                 [
                     page
                 ]);
